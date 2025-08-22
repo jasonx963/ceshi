@@ -66,10 +66,46 @@
       <h3 style="margin:0 0 8px;">Información bancaria</h3>
       <p class="muted">Copia exactamente estos datos para hacer la transferencia. Después, sube el comprobante.</p>
       <div class="bank">
-        <div class="kv"><div><b>Banco</b><div class="muted mono" id="bankName">BBVA México</div></div><button class="btn ghost" data-copy="#bankName">Copiar</button></div>
-        <div class="kv"><div><b>Cuenta a nombre de</b><div class="muted mono" id="accountName">TECH STORE MX SA DE CV</div></div><button class="btn ghost" data-copy="#accountName">Copiar</button></div>
-        <div class="kv"><div><b>Número de cuenta / CLABE</b><div class="muted mono" id="accountNo">012345678901234567</div></div><button class="btn ghost" data-copy="#accountNo">Copiar</button></div>
-        <div class="kv"><div><b>Monto</b><div class="muted mono" id="amount">Aparece en la página anterior</div></div><button class="btn ghost" data-copy="#amount">Copiar</button></div>
+        <!-- Banco -->
+        <div class="kv">
+          <div>
+            <b>Banco</b>
+            <div class="muted mono" id="bankName">BANCOPPEL</div>
+          </div>
+          <button class="btn ghost" data-copy="#bankName">Copiar</button>
+        </div>
+        <!-- Titular -->
+        <div class="kv">
+          <div>
+            <b>Cuenta a nombre de</b>
+            <div class="muted mono" id="accountName">DAYANA COLIN PÉREZ</div>
+          </div>
+          <button class="btn ghost" data-copy="#accountName">Copiar</button>
+        </div>
+        <!-- CLABE: 独立一行 -->
+        <div class="kv">
+          <div>
+            <b>CLABE</b>
+            <div class="muted mono" id="clabe">137180105271820309</div>
+          </div>
+          <button class="btn ghost" data-copy="#clabe">Copiar</button>
+        </div>
+        <!-- Número de tarjeta: 独立一行 -->
+        <div class="kv">
+          <div>
+            <b>Número de tarjeta</b>
+            <div class="muted mono" id="cardNo">4169 1614 9957 9992</div>
+          </div>
+          <button class="btn ghost" data-copy="#cardNo">Copiar</button>
+        </div>
+        <!-- Monto（可保留，来自上一页） -->
+        <div class="kv">
+          <div>
+            <b>Monto</b>
+            <div class="muted mono" id="amount">Aparece en la página anterior</div>
+          </div>
+          <button class="btn ghost" data-copy="#amount">Copiar</button>
+        </div>
       </div>
     </div>
 
