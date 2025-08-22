@@ -4,12 +4,11 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>iPhone 16 / Pro / Pro Max – Hoy a mitad de precio</title>
-  <meta name="description" content="iPhone 16 a mitad de precio, cantidad limitada, consulta de envíos, contacta a atención al cliente para comprar.">
   <style>
     :root{
       --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
       --ink:#7f1d1d;--muted:#9b1c1c;
-      --whatsapp-green: #25D366; /* WhatsApp官方绿色 */
+      --whatsapp-green: #25D366;
     }
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -36,7 +35,6 @@
     .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1}
     .colon{font-weight:900;margin:0 4px;line-height:1}
 
-    /* 轮播/主图：改为 contain，保证完整不裁切 */
     .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2;display:flex;align-items:center;justify-content:center}
     .thumb img{max-width:100%;max-height:100%;height:auto;object-fit:contain;display:block}
 
@@ -45,7 +43,6 @@
     .card{background:#fff;color:var(--ink);border-radius:20px;box-shadow:0 12px 30px rgba(0,0,0,.22);overflow:hidden}
     .card .content{padding:16px}
 
-    /* 产品图容器做成方形卡片，但图片用 contain 不裁切 */
     .pimg{aspect-ratio:1/1;border-radius:16px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center}
     .pimg img{max-width:100%;max-height:100%;height:auto;object-fit:contain;display:block}
 
@@ -71,8 +68,7 @@
     .tag{background:var(--red-600);color:#fff;font-weight:900;padding:6px 10px;border-radius:999px;font-size:12px}
     .small-btn{background:var(--whatsapp-green);color:#fff;font-weight:900;padding:10px 14px;border:0;border-radius:12px;cursor:pointer}
 
-    /* 个人中心 Modal */
-    .modal-mask{position:fixed:inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
+    .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:70}
     .modal{background:#fff;color:#111;border-radius:16px;max-width:520px;width:92%;padding:18px}
     .modal h3{margin:0 0 8px}
     .modal label{font-size:13px;font-weight:700}
@@ -81,131 +77,33 @@
     .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}.btn.gray{background:#eee}.btn.primary{background:#dc2626;color:#fff}
     .order-card{background:#fafafa;border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
 
-    /* 移动端：允许产品图高度自适应，避免小屏裁切 */
     @media (max-width:600px){
       .pimg{aspect-ratio:auto;max-height:58vh}
     }
 
-    /* WhatsApp 图标样式 */
-    .whatsapp-icon {
-      position: fixed;
-      top: 50%;
-      right: 20px;
-      transform: translateY(-50%);
-      width: 60px;
-      height: 60px;
-      background-color: var(--whatsapp-green);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-      z-index: 100;
-    }
-    .whatsapp-icon img {
-      width: 36px;
-      height: 36px;
-    }
+    .whatsapp-icon { position: fixed; top: 50%; right: 20px; transform: translateY(-50%); width: 60px; height: 60px; background-color: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); cursor: pointer; z-index: 100; }
+    .whatsapp-icon img { width: 36px; height: 36px; }
 
-    /* 燃烧的火焰动态标志 */
-    .flame {
-      position: fixed;
-      top: calc(50% + 70px); /* 调整位置到WhatsApp图标下方 */
-      right: 25px;
-      width: 50px;
-      height: 80px;
-      background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%);
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-      animation: burn 0.5s infinite alternate, flicker 0.3s infinite, sway 2s infinite ease-in-out;
-      z-index: 101; /* 提高z-index以确保显示 */
-      display: block; /* 确保火焰显示 */
-    }
+    .flame { position: fixed; top: calc(50% + 70px); right: 25px; width: 50px; height: 80px; background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: burn 0.5s infinite alternate, flicker 0.3s infinite, sway 2s infinite ease-in-out; z-index: 101; display: block; }
+    @keyframes burn { 0% { background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%);} 100% { background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, #800000 100%);} }
+    @keyframes flicker { 0% { opacity: 0.9; } 100% { opacity: 1; } }
+    @keyframes sway { 0% { transform: translateX(0) rotate(0deg); } 25% { transform: translateX(-5px) rotate(5deg); } 75% { transform: translateX(5px) rotate(-5deg); } 100% { transform: translateX(0) rotate(0deg); } }
 
-    @keyframes burn {
-      0% { background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%); }
-      100% { background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, #800000 100%); }
-    }
-
-    @keyframes flicker {
-      0% { opacity: 0.9; }
-      100% { opacity: 1; }
-    }
-
-    @keyframes sway {
-      0% { transform: translateX(0) rotate(0deg); }
-      25% { transform: translateX(-5px) rotate(5deg); }
-      75% { transform: translateX(5px) rotate(-5deg); }
-      100% { transform: translateX(0) rotate(0deg); }
-    }
-
-    /* 倒计时样式 */
-    .countdown-label {
-      position: fixed;
-      top: calc(50% + 140px); /* “Cuenta atrás”在上方 */
-      right: 10px; /* 更靠近右侧，减少距离 */
-      color: var(--red-600); /* 绿色 */
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      z-index: 99;
-      display: block;
-    }
-
-    .countdown-container {
-      position: fixed;
-      top: calc(50% + 180px); /* 位于“Cuenta atrás”正下方 */
-      right: 10px; /* 更靠近右侧，减少距离 */
-      display: flex;
-      justify-content: center; /* 居中对齐数字 */
-      align-items: center;
-      gap: 4px;
-      z-index: 99;
-    }
-    .countdown-digit {
-      background: rgba(0, 0, 0, 0.35);
-      padding: 8px 10px;
-      border-radius: 8px;
-      font-weight: 900;
-      font-size: 18px;
-      min-width: 44px;
-      text-align: center;
-      line-height: 1;
-      color: var(--whatsapp-green);
-    }
+    .countdown-label { position: fixed; top: calc(50% + 140px); right: 10px; color: var(--red-600); font-size: 16px; font-weight: bold; text-align: center; z-index: 99; display: block; }
+    .countdown-container { position: fixed; top: calc(50% + 180px); right: 10px; display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 99; }
+    .countdown-digit { background: rgba(0, 0, 0, 0.35); padding: 8px 10px; border-radius: 8px; font-weight: 900; font-size: 18px; min-width: 44px; text-align: center; line-height: 1; color: var(--whatsapp-green); }
   </style>
-  <!-- Meta Pixel Code -->
-  <script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '778576598009530');
-  fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=778576598009530&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Meta Pixel Code -->
 </head>
 <body>
   <header>
     <div class="container bar">
-      <div class="brand">
-        <div style="font-size:20px;font-weight:900">KAI BO</div>
-      </div>
+      <div class="brand"><div style="font-size:20px;font-weight:900">KAI BO</div></div>
       <div style="display:flex;gap:8px">
         <button class="btn-white" id="btnCentro">Orden</button>
         <button class="btn-white" id="btnTopWA">Contáctenos</button>
       </div>
     </div>
-    <div class="container ticker">
-      <span id="tickerText">Cargando últimas compras…</span>
-    </div>
+    <div class="container ticker"><span id="tickerText">Cargando últimas compras…</span></div>
   </header>
 
   <main class="container">
@@ -231,11 +129,9 @@
       </div>
     </section>
 
-    <!-- 商品列表 -->
     <section class="grid" id="grid"></section>
   </main>
 
-  <!-- 底部条 -->
   <div class="stickybar-wrap">
     <div class="container">
       <div class="stickybar">
@@ -248,7 +144,6 @@
     </div>
   </div>
 
-  <!-- 个人中心 Modal -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
@@ -263,68 +158,60 @@
     </div>
   </div>
 
-  <!-- WhatsApp 图标 -->
   <div class="whatsapp-icon" id="whatsappIcon">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
   </div>
 
-  <!-- 燃烧的火焰动态标志 */
   <div class="flame" id="flame"></div>
-
-  <!-- 倒计时标签和倒计时 -->
   <div class="countdown-label">Cuenta atrás</div>
   <div class="countdown-container" id="countdown-container">
     <span class="countdown-digit" id="seconds">30</span>
   </div>
 
   <script>
-    // ========== 配置 ==========
-    const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';  // 修改为新的跳转链接
-    const FINISH_IN_MINUTES = 1440;           // Minutos para el conteo regresivo (24 hours)
+    const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';
+    const FINISH_IN_MINUTES = 1440;
     const CURRENCY = 'MX$';
-    const PAYMENT_URL = 'payment.html';       // 支付页面URL
+    const PAYMENT_URL = 'payment.html';
 
-    // 商品配置（已包含 颜色与存储） —— 更新为不同内存的价格
     const productos = [
       { 
         id: 'ip16', 
         nombre: 'iPhone 16', 
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 }, 
-        descuento: 0.15, 
+        descuento: 0.5, 
         vendidos: 6473,
         opciones: { almacenamiento: ['128GB', '256GB', '512GB'], color: ['Negro', 'Blanco', 'Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=UXp1U3VDY3IyR1hNdHZwdFdOLzg1V0tFK1lhSCtYSGRqMUdhR284NTN4OUh1cU00ZU5qL3V3QjQwYlZSSzMvRzBoUVhuTWlrY2hIK090ZGZZbk9HeEJWb1BiTjRORlc1Y1lKU3JWempySkpOUEtmTk1GaTROYStqcXRWaTBQT3hmbW94YnYxc1YvNXZ4emJGL0IxNFp3&traceId=1' 
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=...'
       },
       { 
         id: 'ip16pro', 
         nombre: 'iPhone 16 Pro', 
         precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 }, 
-        descuento: 0.15, 
+        descuento: 0.5, 
         vendidos: 7941,
         opciones: { almacenamiento: ['128GB', '256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkppVHhtRktGckFBd2ZPSmpuTHdJcWlCQmV2WTA2cncybDF2YzFnKzI0S2prMCtUNWwzYWR0UVU3TWVsbEdUeXV0dnhVVHVwTllva0RRUVdaK0xFNFAzVmtFSHJkUURvdVZmQktGTnNPd1Z3&traceId=1' 
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?...'
       },
       { 
         id: 'ip16promax', 
         nombre: 'iPhone 16 Pro Max', 
         precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 }, 
-        descuento: 0.15, 
+        descuento: 0.5, 
         vendidos: 8758,
         opciones: { almacenamiento: ['256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul', 'Rojo'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90&.v=eUdsd0dIb3VUOXdtWkY0VFUwVE8vbEdkZHNlSjBQRklnaFB2d3I5MW94NkkwYXJHRXdBd0xZTDNUS0M2eUNlY0pOZTBYalh5Vk90cEc1K2wwRzFGejRMeXJHUnUva2huMjl4akFHOXNwVjFOU1YvbEhQdCtlZmMrckc2K3RtQzR6UkM0eXdTUkFqNnFqYk5ZcGUzV2tB&traceId=1' 
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?...'
       }
     ];
 
-    // WhatsApp 打开
     function openWhatsApp(producto){
       const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp para reclamar su iPhone a mitad de precio${producto?(' de '+producto):''} a mitad de precio`);
       window.open(`${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
-    document.getElementById('whatsappIcon').onclick = () => openWhatsApp(''); // 添加 WhatsApp 图标点击事件
+    document.getElementById('whatsappIcon').onclick = () => openWhatsApp('');
 
-    // ========== 倒计时（本地持久化） ==========
     function getDeadline(){
       const key='pdd_iphone_deadline'; const saved=localStorage.getItem(key); const now=Date.now();
       let deadline=saved?parseInt(saved,10):0;
@@ -344,9 +231,8 @@
     }
     setInterval(tick,1000); tick();
 
-    // ========== 商品渲染（含 颜色 & 存储） ==========
     const grid = document.getElementById('grid');
-    const seleccion = {};
+    window.seleccion = {};
     function money(n) { return CURRENCY + Math.round(n); }
     function updatePrice(cardId, storage) {
       const product = productos.find(p => p.id === cardId);
@@ -373,7 +259,7 @@
             <div class="content">
               <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
               <div class="title">${p.nombre}</div>
-              <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -15%</span></div>
+              <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -50%</span></div>
 
               <div class="opt-label">Almacenamiento</div>
               <div class="opt-row">
@@ -397,30 +283,20 @@
       grid.querySelectorAll('.opt-btn').forEach(btn => {
         btn.addEventListener('click', e => {
           const b = e.currentTarget, id = b.dataset.id, tipo = b.dataset.tipo, valor = b.dataset.valor;
-          seleccion[id] = seleccion[id] || {};
-          seleccion[id][tipo] = (seleccion[id][tipo] === valor) ? null : valor;
+          window.seleccion[id] = window.seleccion[id] || {};
+          window.seleccion[id][tipo] = (window.seleccion[id][tipo] === valor) ? null : valor;
           grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x => x.classList.remove('active'));
-          if (seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
-
-          // 更新价格
-          if (tipo === 'storage') {
-            updatePrice(id, valor);
-          }
+          if (window.seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
+          if (tipo === 'storage') updatePrice(id, valor);
         });
       });
 
       grid.querySelectorAll('[data-contact]').forEach(btn => btn.addEventListener('click', e => {
-        const productId = e.currentTarget.dataset.productId;
-        const productName = e.currentTarget.dataset.contact;
-        const s = seleccion[productId] || {};
-        const picked = `${productName}${s.storage ? (' ' + s.storage) : ''}${s.color ? (' ' + s.color) : ''}`;
-        // 跳转到支付页面，传递产品信息
-        window.location.href = `${PAYMENT_URL}?product=${encodeURIComponent(picked)}&id=${productId}`;
+        // 留空：点击行为由下面的拦截脚本统一处理（新开页 + 传参）
       }));
     }
     renderProductos();
 
-    // ========== 个人中心查询 /api/orders ==========
     const modal = document.getElementById('modalMask'), resultBox = document.getElementById('resultBox'), inputQ = document.getElementById('q');
     document.getElementById('btnCentro').onclick = () => { modal.style.display = 'flex'; inputQ.focus(); };
     document.getElementById('btnCerrar').onclick = () => { modal.style.display = 'none'; resultBox.innerHTML = ''; inputQ.value = ''; };
@@ -456,7 +332,6 @@
       `).join('');
     };
 
-    // ========== 滚动字幕 /api/feed ==========
     async function loadTicker() {
       try {
         const res = await fetch('/api/feed', { cache: 'no-store' });
@@ -475,39 +350,65 @@
     }
     loadTicker();
 
-    // ========== 30秒倒计时（持续演示） ==========
     let countdownTime = 30;
     const countdownContainer = document.getElementById('countdown-container');
-
     function updateCountdown() {
       document.getElementById('seconds').textContent = countdownTime;
-      if (countdownTime <= 0) {
-        countdownTime = 30; // 重置为30秒
-      } else {
-        countdownTime--;
-      }
+      if (countdownTime <= 0) countdownTime = 30;
+      else countdownTime--;
       setTimeout(updateCountdown, 1000);
     }
-    // 页面加载时启动倒计时
     window.onload = updateCountdown;
   </script>
 
-<script>
-/* __PAY_REDIRECT__ */
-(function(){
-  // Delegate clicks for buttons with data-product-id (the "Contáctanos para comprar" buttons)
-  document.addEventListener('click', function(e){
-    var t = e.target;
-    if(!t) return;
-    if(t.matches && t.matches('button.btn-red[data-product-id]')){
-      var pid = t.getAttribute('data-product-id') || '';
-      var pname = t.getAttribute('data-contact') || '';
-      var url = 'payment.html?productId=' + encodeURIComponent(pid) + '&product=' + encodeURIComponent(pname);
-      var w = window.open(url, '_blank'); if(w){ try{ w.opener = null; }catch(e){} }
-    }
-  }, true);
-})();
-</script>
-</body>
+  <!-- 新增：拦截购买按钮 => 新开标签 + 传型号/颜色/价格 -->
+  <script id="pay-open-newtab-and-pass-params">
+  (function(){
+    document.addEventListener('click', function(e){
+      var btn = e.target && e.target.closest && e.target.closest('button.btn-red[data-product-id]');
+      if(!btn) return;
 
+      var productId = btn.getAttribute('data-product-id') || '';
+      var productName = btn.getAttribute('data-contact') || '';
+
+      var s = (window.seleccion && window.seleccion[productId]) || {};
+      var productObj = (window.productos || []).find(function(p){ return p.id === productId; }) || null;
+
+      var storage = s.storage || '';
+      var color   = s.color   || '';
+      var price   = '';
+
+      if (productObj) {
+        if (!storage && productObj.opciones && productObj.opciones.almacenamiento && productObj.opciones.almacenamiento.length) {
+          storage = productObj.opciones.almacenamiento[0];
+        }
+        var priceOriginal = productObj.precioOriginal && productObj.precioOriginal[storage];
+        if (typeof priceOriginal === 'number') {
+          var mult = (typeof productObj.descuento === 'number' ? productObj.descuento : 1);
+          price = Math.round(priceOriginal * mult);
+        }
+      }
+
+      var picked = productName + (storage ? (' ' + storage) : '') + (color ? (' ' + color) : '');
+      var params = new URLSearchParams({
+        product:   picked,
+        productId: productId,
+        storage:   storage || '',
+        color:     color   || '',
+        price:     price   || ''
+      });
+
+      var base = (typeof window.PAYMENT_URL !== 'undefined' ? window.PAYMENT_URL : 'payment.html');
+      var url  = base + '?' + params.toString();
+
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+
+      var w = window.open(url, '_blank');
+      if (w) { try { w.opener = null; } catch(_){} }
+    }, true);
+  })();
+  </script>
+</body>
 </html>
