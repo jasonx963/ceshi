@@ -3,35 +3,31 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pagar pedido</title>
+  <title>Pago seguro</title>
   <style>
     :root{
-      --red-600:#dc2626;--ink:#111827;--muted:#6b7280;--bd:#e5e7eb;--bg:#f9fafb
+      --red-600:#dc2626;--ink:#111827;--muted:#6b7280;--bd:#e5e7eb;--bg:#f9fafb;
     }
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#fff;color:var(--ink)}
     .wrap{max-width:920px;margin:0 auto;padding:18px}
     header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
     h1{margin:0;font-size:28px}
-    a{color:var(--red-600);text-decoration:none}
     .card{background:#fff;border:1px solid var(--bd);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);padding:16px;margin:12px 0}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media (max-width:720px){.row{grid-template-columns:1fr}}
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     @media (max-width:720px){.grid2{grid-template-columns:1fr}}
     .muted{color:var(--muted);font-size:13px}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace}
     .kv{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--bd);border-radius:12px;padding:10px 12px;margin:8px 0}
     button{cursor:pointer;border:0;border-radius:10px;padding:10px 12px;font-weight:700}
     .btn{background:var(--ink);color:#fff}
-    .btn.red{background:var(--red-600)}
     .btn.ghost{background:#f3f4f6;color:#111827}
     input,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;font-size:14px}
     .preview{display:block;width:100%;max-height:360px;object-fit:contain;border:1px dashed var(--bd);border-radius:12px}
-    .ok{color:#059669;font-weight:700}
-    .warn{color:#b91c1c;font-weight:700}
-    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-    .actions .btn{flex:1;min-width:160px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:720px){.row{grid-template-columns:1fr}}
+    .ok{color:#059669;font-weight:700}.warn{color:#b91c1c;font-weight:700}
+    .bar{position:sticky;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:10px;z-index:50}
   </style>
 </head>
 <body>
@@ -41,7 +37,7 @@
       <a class="muted" href="./index.html">← Regresar</a>
     </header>
 
-    <!-- 订单概要：新增 Almacenamiento / Color / Precio -->
+    <!-- 顶部订单信息 -->
     <div id="orderInfo" class="card">
       <div class="grid2">
         <div>
@@ -52,9 +48,7 @@
           <div class="muted">ID del producto</div>
           <div id="pid" class="mono">-</div>
         </div>
-      </div>
 
-      <div class="grid2" style="margin-top:10px">
         <div>
           <div class="muted">Almacenamiento</div>
           <div id="pstorage" class="mono">-</div>
@@ -63,48 +57,36 @@
           <div class="muted">Color</div>
           <div id="pcolor" class="mono">-</div>
         </div>
-      </div>
 
-      <div style="margin-top:10px">
-        <div class="muted">Precio</div>
-        <div id="pprice" class="mono">-</div>
+        <div>
+          <div class="muted">Precio</div>
+          <div id="pprice" class="mono">-</div>
+        </div>
       </div>
     </div>
 
-    <!-- 银行信息（含复制按钮） -->
+    <!-- 信息/复制 -->
     <div class="card">
       <h3 style="margin:0 0 8px;">Información bancaria</h3>
       <p class="muted">Copia exactamente estos datos para hacer la transferencia. Después, sube el comprobante.</p>
 
       <div class="kv">
-        <div>
-          <b>Banco</b>
-          <div class="muted mono" id="bankName">BANCOPPEL</div>
-        </div>
+        <div><b>Banco</b><div class="muted mono" id="bankName">BANCOPPEL</div></div>
         <button class="btn ghost" data-copy="#bankName">Copiar</button>
       </div>
 
       <div class="kv">
-        <div>
-          <b>Cuenta a nombre de</b>
-          <div class="muted mono" id="accountName">DAYANA COLIN PÉREZ</div>
-        </div>
+        <div><b>Cuenta a nombre de</b><div class="muted mono" id="accountName">DAYANA COLIN PÉREZ</div></div>
         <button class="btn ghost" data-copy="#accountName">Copiar</button>
       </div>
 
       <div class="kv">
-        <div>
-          <b>CLABE</b>
-          <div class="muted mono" id="clabe">137180105271820309</div>
-        </div>
+        <div><b>CLABE</b><div class="muted mono" id="clabe">137180105271820309</div></div>
         <button class="btn ghost" data-copy="#clabe">Copiar</button>
       </div>
 
       <div class="kv">
-        <div>
-          <b>Número de tarjeta</b>
-          <div class="muted mono" id="cardNo">4169 1614 9957 9992</div>
-        </div>
+        <div><b>Número de tarjeta</b><div class="muted mono" id="cardNo">4169 1614 9957 9992</div></div>
         <button class="btn ghost" data-copy="#cardNo">Copiar</button>
       </div>
     </div>
@@ -113,6 +95,7 @@
     <div class="card">
       <h3 style="margin:0 0 8px;">Sube el comprobante</h3>
       <p class="muted">Una vez realizado el pago, sube una captura del comprobante de transferencia. Aceptamos JPG/PNG/PDF (máx. 8 MB).</p>
+
       <div class="row">
         <div>
           <input id="file" type="file" accept="image/*,application/pdf" />
@@ -121,9 +104,9 @@
         <div>
           <label class="muted" for="note">Notas (opcional)</label>
           <textarea id="note" rows="6" placeholder="Escribe detalles como el último dígito del folio, hora del pago, etc."></textarea>
-          <div class="actions">
-            <button id="btnUpload" class="btn red">Enviar comprobante</button>
-            <button id="btnReset" class="btn ghost">Limpiar</button>
+          <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+            <button id="btnUpload" class="btn"      style="flex:1;min-width:160px">Enviar comprobante</button>
+            <button id="btnReset"  class="btn ghost" style="flex:1;min-width:160px">Limpiar</button>
           </div>
           <div id="tip" class="muted" style="margin-top:10px">
             Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.
@@ -140,119 +123,67 @@
   </div>
 
   <script>
-    // ===== 读取 URL 参数 =====
-    const params = new URLSearchParams(location.search);
+    // 读取 URL 参数并填充顶部信息
+    const params    = new URLSearchParams(location.search);
     const product   = params.get('product')   || '-';
     const productId = params.get('productId') || '-';
-    let   storage   = params.get('storage')   || '';
-    let   color     = params.get('color')     || '';
-    let   price     = params.get('price')     || '';
+    const storage   = params.get('storage')   || '-';
+    const color     = params.get('color')     || '-';
+    const price     = params.get('price')     || ''; // 数字字符串（已折后）
 
-    // 显示到页面
     document.getElementById('pname').textContent    = product;
     document.getElementById('pid').textContent      = productId;
-    document.getElementById('pstorage').textContent = storage || '-';
-    document.getElementById('pcolor').textContent   = color   || '-';
+    document.getElementById('pstorage').textContent = storage && storage!=='null' ? storage : '-';
+    document.getElementById('pcolor').textContent   = color   && color  !=='null' ? color   : '-';
+    document.getElementById('pprice').textContent   = price   ? ('MX$' + price)   : '-';
 
-    // ===== 兜底价格计算（当 price 为空或非法时） =====
-    (function ensurePrice(){
-      const toMoney = n => 'MX$' + Math.round(n);
-
-      // 与首页保持一致的价格表 & 折扣
-      const db = {
-        ip16: {
-          discount: 0.15,
-          price: {'128GB':19999,'256GB':22499,'512GB':27499}
-        },
-        ip16pro: {
-          discount: 0.15,
-          price: {'128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499}
-        },
-        ip16promax: {
-          discount: 0.15,
-          price: {'256GB':30999,'512GB':35999,'1TB':40999}
-        }
-      };
-
-      // 如果没传 storage，这里按默认规格取第一个
-      if ((!storage || storage==='-') && db[productId]) {
-        const keys = Object.keys(db[productId].price);
-        if (keys.length) storage = keys[0];
-        document.getElementById('pstorage').textContent = storage || '-';
-      }
-
-      // price 为空或不是数字时，用兜底表计算
-      const num = Number(price);
-      if (!price || Number.isNaN(num)) {
-        if (db[productId] && db[productId].price[storage]) {
-          const original = db[productId].price[storage];
-          price = Math.round(original * db[productId].discount);
-        }
-      }
-
-      document.getElementById('pprice').textContent = price ? toMoney(price) : '-';
-    })();
-
-    // ===== 复制按钮 =====
+    // 复制按钮
     document.querySelectorAll('[data-copy]').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
+      btn.addEventListener('click',()=>{
         const sel = btn.getAttribute('data-copy');
         const el  = document.querySelector(sel);
-        if (!el) return;
+        if(!el) return;
         const text = el.textContent.trim();
         navigator.clipboard.writeText(text).then(()=>{
-          btn.textContent = '¡Copiado!';
-          setTimeout(()=>btn.textContent='Copiar', 1200);
+          const old=btn.textContent; btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent=old,1200);
         });
       });
     });
 
-    // ===== 预览上传 =====
-    const fileInput = document.getElementById('file');
-    const preview   = document.getElementById('preview');
-    fileInput.addEventListener('change', ()=>{
-      const f = fileInput.files && fileInput.files[0];
-      if (!f) { preview.src=''; return; }
-      const r = new FileReader();
-      r.onload = e => preview.src = e.target.result;
-      r.readAsDataURL(f);
+    // 预览上传
+    const fileInput=document.getElementById('file');
+    const preview  =document.getElementById('preview');
+    fileInput.addEventListener('change',()=>{
+      const f=fileInput.files && fileInput.files[0];
+      if(!f){ preview.src=''; return; }
+      const reader=new FileReader();
+      reader.onload=e=>preview.src=e.target.result;
+      reader.readAsDataURL(f);
     });
 
-    // ===== 提交上传到 /api/payment-upload =====
-    async function doUpload(){
-      const f = fileInput.files && fileInput.files[0];
-      if (!f) {
-        document.getElementById('tip').innerHTML = '<span class="warn">Por favor, selecciona un archivo primero.</span>';
-        return;
-      }
-      const note = document.getElementById('note').value || '';
-      const fd = new FormData();
-      fd.append('orderId', productId);   // 用 productId 作为订单号
-      fd.append('product', product);
-      fd.append('storage', storage || '');
-      fd.append('color',   color   || '');
-      fd.append('price',   price   || '');
-      fd.append('note',    note);
-      fd.append('file',    f);
-
+    // 上传到后端 /api/payment-upload（如未接后端，会提示失败）
+    function doUpload(){ (async ()=>{
+      const f=fileInput.files && fileInput.files[0];
+      if(!f){ document.getElementById('tip').innerHTML='<span class="warn">Por favor, selecciona un archivo primero.</span>'; return; }
+      const fd=new FormData();
+      fd.append('orderId', productId);
+      fd.append('product',  product);
+      fd.append('note',     document.getElementById('note').value||'');
+      fd.append('file',     f);
       try{
-        const res  = await fetch('/api/payment-upload', { method:'POST', body: fd });
-        if (!res.ok) throw new Error('HTTP '+res.status);
-        const json = await res.json();
-        if (json && json.ok) {
-          document.getElementById('tip').innerHTML = '<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
-          document.getElementById('btnUpload').disabled = true;
-          fileInput.disabled = true;
-        } else {
-          throw new Error(json && json.message || 'Error desconocido');
-        }
+        const res=await fetch('/api/payment-upload',{method:'POST',body:fd});
+        if(!res.ok) throw new Error('HTTP '+res.status);
+        const json=await res.json();
+        if(json && json.ok){
+          document.getElementById('tip').innerHTML='<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
+          document.getElementById('btnUpload').disabled=true; fileInput.disabled=true;
+        }else{ throw new Error(json && json.message || 'Error desconocido'); }
       }catch(e){
-        document.getElementById('tip').innerHTML = '<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
+        document.getElementById('tip').innerHTML='<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
       }
-    }
-    document.getElementById('btnUpload').addEventListener('click', doUpload);
-
-    document.getElementById('btnReset').addEventListener('click', ()=>{
+    })(); }
+    document.getElementById('btnUpload').addEventListener('click',doUpload);
+    document.getElementById('btnReset').addEventListener('click',()=>{
       fileInput.value=''; preview.src=''; document.getElementById('note').value='';
       document.getElementById('tip').textContent='Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
       document.getElementById('btnUpload').disabled=false; fileInput.disabled=false;
