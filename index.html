@@ -8,8 +8,7 @@
   <style>
     :root{
       --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
-      --ink:#7f1d1d;--muted:#9b1c1c;
-      --whatsapp-green:#25D366;
+      --ink:#7f1d1d;--muted:#9b1c1c;--whatsapp-green:#25D366;
     }
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
@@ -87,7 +86,7 @@
     .countdown-container{position:fixed;top:calc(50% + 180px);right:10px;display:flex;justify-content:center;align-items:center;gap:4px;z-index:99}
     .countdown-digit{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1;color:var(--whatsapp-green)}
   </style>
-  <!-- Meta Pixel（可留） -->
+  <!-- Meta Pixel（可保留） -->
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -147,7 +146,7 @@
     </div>
   </div>
 
-  <!-- 个人中心 Modal（简单占位） -->
+  <!-- 个人中心 Modal（占位） -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
@@ -165,7 +164,6 @@
   <div class="whatsapp-icon" id="whatsappIcon">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" />
   </div>
-
   <div class="flame" id="flame"></div>
   <div class="countdown-label">Cuenta atrás</div>
   <div class="countdown-container" id="countdown-container">
@@ -179,16 +177,16 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // 自托管图片（/images/）
+    // 图片来自仓库 /images/
     const productos = [
       { 
         id: 'ip16',
         nombre: 'iPhone 16',
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15, // 15% 折扣
+        descuento: 0.15,
         vendidos: 6473,
         opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul'] },
-        img: '/images/16.png'
+        img: 'images/16.png'
       },
       { 
         id: 'ip16pro',
@@ -197,7 +195,7 @@
         descuento: 0.15,
         vendidos: 7941,
         opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul'] },
-        img: '/images/16pro.png'
+        img: 'images/16pro.png'
       },
       { 
         id: 'ip16promax',
@@ -206,18 +204,17 @@
         descuento: 0.15,
         vendidos: 8758,
         opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul','Rojo'] },
-        img: '/images/16promax.png'
+        img: 'images/16promax.png'
       }
     ];
 
-    // WhatsApp
-    function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp para reclamar su iPhone a mitad de precio${producto?(' de '+producto):''}.`);
-      window.open(`${WHATSAPP_PHONE}?text=${text}`,'_blank');
-    }
-    document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
-    document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
-    document.getElementById('whatsappIcon').onclick = () => openWhatsApp('');
+    const grid = document.getElementById('grid');
+    const seleccion = {}; // 用户选择（容量/颜色）
+    const money = n => CURRENCY + Math.round(n);
+
+    // 暴露到全局，供后面的跳转脚本读取（关键）
+    window.productos = productos;
+    window.seleccion = seleccion;
 
     // 倒计时
     function getDeadline(){
@@ -226,11 +223,11 @@
       if(!deadline || deadline < now){ deadline = now + FINISH_IN_MINUTES*60*1000; localStorage.setItem(key,String(deadline)); }
       return deadline;
     }
-    const two = n => String(n).padStart(2,'0');
+    const two=n=>String(n).padStart(2,'0');
     function tick(){
-      const remain = Math.max(0, getDeadline()-Date.now());
-      const totalSec = Math.floor(remain/1000);
-      const d=Math.floor(totalSec/86400), h=Math.floor(totalSec%86400/3600), m=Math.floor(totalSec%3600/60), s=totalSec%60;
+      const remain=Math.max(0,getDeadline()-Date.now());
+      const totalSec=Math.floor(remain/1000);
+      const d=Math.floor(totalSec/86400),h=Math.floor(totalSec%86400/3600),m=Math.floor(totalSec%3600/60),s=totalSec%60;
       document.getElementById('d').textContent=two(d);
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
@@ -239,13 +236,9 @@
     }
     setInterval(tick,1000); tick();
 
-    // 商品渲染
-    const grid = document.getElementById('grid');
-    const seleccion = {}; // 用户选择
-    const money = n => CURRENCY + Math.round(n);
-
+    // 更新价格
     function updatePrice(cardId, storage){
-      const product = productos.find(p => p.id === cardId);
+      const product = productos.find(p=>p.id===cardId);
       if(!product || !storage) return;
       const priceOriginal = product.precioOriginal[storage];
       const priceDiscounted = Math.round(priceOriginal * product.descuento);
@@ -260,11 +253,12 @@
       }
     }
 
+    // 渲染商品
     function renderProductos(){
       grid.innerHTML = productos.map(p=>{
-        const defaultStorage = p.opciones.almacenamiento[0];
-        const nuevo = Math.round(p.precioOriginal[defaultStorage] * p.descuento);
-        const prog = Math.min(100, (p.vendidos % 1000) / 10);
+        const def = p.opciones.almacenamiento[0];
+        const nuevo = Math.round(p.precioOriginal[def] * p.descuento);
+        const prog  = Math.min(100,(p.vendidos%1000)/10);
         return `
           <article class="card" data-id="${p.id}">
             <div class="content">
@@ -272,7 +266,7 @@
               <div class="title">${p.nombre}</div>
               <div class="price">
                 <div class="new">${money(nuevo)}</div>
-                <div class="old">${money(p.precioOriginal[defaultStorage])}</div>
+                <div class="old">${money(p.precioOriginal[def])}</div>
                 <span class="off">Descuento -15%</span>
               </div>
 
@@ -302,9 +296,9 @@
       // 规格选择
       grid.querySelectorAll('.opt-btn').forEach(btn=>{
         btn.addEventListener('click', e=>{
-          const b = e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
-          seleccion[id] = seleccion[id] || {};
-          seleccion[id][tipo] = (seleccion[id][tipo] === valor) ? null : valor;
+          const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
+          seleccion[id]=seleccion[id]||{};
+          seleccion[id][tipo]=(seleccion[id][tipo]===valor)?null:valor;
           grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
           if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
           if(tipo==='storage') updatePrice(id, valor);
@@ -313,8 +307,8 @@
     }
     renderProductos();
 
-    // 简易“个人中心”开关（如需对接 /api/orders 可自行扩展）
-    document.getElementById('btnCentro').onclick = ()=>{
+    // 简易“个人中心”开关
+    document.getElementById('btnCentro').onclick=()=>{
       document.getElementById('modalMask').style.display='flex';
       document.getElementById('q').focus();
     }
@@ -324,34 +318,33 @@
       document.getElementById('q').value='';
     });
 
-    // 跑马灯（无后端时静默）
+    // 跑马灯（无后端则静默）
     (async function loadTicker(){
       try{
-        const res = await fetch('/api/feed',{cache:'no-store'});
-        const {ok,items} = await res.json();
-        if(!ok || !items) return;
-        const lines = items.map(o=>{
+        const res=await fetch('/api/feed',{cache:'no-store'});
+        const {ok,items}=await res.json();
+        if(!ok||!items) return;
+        const lines=items.map(o=>{
           const when=(o.updatedAt||'').slice(5,16).replace(' ',' ');
           return `【${when}】${o.name} compró ${o.product}${o.color?('('+o.color+')'):''} ×${o.qty}`;
         });
-        const text = lines.join('　|　');
-        const el = document.getElementById('tickerText');
-        el.textContent = text || 'Reporte de compras recientes…';
+        const el=document.getElementById('tickerText');
+        el.textContent = lines.join('　|　') || 'Reporte de compras recientes…';
         let off=0; setInterval(()=>{off=(off+1)%50000; el.style.transform=`translateX(${-off}px)`},30);
       }catch(e){}
     })();
 
-    // 右侧 30s 演示倒计时
-    let countdownTime = 30;
+    // 右侧演示倒计时（30s 循环）
+    let countdownTime=30;
     function updateCountdown(){
-      document.getElementById('seconds').textContent = countdownTime;
+      document.getElementById('seconds').textContent=countdownTime;
       countdownTime = countdownTime<=0 ? 30 : countdownTime-1;
       setTimeout(updateCountdown,1000);
     }
     window.onload = updateCountdown;
   </script>
 
-  <!-- 统一拦截购买按钮：新开支付页 + 传型号/颜色/价格，且不让当前页跳走 -->
+  <!-- 统一拦截购买按钮：新开支付页 + 传型号/颜色/价格 -->
   <script>
   (function(){
     document.addEventListener('click', function(e){
@@ -370,7 +363,7 @@
 
       if(productObj){
         if(!storage && productObj.opciones && productObj.opciones.almacenamiento?.length){
-          storage = productObj.opciones.almacenamiento[0]; // 默认存储
+          storage = productObj.opciones.almacenamiento[0];
         }
         const priceOriginal = productObj.precioOriginal && productObj.precioOriginal[storage];
         if(typeof priceOriginal === 'number'){
@@ -389,13 +382,12 @@
 
       const url = `${PAYMENT_URL}?${params.toString()}`;
 
-      e.preventDefault();
-      e.stopPropagation();
-      if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+      e.preventDefault(); e.stopPropagation();
+      if(typeof e.stopImmediatePropagation==='function') e.stopImmediatePropagation();
 
       const w = window.open(url,'_blank');
       if(w){ try{ w.opener = null; }catch(_){} }
-    }, true); // 捕获阶段
+    }, true);
   })();
   </script>
 </body>
