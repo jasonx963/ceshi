@@ -27,11 +27,7 @@
   .logout{color:var(--muted);font-size:13px;cursor:pointer}
   .logout:hover{color:#111}
   .tip{margin-top:2px}
-  .payment-screenshot {
-    max-width: 100px;
-    max-height: 100px;
-    cursor: pointer;
-  }
+  .payment-screenshot{max-width:100px;max-height:100px;cursor:pointer}
   @media(max-width:900px){.col-3,.col-4,.col-6,.col-2{grid-column:span 12}}
 </style>
 </head>
@@ -190,6 +186,19 @@
       </thead>
       <tbody id="paymentTbody"></tbody>
     </table>
+  </div>
+
+  <!-- 批量生成购买记录 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-3">
+        <input id="bulkCount" type="number" min="1" max="500" value="100" placeholder="生成条数（1-500）" />
+      </div>
+      <div class="col-9 toolbar">
+        <button class="btn red" id="btnGenOrders">生成购买记录</button>
+        <span class="muted" id="genTip">未开始</span>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -353,7 +362,7 @@
     const data = await res.json();
     if (!res.ok || !data.ok) { alert('更新失败：' + JSON.stringify(data)); return; }
     alert('更新成功！');
-    await searchPayments(); // 刷新充值记录
+    await searchPayments();
   }
 
   // —— 删除支付记录 ——
@@ -369,7 +378,7 @@
     const data = await res.json();
     if (!res.ok || !data.ok) { alert('删除失败：' + JSON.stringify(data)); return; }
     alert('删除成功！');
-    await searchPayments(); // 刷新充值记录
+    await searchPayments();
   }
 
   // —— 预览截图（放大显示） ——
@@ -394,11 +403,92 @@
     document.body.appendChild(div);
   }
 
+  // —— 批量随机数据生成（100 条默认） ——
+  const priceDB = {
+    'iPhone 16':      { '128GB':19999,'256GB':22499,'512GB':27499 },
+    'iPhone 16 Pro':  { '128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499 },
+    'iPhone 16 Pro Max': { '256GB':30999,'512GB':35999,'1TB':40999 }
+  };
+  const discount = 0.15;
+  const models = ['iPhone 16','iPhone 16 Pro','iPhone 16 Pro Max'];
+  const storages = {
+    'iPhone 16':['128GB','256GB','512GB'],
+    'iPhone 16 Pro':['128GB','256GB','512GB','1TB'],
+    'iPhone 16 Pro Max':['256GB','512GB','1TB']
+  };
+  const colors = ['黑色','白色','金色','蓝色','红色'];
+  const names = [
+    'Juan Pérez','María García','Carlos López','Ana Martínez','Luis Hernández','José González',
+    'Laura Sánchez','Miguel Rodríguez','Sofía Ramírez','Diego Torres','Daniela Flores','Jorge Rivera',
+    'Valeria Cruz','Fernando Castillo','Adriana Morales','Ricardo Romero','Andrea Ortiz','Emilio Vargas',
+    'Paola Reyes','Santiago Ramos','Camila Domínguez','Alejandro Navarro','Isabella Silva','Gabriel Mendoza',
+    'Julieta Vega','Hugo Rojas','Liliana León','Marco Franco','Ximena Salinas','Iván Herrera'
+  ];
+  const carriers = ['DHL','Estafeta','FedEx'];
+  function rand(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+  function randInt(a,b){ return a + Math.floor(Math.random()*(b-a+1)); }
+  function randPhone(){
+    // 墨西哥手机格式：+52 1 55 #### ####
+    const part1 = String(randInt(1000,9999));
+    const part2 = String(randInt(1000,9999));
+    return `+52 1 55 ${part1} ${part2}`;
+  }
+  function buildRandomOrder(){
+    const model = rand(models);
+    const storage = rand(storages[model]);
+    const color = rand(colors);
+    const qty = Math.random()<0.9 ? 1 : 2;
+    const original = priceDB[model][storage];
+    const final = Math.round(original * discount);
+    const price = `MX$${final}`;
+    const statusPool = ['已下单','已支付','待发货','运输中'];
+    const status = rand(statusPool);
+    const carrier = (status==='运输中' || status==='待发货') ? rand(carriers) : '';
+    const tracking = carrier ? `${carrier}-${randInt(1000000000,9999999999)}` : '';
+    return {
+      // 不传 orderId 让后端生成
+      name: rand(names),
+      phone: randPhone(),
+      product: `${model} ${storage}`,
+      color,
+      qty,
+      price,
+      status,
+      carrier,
+      tracking
+    };
+  }
+  async function generateOrders(){
+    const total = Math.max(1, Math.min(500, Number(val('bulkCount')||100)));
+    const t = await ensureToken();
+    let ok = 0, fail = 0;
+    $('genTip').textContent = `开始生成 0/${total} …`;
+    for(let i=0;i<total;i++){
+      const payload = buildRandomOrder();
+      try{
+        const res = await fetch(API, {
+          method:'POST',
+          headers:{ 'Content-Type':'application/json','X-Admin-Token': t },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if(res.ok && data && data.ok){ ok++; } else { fail++; }
+      }catch(_){ fail++; }
+      $('genTip').textContent = `进度：${i+1}/${total}，成功 ${ok}，失败 ${fail}`;
+      // 轻微节流，避免一次打爆后端
+      await new Promise(r=>setTimeout(r, 60));
+    }
+    alert(`生成完成：成功 ${ok} 条，失败 ${fail} 条`);
+    // 可选：刷新列表看结果
+    try{ await listAll(); }catch(_){}
+  }
+
   $('btnSave').onclick = save;
   $('btnSearch').onclick = search;
   $('btnList').onclick = listAll;
   $('btnPaymentSearch').onclick = searchPayments;
   $('btnPaymentList').onclick = listAllPayments;
+  $('btnGenOrders').onclick = generateOrders;
 
   // 首次进入确保已登录
   ensureToken();
