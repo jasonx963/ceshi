@@ -8,21 +8,21 @@
 
   <style>
     :root{
-      /* 苹果风：白底、浅灰分隔、深灰文本、蓝色主按钮 */
+      /* 苹果风：白底、浅灰分隔、深灰文本、蓝色主按钮（自定义色，非官方色号） */
       --bg:#ffffff;
       --ink:#111111;
-      --muted:#6e6e73;       /* 浅灰文案 */
-      --hairline:#d2d2d7;    /* 细分隔线 */
-      --panel:#f5f5f7;       /* 浅灰区块底色 */
-      --blue:#0077ff;        /* 主行动色（不使用苹果版权色号） */
-      --blue-ink:#ffffff;    /* 按钮文字 */
-      --chip:#1d1d1f;        /* 深色小标 */
-      --success:#0a7d33;
+      --muted:#6e6e73;
+      --hairline:#d2d2d7;
+      --panel:#f5f5f7;
+      --blue:#0077ff;
+      --blue-ink:#ffffff;
+      --chip:#1d1d1f;
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
     img{display:block;max-width:100%;height:auto}
+    a{color:inherit;text-decoration:none}
 
     /* 顶部导航 */
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
@@ -72,17 +72,28 @@
     .off{margin-left:auto;background:#000;color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
 
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
+
+    /* 容量（胶囊） */
     .opt-row{display:flex;flex-wrap:wrap;gap:8px}
     .opt-btn{background:#fff;border:1px solid var(--hairline);border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
     .opt-btn:hover{background:#f8f8f8}
     .opt-btn.active{background:#000;color:#fff;border-color:#000}
+
+    /* 颜色（苹果风：圆形色块 + 下方文字） */
+    .color-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    @media(max-width:420px){.color-row{grid-template-columns:repeat(3,1fr)}}
+    .color{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px;border:1px solid var(--hairline);border-radius:14px;background:#fff;cursor:pointer}
+    .color:hover{background:#f8f8f8}
+    .sw{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,0,0,.2);background:var(--sw)}
+    .clabel{font-size:12px;font-weight:700;color:#333}
+    .color.active{outline:2px solid #000;outline-offset:2px}
 
     .meta{display:flex;align-items:center;justify-content:space-between;color:#8e8e93;font-size:12px;margin-top:10px}
     .cta{margin-top:12px}
     .btn-cta{width:100%;background:var(--blue);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
     .btn-cta:hover{filter:brightness(0.95)}
 
-    /* 底部帮助条（可选） */
+    /* 底部帮助条 */
     .helpbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--hairline);padding:10px 0}
     .helpbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px}
     .small{color:var(--muted);font-weight:700}
@@ -98,7 +109,7 @@
     .btn.primary{background:#000;color:#fff}
     .order-card{background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px}
 
-    /* 右下 WhatsApp 浮动按钮（可选） */
+    /* 右下 WhatsApp 按钮 */
     .wa-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#29d366,#21b954);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:70}
     .wa-fab img{width:30px;height:30px}
   </style>
@@ -184,15 +195,27 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // 产品数据（保持你现有结构 & 本地图片）
+    // 颜色 -> 色值（用于圆形色块）
+    const COLOR_HEX = {
+      'Negro':'#000000',
+      'Blanco':'#ffffff',
+      'Azul':'#cfe3ff',
+      'Dorado':'#f7e7b4',
+      'Rojo':'#ff4d4d',
+      'Verde':'#cde8cf',
+      'Rosa':'#ffd6e7',
+      'Titanio':'#d2d2d2'
+    };
+
+    // 产品数据（折扣信息不变：15%价 = 实付，页面文案 Ahorra 85% 不变）
     const productos = [
       {
         id: 'ip16',
         nombre: 'iPhone 16',
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15, // 15% 折扣
+        descuento: 0.15, // 实付=原价*0.15 => Ahorra 85%
         vendidos: 6473,
-        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul'] },
+        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul','Verde','Rosa'] },
         img: 'images/16.png'
       },
       {
@@ -221,7 +244,7 @@
     window.productos = productos;
     window.seleccion = seleccion;
 
-    // 倒计时（与旧逻辑一致）
+    // 倒计时
     function getDeadline(){
       const key='pdd_iphone_deadline';
       const saved=localStorage.getItem(key);
@@ -245,11 +268,10 @@
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
       document.getElementById('s').textContent=two(s);
-      // 可选：底部不再重复显示，保持简洁
     }
     setInterval(tick,1000); tick();
 
-    // 渲染产品卡片（苹果风布局）
+    // 价格更新（容量变更）
     function updatePrice(cardId, storage){
       const p = productos.find(x=>x.id===cardId);
       if(!p || !storage) return;
@@ -265,11 +287,12 @@
       }
     }
 
+    // 渲染产品卡（颜色用圆形色块 + 文字）
     function renderProductos(){
       grid.innerHTML = productos.map(p=>{
         const def = p.opciones.almacenamiento[0];
         const nuevo = Math.round(p.precioOriginal[def] * p.descuento);
-        const offPct = Math.round((1 - p.descuento) * 100); // 显示“立省 xx%”
+        const offPct = Math.round((1 - p.descuento) * 100); // 85
         return `
           <article class="card" data-id="${p.id}">
             <div class="pimg">
@@ -290,8 +313,14 @@
               </div>
 
               <div class="opt-label">Color</div>
-              <div class="opt-row">
-                ${p.opciones.color.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
+              <div class="color-row">
+                ${p.opciones.color.map(c=>{
+                  const hex = COLOR_HEX[c] || '#ccc';
+                  return `<button class="color" data-id="${p.id}" data-tipo="color" data-valor="${c}" aria-label="${c}">
+                    <span class="sw" style="--sw:${hex}"></span>
+                    <span class="clabel">${c}</span>
+                  </button>`;
+                }).join('')}
               </div>
 
               <div class="meta">
@@ -307,23 +336,27 @@
         `;
       }).join('');
 
-      // 规格选择
-      grid.querySelectorAll('.opt-btn').forEach(btn=>{
-        btn.addEventListener('click', e=>{
-          const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
+      // 选择交互（容量/颜色）
+      grid.querySelectorAll('.opt-btn,.color').forEach(el=>{
+        el.addEventListener('click', e=>{
+          const t=e.currentTarget; const id=t.dataset.id; const tipo=t.dataset.tipo; const valor=t.dataset.valor;
           seleccion[id]=seleccion[id]||{};
-          seleccion[id][tipo]=(seleccion[id][tipo]===valor)?null:valor;
-          // 切换选中态
-          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
-          if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
-          // 更新价格
+          seleccion[id][tipo] = (seleccion[id][tipo]===valor)? null : valor;
+
+          const isColor = t.classList.contains('color');
+          const sel = isColor ? '.color' : '.opt-btn';
+          grid.querySelectorAll(`${sel}[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
+          if(seleccion[id][tipo]){
+            grid.querySelector(`${sel}[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`)?.classList.add('active');
+          }
+
           if(tipo==='storage') updatePrice(id, valor);
         });
       });
     }
     renderProductos();
 
-    // 支付：新开窗口，并把型号/颜色/价格传过去
+    // 支付（新开窗口，传型号/颜色/价格）
     (function(){
       document.addEventListener('click', function(e){
         const btn = e.target && e.target.closest && e.target.closest('button.btn-cta[data-product-id]');
@@ -415,7 +448,7 @@
       }catch(_){}
     })();
 
-    // WhatsApp 入口
+    // WhatsApp
     function openWhatsApp(producto){
       const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp${producto?(' por '+producto):''}.`);
       window.open(`${WHATSAPP_PHONE}?text=${text}`, '_blank');
