@@ -31,7 +31,41 @@
     .panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:12px;border-radius:18px}
 
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1}
+
+    /* === 修复倒计时重叠（关键） === */
+    .timer-container{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:nowrap;
+      white-space:nowrap;
+    }
+    .tchip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:54px;
+      height:48px;
+      padding:0 6px;
+      border-radius:12px;
+      background:rgba(0,0,0,.35);
+      font-weight:900;
+      font-size:28px;
+      line-height:1;
+      text-align:center;
+    }
+    .colon{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+      font-size:28px;
+      margin:0 6px;
+    }
+    @media(max-width:420px){
+      .tchip{ min-width:44px;height:40px;font-size:22px; }
+      .colon{ font-size:22px; }
+    }
 
     .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2;display:flex;align-items:center;justify-content:center}
     .thumb img{max-width:100%;max-height:100%;height:auto;object-fit:contain;display:block}
@@ -117,7 +151,8 @@
           <div class="time">
             <div style="font-weight:800">Tiempo restante de la oferta</div>
             <div class="timer-container">
-            
+              <span class="tchip" id="d">00</span><span class="colon">:</span>
+              <span class="tchip" id="h">00</span><span class="colon">:</span>
               <span class="tchip" id="m">00</span><span class="colon">:</span>
               <span class="tchip" id="s">00</span>
             </div>
@@ -226,7 +261,10 @@
     function tick(){
       const remain=Math.max(0,getDeadline()-Date.now());
       const totalSec=Math.floor(remain/1000);
-      const d=Math.floor(totalSec/86400),h=Math.floor(totalSec%86400/3600),m=Math.floor(totalSec%3600/60),s=totalSec%60;
+      const d=Math.floor(totalSec/86400),
+            h=Math.floor(totalSec%86400/3600),
+            m=Math.floor(totalSec%3600/60),
+            s=totalSec%60;
       document.getElementById('d').textContent=two(d);
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
