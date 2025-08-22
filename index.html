@@ -32,7 +32,6 @@
     .panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:12px;border-radius:18px}
 
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px}
-    .timer-container{display:flex;align-items:center;gap:4px}
     .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1}
 
     .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2;display:flex;align-items:center;justify-content:center}
@@ -88,7 +87,7 @@
     .countdown-container{position:fixed;top:calc(50% + 180px);right:10px;display:flex;justify-content:center;align-items:center;gap:4px;z-index:99}
     .countdown-digit{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1;color:var(--whatsapp-green)}
   </style>
-  <!-- Meta Pixel -->
+  <!-- Meta Pixel（可留） -->
   <script>
   !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
   n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -96,10 +95,7 @@
   (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
   fbq('init','778576598009530');fbq('track','PageView');
   </script>
-  <noscript>
-    <img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=778576598009530&ev=PageView&noscript=1"/>
-  </noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=778576598009530&ev=PageView&noscript=1"/></noscript>
 </head>
 <body>
   <header>
@@ -151,11 +147,11 @@
     </div>
   </div>
 
-  <!-- 个人中心 Modal -->
+  <!-- 个人中心 Modal（简单占位） -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
-      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para consultar el estado y envío。</p>
+      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para consultar el estado y envío.</p>
       <label for="q">Número de pedido / Teléfono</label>
       <input id="q" placeholder="Ejemplo: ORD2025... / +52 1 55..." />
       <div class="actions">
@@ -183,16 +179,16 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // 商品配置（已包含颜色&存储） —— 已改为 15% 折扣
+    // 自托管图片（/images/）
     const productos = [
       { 
         id: 'ip16',
         nombre: 'iPhone 16',
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15,
+        descuento: 0.15, // 15% 折扣
         vendidos: 6473,
         opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90'
+        img: '/images/16.png'
       },
       { 
         id: 'ip16pro',
@@ -201,7 +197,7 @@
         descuento: 0.15,
         vendidos: 7941,
         opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90'
+        img: '/images/16pro.png'
       },
       { 
         id: 'ip16promax',
@@ -210,7 +206,7 @@
         descuento: 0.15,
         vendidos: 8758,
         opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul','Rojo'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90'
+        img: '/images/16promax.png'
       }
     ];
 
@@ -245,7 +241,7 @@
 
     // 商品渲染
     const grid = document.getElementById('grid');
-    const seleccion = {}; // 用户选择（存储/颜色）
+    const seleccion = {}; // 用户选择
     const money = n => CURRENCY + Math.round(n);
 
     function updatePrice(cardId, storage){
@@ -272,7 +268,7 @@
         return `
           <article class="card" data-id="${p.id}">
             <div class="content">
-              <div class="pimg"><img src="${p.img}" alt="${p.nombre}"></div>
+              <div class="pimg"><img loading="lazy" src="${p.img}" alt="${p.nombre}"></div>
               <div class="title">${p.nombre}</div>
               <div class="price">
                 <div class="new">${money(nuevo)}</div>
@@ -314,12 +310,10 @@
           if(tipo==='storage') updatePrice(id, valor);
         });
       });
-
-      // 重要：不要在这里再绑定跳转（避免把当前页跳走）——交给文末的“拦截脚本”统一处理
     }
     renderProductos();
 
-    // 个人中心（略）—— 如需保持请连接你的 /api/orders
+    // 简易“个人中心”开关（如需对接 /api/orders 可自行扩展）
     document.getElementById('btnCentro').onclick = ()=>{
       document.getElementById('modalMask').style.display='flex';
       document.getElementById('q').focus();
@@ -330,7 +324,7 @@
       document.getElementById('q').value='';
     });
 
-    // 跑马灯示例（可接 /api/feed）
+    // 跑马灯（无后端时静默）
     (async function loadTicker(){
       try{
         const res = await fetch('/api/feed',{cache:'no-store'});
@@ -347,7 +341,7 @@
       }catch(e){}
     })();
 
-    // 右侧小倒计时（演示）
+    // 右侧 30s 演示倒计时
     let countdownTime = 30;
     function updateCountdown(){
       document.getElementById('seconds').textContent = countdownTime;
@@ -367,8 +361,8 @@
       const productId   = btn.getAttribute('data-product-id') || '';
       const productName = btn.getAttribute('data-contact')    || '';
 
-      const s = (seleccion && seleccion[productId]) || {};
-      const productObj = (productos || []).find(p=>p.id===productId) || null;
+      const s = (window.seleccion && window.seleccion[productId]) || {};
+      const productObj = (window.productos || []).find(p=>p.id===productId) || null;
 
       let storage = s.storage || '';
       let color   = s.color   || '';
@@ -395,7 +389,6 @@
 
       const url = `${PAYMENT_URL}?${params.toString()}`;
 
-      // 阻止任何其它监听器把当前页跳走
       e.preventDefault();
       e.stopPropagation();
       if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
