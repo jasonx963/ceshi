@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pagar pedido</title>
+  <style>
+    :root{
+      --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
+      --ink:#111827;--muted:#6b7280;--bd:#e5e7eb;--bg:#f9fafb
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#fff;color:var(--ink)}
+    .wrap{max-width:920px;margin:0 auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+    h1{margin:0;font-size:24px}
+    .card{background:#fff;border:1px solid var(--bd);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);padding:16px;margin:12px 0}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:720px){.row{grid-template-columns:1fr}}
+    .muted{color:var(--muted);font-size:13px}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    .copy{display:inline-flex;align-items:center;gap:8px}
+    button{cursor:pointer;border:0;border-radius:10px;padding:10px 12px;font-weight:700}
+    .btn{background:var(--ink);color:#fff}
+    .btn.red{background:var(--red-600)}
+    .btn.ghost{background:#f3f4f6;color:#111827}
+    input,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;font-size:14px}
+    .bank{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:720px){.bank{grid-template-columns:1fr}}
+    .kv{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--bd);border-radius:12px;padding:10px 12px;margin:8px 0}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .center{display:flex;align-items:center;justify-content:center}
+    .preview{display:block;width:100%;max-height:360px;object-fit:contain;border:1px dashed var(--bd);border-radius:12px}
+    .ok{color:#059669;font-weight:700}
+    .warn{color:#b91c1c;font-weight:700}
+    a{color:var(--red-600);text-decoration:none}
+  
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+    .actions .btn{flex:1;min-width:160px}
+    .bar{position:sticky;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--bd);padding:10px;z-index:50}
+    .bar .btn{width:100%;margin-top:8px}
+    @media (min-width:720px){.bar{display:none}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Pago seguro</h1>
+      <a class="muted" href="./index.html">← Regresar</a>
+    </header>
+
+    <div id="orderInfo" class="card">
+      <div class="grid2">
+        <div>
+          <div class="muted">Producto</div>
+          <div id="pname" class="mono">-</div>
+        </div>
+        <div>
+          <div class="muted">ID del producto</div>
+          <div id="pid" class="mono">-</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px;">Información bancaria</h3>
+      <p class="muted">Copia exactamente estos datos para hacer la transferencia. Después, sube el comprobante.</p>
+      <div class="bank">
+        <div class="kv"><div><b>Banco</b><div class="muted mono" id="bankName">BBVA México</div></div><button class="btn ghost" data-copy="#bankName">Copiar</button></div>
+        <div class="kv"><div><b>Cuenta a nombre de</b><div class="muted mono" id="accountName">TECH STORE MX SA DE CV</div></div><button class="btn ghost" data-copy="#accountName">Copiar</button></div>
+        <div class="kv"><div><b>Número de cuenta / CLABE</b><div class="muted mono" id="accountNo">012345678901234567</div></div><button class="btn ghost" data-copy="#accountNo">Copiar</button></div>
+        <div class="kv"><div><b>Monto</b><div class="muted mono" id="amount">Aparece en la página anterior</div></div><button class="btn ghost" data-copy="#amount">Copiar</button></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px;">Sube el comprobante</h3>
+      <p class="muted">Una vez realizado el pago, sube una captura del comprobante de transferencia. Aceptamos JPG/PNG/PDF (máx. 8&nbsp;MB).</p>
+      <div class="row">
+        <div>
+          <input id="file" type="file" accept="image/*,application/pdf" />
+          <div style="margin-top:8px"><img id="preview" class="preview" alt="Vista previa" /></div>
+        </div>
+        <div>
+          <label class="muted" for="note">Notas (opcional)</label>
+          <textarea id="note" rows="6" placeholder="Escribe detalles como el último dígito del folio, hora del pago, etc."></textarea>
+          <div class="actions">
+            <button id="btnUpload" class="btn red">Enviar comprobante</button>
+            <button id="btnReset" class="btn ghost">Limpiar</button>
+          </div>
+          <div id="tip" class="muted" style="margin-top:10px">
+            Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="margin:0 0 8px;">¿Dudas?</h3>
+      <p class="muted">Si necesitas ayuda, contáctanos por WhatsApp con tu número de pedido y el comprobante.</p>
+      <a class="btn" href="https://wa.me/5215512345678" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp</a>
+    </div>
+  </div>
+
+  <script>
+    // 1) Cargar parámetros de la URL
+    const params = new URLSearchParams(location.search);
+    const product = params.get('product') || '-';
+    const productId = params.get('productId') || '-';
+
+    document.getElementById('pname').textContent = product;
+    document.getElementById('pid').textContent = productId;
+
+    // 2) Botones Copiar
+    document.querySelectorAll('[data-copy]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sel = btn.getAttribute('data-copy');
+        const el = document.querySelector(sel);
+        if (!el) return;
+        const text = el.textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          btn.textContent = '¡Copiado!';
+          setTimeout(() => btn.textContent = 'Copiar', 1200);
+        });
+      });
+    });
+
+    // 3) Vista previa del archivo
+    const fileInput = document.getElementById('file');
+    const preview = document.getElementById('preview');
+    fileInput.addEventListener('change', () => {
+      const f = fileInput.files && fileInput.files[0];
+      if (!f) { preview.src = ''; return; }
+      const reader = new FileReader();
+      reader.onload = e => { preview.src = e.target.result; };
+      reader.readAsDataURL(f);
+    });
+
+    // 4) Subir al backend (/api/payment-upload)
+    function doUpload(){ (async () => {
+      const f = fileInput.files && fileInput.files[0];
+      if (!f) {
+        document.getElementById('tip').innerHTML = '<span class="warn">Por favor, selecciona un archivo primero.</span>';
+        return;
+      }
+      const note = document.getElementById('note').value || '';
+      const fd = new FormData();
+      fd.append('orderId', productId);
+      fd.append('product', product);
+      fd.append('note', note);
+      fd.append('file', f);
+
+      try {
+        const res = await fetch('/api/payment-upload', { method: 'POST', body: fd });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const json = await res.json();
+        if (json && json.ok) {
+          document.getElementById('tip').innerHTML = '<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
+          document.getElementById('btnUpload').disabled = true;
+          fileInput.disabled = true;
+        } else {
+          throw new Error(json && json.message || 'Error desconocido');
+        }
+      } catch (e) {
+        document.getElementById('tip').innerHTML = '<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
+      }
+    })(); }
+    document.getElementById('btnUpload').addEventListener('click', doUpload);
+    var u2 = document.getElementById('btnUpload2'); if(u2){ u2.addEventListener('click', doUpload); }
+
+    document.getElementById('btnReset').addEventListener('click', () => {
+      fileInput.value = '';
+      preview.src = '';
+      document.getElementById('note').value = '';
+      document.getElementById('tip').textContent = 'Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
+      document.getElementById('btnUpload').disabled = false;
+      fileInput.disabled = false;
+    });
+    var r2 = document.getElementById('btnReset2'); if(r2){ r2.addEventListener('click', () => {
+      fileInput.value = '';
+      preview.src = '';
+      document.getElementById('note').value = '';
+      document.getElementById('tip').textContent = 'Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
+      document.getElementById('btnUpload').disabled = false;
+      fileInput.disabled = false;
+    }); }
+  </script>
+</body>
+</html>

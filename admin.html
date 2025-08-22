@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>订单后台（KV）</title>
+<style>
+  :root{--c:#dc2626;--bg:#f9fafb;--text:#111827;--muted:#6b7280;--bd:#e5e7eb}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+  .wrap{max-width:1100px;margin:0 auto;padding:16px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+  h1{margin:0;font-size:28px}
+  .muted{color:var(--muted);font-size:13px}
+  .row{display:grid;grid-template-columns:repeat(12,1fr);gap:10px;margin-top:12px}
+  .col-3{grid-column:span 3}.col-2{grid-column:span 2}.col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
+  input,select{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;font-size:14px}
+  button{padding:10px 14px;border:0;border-radius:10px;cursor:pointer;font-weight:700}
+  .btn{background:#111827;color:#fff}.btn.red{background:var(--c)}.btn.gray{background:#e5e7eb;color:#111827}
+  .toolbar{display:flex;gap:8px;align-items:center}
+  .card{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:12px;margin-top:12px}
+  table{width:100%;border-collapse:collapse}
+  th,td{border-top:1px solid var(--bd);padding:10px 8px;font-size:14px}
+  th{background:#f8fafc;text-align:left}
+  .badge{background:#fee2e2;color:#991b1b;font-weight:800;border-radius:999px;padding:4px 8px;font-size:12px}
+  .right{display:flex;gap:8px;align-items:center}
+  .logout{color:var(--muted);font-size:13px;cursor:pointer}
+  .logout:hover{color:#111}
+  .tip{margin-top:2px}
+  .payment-screenshot {
+    max-width: 100px;
+    max-height: 100px;
+    cursor: pointer;
+  }
+  @media(max-width:900px){.col-3,.col-4,.col-6,.col-2{grid-column:span 12}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>订单后台</h1>
+      <div class="muted tip">录入或更新订单后点击「保存」。前端查询接口：<code>/api/orders</code></div>
+    </div>
+    <div class="right">
+      <span class="muted" id="adminInfo">已登录</span>
+      <button class="btn gray" id="btnLogout">退出登录</button>
+    </div>
+  </header>
+
+  <!-- 表单区 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-4">
+        <input id="orderId" placeholder="订单号（新增留空，系统生成）" />
+      </div>
+      <div class="col-4">
+        <input id="name" placeholder="客户姓名" />
+      </div>
+      <div class="col-4">
+        <input id="phone" placeholder="手机号（例：+52 1 55...）" />
+      </div>
+
+      <!-- 型号 + 存储 + 颜色 -->
+      <div class="col-4">
+        <select id="model" title="机型">
+          <option value="iPhone 16">iPhone 16</option>
+          <option value="iPhone 16 Pro">iPhone 16 Pro</option>
+          <option value="iPhone 16 Pro Max">iPhone 16 Pro Max</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <select id="storage" title="存储">
+          <option value="128GB">128GB</option>
+          <option value="256GB">256GB</option>
+          <option value="512GB">512GB</option>
+          <option value="1TB">1TB</option>
+        </select>
+      </div>
+      <div class="col-3">
+        <select id="color" title="颜色">
+          <option value="黑色">黑色</option>
+          <option value="白色">白色</option>
+          <option value="金色">金色</option>
+          <option value="蓝色">蓝色</option>
+          <option value="红色">红色</option>
+        </select>
+      </div>
+
+      <!-- 数量 -->
+      <div class="col-3">
+        <input id="qty" type="number" min="1" step="1" value="1" placeholder="数量" />
+      </div>
+
+      <div class="col-3">
+        <input id="price" placeholder="价格（例：MX$ 999）" />
+      </div>
+      <div class="col-3">
+        <select id="status">
+          <option>已下单</option>
+          <option>已支付</option>
+          <option>待发货</option>
+          <option>运输中</option>
+          <option>已签收</option>
+          <option>已取消</option>
+          <option>售后中</option>
+        </select>
+      </div>
+      <!-- 物流公司 下拉（默认 DHL） -->
+      <div class="col-3">
+        <select id="carrier">
+          <option value="DHL" selected>DHL</option>
+          <option value="Estafeta">Estafeta</option>
+          <option value="FedEx">FedEx</option>
+        </select>
+      </div>
+
+      <div class="col-6">
+        <input id="tracking" placeholder="物流单号（例：DHL 运单号）" />
+      </div>
+
+      <div class="col-6 toolbar">
+        <button class="btn red" id="btnSave">保存</button>
+        <!-- 不要保存旁删除按钮，避免误触 -->
+        <button class="btn" id="btnList">查看全部</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 查询区 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-6">
+        <input id="q" placeholder="按订单号或手机号查询（例：ORD2025... / +52 1 55...）" />
+      </div>
+      <div class="col-6 toolbar">
+        <button class="btn" id="btnSearch">查询</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 订单列表 -->
+  <div class="card">
+    <table id="tbl">
+      <thead>
+        <tr>
+          <th>订单号</th>
+          <th>客户</th>
+          <th>电话</th>
+          <th>商品</th>
+          <th>颜色</th>
+          <th>数量</th>
+          <th>价格</th>
+          <th>状态</th>
+          <th>物流</th>
+          <th>单号</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <!-- 充值记录查询区 -->
+  <div class="card">
+    <div class="row">
+      <div class="col-6">
+        <input id="paymentQuery" placeholder="按订单号查询充值记录（例：ORD2025...）" />
+      </div>
+      <div class="col-6 toolbar">
+        <button class="btn" id="btnPaymentSearch">查询充值</button>
+        <button class="btn" id="btnPaymentList">查看全部充值</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 充值记录列表 -->
+  <div class="card">
+    <table id="paymentTbl">
+      <thead>
+        <tr>
+          <th>订单号</th>
+          <th>产品</th>
+          <th>支付时间</th>
+          <th>状态</th>
+          <th>截图</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody id="paymentTbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  const API = '/api/orders';
+  const PAYMENT_API = '/api/payments';
+  const tokenKey = 'admin_token';
+
+  // —— 登录（本地保存 token） ——
+  async function ensureToken() {
+    let t = localStorage.getItem(tokenKey);
+    if (!t) {
+      t = prompt('请输入后台口令（ADMIN_TOKEN）：') || '';
+      if (!t.trim()) { alert('未输入口令'); location.reload(); return; }
+      localStorage.setItem(tokenKey, t.trim());
+    }
+    document.getElementById('adminInfo').textContent = '已登录';
+    return t.trim();
+  }
+  function logout() {
+    localStorage.removeItem(tokenKey);
+    location.reload();
+  }
+  document.getElementById('btnLogout').onclick = logout;
+
+  // —— 工具 ——
+  const $ = (id) => document.getElementById(id);
+  function val(id) { return $(id).value.trim(); }
+  function set(id, v) { $(id).value = v ?? ''; }
+  function rowHtml(o) {
+    return `<tr>
+      <td><span class="badge">${o.orderId || '-'}</span></td>
+      <td>${o.name || '-'}</td>
+      <td>${o.phone || '-'}</td>
+      <td>${o.product || '-'}</td>
+      <td>${o.color || '-'}</td>
+      <td>${o.qty ?? 1}</td>
+      <td>${o.price || '-'}</td>
+      <td>${o.status || '-'}</td>
+      <td>${o.carrier || '-'}</td>
+      <td>${o.tracking || '-'}</td>
+      <td>${o.updatedAt || '-'}</td>
+      <td>
+        <button class="btn gray" onclick="fill('${o.orderId || ''}')">填入</button>
+        <button class="btn red" onclick="doDelete('${o.orderId || ''}')">删除</button>
+      </td>
+    </tr>`;
+  }
+  function paymentRowHtml(p) {
+    return `<tr>
+      <td><span class="badge">${p.orderId || '-'}</span></td>
+      <td>${p.product || '-'}</td>
+      <td>${p.timestamp ? new Date(p.timestamp).toLocaleString() : '-'}</td>
+      <td>${p.status || '待审核'}</td>
+      <td>${p.screenshot ? `<img src="${p.screenshot}" alt="截图" class="payment-screenshot" onclick="previewImage('${p.screenshot}')">` : '-'}</td>
+      <td>
+        <button class="btn gray" onclick="updatePaymentStatus('${p.orderId || ''}', '已确认')">确认</button>
+        <button class="btn red" onclick="deletePayment('${p.orderId || ''}')">删除</button>
+      </td>
+    </tr>`;
+  }
+  function render(list) { $('tbody').innerHTML = (list || []).map(rowHtml).join('') || '<tr><td colspan="12">暂无数据</td></tr>'; }
+  function renderPayments(list) { $('paymentTbody').innerHTML = (list || []).map(paymentRowHtml).join('') || '<tr><td colspan="6">暂无充值记录</td></tr>'; }
+  window.fill = (id) => { set('orderId', id); };
+
+  // —— 保存（orderId 为空时，后端自动生成） ——
+  async function save() {
+    const t = await ensureToken();
+    const product = `${val('model')} ${val('storage')}`.trim();
+    const payload = {
+      orderId: val('orderId') || undefined,
+      name: val('name'),
+      phone: val('phone'),
+      product,
+      color: val('color'),
+      qty: Number(val('qty') || 1),
+      price: val('price'),
+      status: val('status'),
+      carrier: val('carrier'),
+      tracking: val('tracking'),
+    };
+    const res = await fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': t },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('保存失败：' + JSON.stringify(data)); return; }
+    if (data.orderId) set('orderId', data.orderId);
+    alert('保存成功！订单号：' + (data.orderId || payload.orderId));
+    await search();
+  }
+
+  // —— 删除订单 ——
+  async function doDelete(idOpt) {
+    const id = idOpt || val('orderId');
+    if (!id) { alert('请输入要删除的订单号'); return; }
+    if (!confirm('确认删除订单：' + id + ' ？')) return;
+    const t = await ensureToken();
+    const res = await fetch(API, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': t },
+      body: JSON.stringify({ orderId: id })
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('删除失败：' + JSON.stringify(data)); return; }
+    alert('已删除：' + id);
+    await search();
+  }
+
+  // —— 查询订单 ——
+  async function search() {
+    const q = val('q') || val('orderId') || val('phone');
+    if (!q) { alert('请输入订单号或手机号'); return; }
+    const url = q.startsWith('+') ? `${API}?phone=${encodeURIComponent(q)}` : `${API}?orderId=${encodeURIComponent(q)}`;
+    const res = await fetch(url, { cache: 'no-store' });
+    const list = await res.json();
+    render(list);
+  }
+
+  // —— 查看全部订单 ——
+  async function listAll() {
+    const t = await ensureToken();
+    const res = await fetch(`${API}?list=true`, { headers: { 'X-Admin-Token': t }, cache: 'no-store' });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('获取失败：' + JSON.stringify(data)); return; }
+    render(data.items || []);
+  }
+
+  // —— 查询充值记录 ——
+  async function searchPayments() {
+    const q = val('paymentQuery');
+    if (!q) { alert('请输入订单号查询充值记录'); return; }
+    const t = await ensureToken();
+    const url = `${PAYMENT_API}?orderId=${encodeURIComponent(q)}`;
+    const res = await fetch(url, { headers: { 'X-Admin-Token': t }, cache: 'no-store' });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('查询失败：' + JSON.stringify(data)); return; }
+    renderPayments(data.items || []);
+  }
+
+  // —— 查看全部充值记录 ——
+  async function listAllPayments() {
+    const t = await ensureToken();
+    const res = await fetch(`${PAYMENT_API}?list=true`, { headers: { 'X-Admin-Token': t }, cache: 'no-store' });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('获取失败：' + JSON.stringify(data)); return; }
+    renderPayments(data.items || []);
+  }
+
+  // —— 更新支付状态 ——
+  async function updatePaymentStatus(orderId, status) {
+    if (!orderId) { alert('无效的订单号'); return; }
+    if (!confirm(`确认将订单 ${orderId} 的支付状态更新为 ${status}？`)) return;
+    const t = await ensureToken();
+    const res = await fetch(PAYMENT_API, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': t },
+      body: JSON.stringify({ orderId, status }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('更新失败：' + JSON.stringify(data)); return; }
+    alert('更新成功！');
+    await searchPayments(); // 刷新充值记录
+  }
+
+  // —— 删除支付记录 ——
+  async function deletePayment(orderId) {
+    if (!orderId) { alert('无效的订单号'); return; }
+    if (!confirm(`确认删除订单 ${orderId} 的支付记录？`)) return;
+    const t = await ensureToken();
+    const res = await fetch(PAYMENT_API, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Token': t },
+      body: JSON.stringify({ orderId }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) { alert('删除失败：' + JSON.stringify(data)); return; }
+    alert('删除成功！');
+    await searchPayments(); // 刷新充值记录
+  }
+
+  // —— 预览截图（放大显示） ——
+  function previewImage(src) {
+    const img = new Image();
+    img.src = src;
+    img.style.maxWidth = '80%';
+    img.style.maxHeight = '80vh';
+    const div = document.createElement('div');
+    div.style.position = 'fixed';
+    div.style.top = '0';
+    div.style.left = '0';
+    div.style.width = '100%';
+    div.style.height = '100%';
+    div.style.background = 'rgba(0,0,0,0.8)';
+    div.style.display = 'flex';
+    div.style.alignItems = 'center';
+    div.style.justifyContent = 'center';
+    div.style.zIndex = '1000';
+    div.appendChild(img);
+    div.onclick = () => document.body.removeChild(div);
+    document.body.appendChild(div);
+  }
+
+  $('btnSave').onclick = save;
+  $('btnSearch').onclick = search;
+  $('btnList').onclick = listAll;
+  $('btnPaymentSearch').onclick = searchPayments;
+  $('btnPaymentList').onclick = listAllPayments;
+
+  // 首次进入确保已登录
+  ensureToken();
+</script>
+</body>
+</html>
