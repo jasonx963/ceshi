@@ -4,21 +4,21 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>iPhone 16 / Pro / Pro Max – Hoy a mitad de precio</title>
+  <meta name="description" content="iPhone 16 a mitad de precio, cantidad limitada, consulta de envíos, contacta a atención al cliente para comprar.">
   <style>
     :root{
       --red-600:#dc2626;--red-500:#ef4444;--red-400:#f87171;--yellow:#fde047;
       --ink:#7f1d1d;--muted:#9b1c1c;
-      --whatsapp-green: #25D366;
+      --whatsapp-green:#25D366;
     }
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    body{background:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400));color:#fff; min-height: 100vh;}
+    body{background:linear-gradient(180deg,var(--red-600),var(--red-500) 50%,var(--red-400));color:#fff;min-height:100vh}
     .container{max-width:1100px;margin:0 auto;padding:0 16px}
 
     header{position:sticky;top:0;z-index:50;backdrop-filter:blur(6px);background:rgba(220,38,38,.88);border-bottom:1px solid rgba(255,255,255,.25)}
     header .bar{display:flex;align-items:center;justify-content:space-between;padding:12px 0}
     .brand{display:flex;align-items:center;gap:8px}
-    .chip{background:#fff;color:var(--red-600);font-size:11px;font-weight:800;border-radius:999px;padding:4px 8px}
     .btn-white{background:#fff;color:var(--red-600);font-weight:800;border:0;border-radius:999px;padding:10px 14px;cursor:pointer}
 
     .ticker{overflow:hidden;white-space:nowrap;border-top:1px solid rgba(255,255,255,.35);border-bottom:1px solid rgba(255,255,255,.35);padding:8px 0;color:#ffe4e6;font-weight:800}
@@ -30,10 +30,10 @@
     .h1-sub{color:var(--yellow)}
     .lead{opacity:.95;margin:8px 0 14px}
     .panel{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);padding:12px;border-radius:18px}
+
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px}
     .timer-container{display:flex;align-items:center;gap:4px}
     .tchip{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1}
-    .colon{font-weight:900;margin:0 4px;line-height:1}
 
     .thumb{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:4/3;background:#fee2e2;display:flex;align-items:center;justify-content:center}
     .thumb img{max-width:100%;max-height:100%;height:auto;object-fit:contain;display:block}
@@ -53,7 +53,7 @@
     .off{background:rgba(220,38,38,.08);color:var(--red-600);padding:2px 8px;border-radius:999px;font-size:12px;font-weight:800}
 
     .opt-label{font-size:12px;font-weight:800;margin:8px 0 4px}
-    .opt-row{display:flex:flex-wrap:wrap;gap:8px}
+    .opt-row{display:flex;flex-wrap:wrap;gap:8px}
     .opt-btn{background:#fff;color:var(--ink);border:1px solid #fecaca;font-weight:700;font-size:13px;padding:6px 10px;border-radius:999px;cursor:pointer}
     .opt-btn.active{background:var(--red-600);color:#fff;border-color:var(--red-600)}
 
@@ -75,24 +75,31 @@
     .modal input{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;margin-top:6px}
     .modal .actions{display:flex;justify-content:flex-end;gap:8px;margin-top:12px}
     .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}.btn.gray{background:#eee}.btn.primary{background:#dc2626;color:#fff}
-    .order-card{background:#fafafa;border:1px solid #eee;border-radius:12px;padding:10px;margin-top:10px}
 
-    @media (max-width:600px){
-      .pimg{aspect-ratio:auto;max-height:58vh}
-    }
+    .whatsapp-icon{position:fixed;top:50%;right:20px;transform:translateY(-50%);width:60px;height:60px;background:var(--whatsapp-green);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,.2);cursor:pointer;z-index:100}
+    .whatsapp-icon img{width:36px;height:36px}
 
-    .whatsapp-icon { position: fixed; top: 50%; right: 20px; transform: translateY(-50%); width: 60px; height: 60px; background-color: var(--whatsapp-green); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); cursor: pointer; z-index: 100; }
-    .whatsapp-icon img { width: 36px; height: 36px; }
+    .flame{position:fixed;top:calc(50% + 70px);right:25px;width:50px;height:80px;background:radial-gradient(circle,#ff4500 0%,#ff8c00 50%,#800000 100%);clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:burn .5s infinite alternate,flicker .3s infinite,sway 2s infinite ease-in-out;z-index:101}
+    @keyframes burn{0%{background:radial-gradient(circle,#ff4500 0%,#ff8c00 50%,#800000 100%)}100%{background:radial-gradient(circle,#ff8c00 0%,#ff4500 50%,#800000 100%)}}
+    @keyframes flicker{0%{opacity:.9}100%{opacity:1}}
+    @keyframes sway{0%{transform:translateX(0) rotate(0)}25%{transform:translateX(-5px) rotate(5deg)}75%{transform:translateX(5px) rotate(-5deg)}100%{transform:translateX(0) rotate(0)}}
 
-    .flame { position: fixed; top: calc(50% + 70px); right: 25px; width: 50px; height: 80px; background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%); clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: burn 0.5s infinite alternate, flicker 0.3s infinite, sway 2s infinite ease-in-out; z-index: 101; display: block; }
-    @keyframes burn { 0% { background: radial-gradient(circle, #ff4500 0%, #ff8c00 50%, #800000 100%);} 100% { background: radial-gradient(circle, #ff8c00 0%, #ff4500 50%, #800000 100%);} }
-    @keyframes flicker { 0% { opacity: 0.9; } 100% { opacity: 1; } }
-    @keyframes sway { 0% { transform: translateX(0) rotate(0deg); } 25% { transform: translateX(-5px) rotate(5deg); } 75% { transform: translateX(5px) rotate(-5deg); } 100% { transform: translateX(0) rotate(0deg); } }
-
-    .countdown-label { position: fixed; top: calc(50% + 140px); right: 10px; color: var(--red-600); font-size: 16px; font-weight: bold; text-align: center; z-index: 99; display: block; }
-    .countdown-container { position: fixed; top: calc(50% + 180px); right: 10px; display: flex; justify-content: center; align-items: center; gap: 4px; z-index: 99; }
-    .countdown-digit { background: rgba(0, 0, 0, 0.35); padding: 8px 10px; border-radius: 8px; font-weight: 900; font-size: 18px; min-width: 44px; text-align: center; line-height: 1; color: var(--whatsapp-green); }
+    .countdown-label{position:fixed;top:calc(50% + 140px);right:10px;color:var(--red-600);font-size:16px;font-weight:700;text-align:center;z-index:99}
+    .countdown-container{position:fixed;top:calc(50% + 180px);right:10px;display:flex;justify-content:center;align-items:center;gap:4px;z-index:99}
+    .countdown-digit{background:rgba(0,0,0,.35);padding:8px 10px;border-radius:8px;font-weight:900;font-size:18px;min-width:44px;text-align:center;line-height:1;color:var(--whatsapp-green)}
   </style>
+  <!-- Meta Pixel -->
+  <script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+  (window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init','778576598009530');fbq('track','PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=778576598009530&ev=PageView&noscript=1"/>
+  </noscript>
 </head>
 <body>
   <header>
@@ -115,9 +122,9 @@
           <div class="time">
             <div style="font-weight:800">Tiempo restante de la oferta</div>
             <div class="timer-container">
-              <span class="tchip" id="d">00</span><span class="colon">:</span>
-              <span class="tchip" id="h">00</span><span class="colon"></span>
-              <span class="tchip" id="m">00</span><span class="colon"></span>
+              <span class="tchip" id="d">00</span><span>:</span>
+              <span class="tchip" id="h">00</span><span>:</span>
+              <span class="tchip" id="m">00</span><span>:</span>
               <span class="tchip" id="s">00</span>
             </div>
             <div style="font-size:12px;opacity:.95;font-weight:800">Miles de usuarios están comprando</div>
@@ -144,10 +151,11 @@
     </div>
   </div>
 
+  <!-- 个人中心 Modal -->
   <div class="modal-mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
-      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para consultar el estado y envío.</p>
+      <p style="margin:0 0 8px;color:#444">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para consultar el estado y envío。</p>
       <label for="q">Número de pedido / Teléfono</label>
       <input id="q" placeholder="Ejemplo: ORD2025... / +52 1 55..." />
       <div class="actions">
@@ -169,56 +177,60 @@
   </div>
 
   <script>
+    // ===== 配置 =====
     const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';
     const FINISH_IN_MINUTES = 1440;
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
+    // 商品配置（已包含颜色&存储） —— 已改为 15% 折扣
     const productos = [
       { 
-        id: 'ip16', 
-        nombre: 'iPhone 16', 
-        precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 }, 
-        descuento: 0.5, 
+        id: 'ip16',
+        nombre: 'iPhone 16',
+        precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
+        descuento: 0.15,
         vendidos: 6473,
-        opciones: { almacenamiento: ['128GB', '256GB', '512GB'], color: ['Negro', 'Blanco', 'Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90&.v=...'
+        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-finish-select-202409-6-1inch_GEO_US?wid=5120&hei=2880&fmt=webp&qlt=90'
       },
       { 
-        id: 'ip16pro', 
-        nombre: 'iPhone 16 Pro', 
-        precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 }, 
-        descuento: 0.5, 
+        id: 'ip16pro',
+        nombre: 'iPhone 16 Pro',
+        precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 },
+        descuento: 0.15,
         vendidos: 7941,
-        opciones: { almacenamiento: ['128GB', '256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?...'
+        opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-3inch-whitetitanium?wid=5120&hei=2880&fmt=webp&qlt=90'
       },
       { 
-        id: 'ip16promax', 
-        nombre: 'iPhone 16 Pro Max', 
-        precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 }, 
-        descuento: 0.5, 
+        id: 'ip16promax',
+        nombre: 'iPhone 16 Pro Max',
+        precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 },
+        descuento: 0.15,
         vendidos: 8758,
-        opciones: { almacenamiento: ['256GB', '512GB', '1TB'], color: ['Negro', 'Blanco', 'Dorado', 'Azul', 'Rojo'] },
-        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?...'
+        opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul','Rojo'] },
+        img: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/iphone-16-pro-finish-select-202409-6-9inch-naturaltitanium?wid=5120&hei=2880&fmt=webp&qlt=90'
       }
     ];
 
+    // WhatsApp
     function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp para reclamar su iPhone a mitad de precio${producto?(' de '+producto):''} a mitad de precio`);
+      const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp para reclamar su iPhone a mitad de precio${producto?(' de '+producto):''}.`);
       window.open(`${WHATSAPP_PHONE}?text=${text}`,'_blank');
     }
     document.getElementById('btnTopWA').onclick = () => openWhatsApp('');
     document.getElementById('btnBottomWA').onclick = () => openWhatsApp('');
     document.getElementById('whatsappIcon').onclick = () => openWhatsApp('');
 
+    // 倒计时
     function getDeadline(){
       const key='pdd_iphone_deadline'; const saved=localStorage.getItem(key); const now=Date.now();
       let deadline=saved?parseInt(saved,10):0;
       if(!deadline || deadline < now){ deadline = now + FINISH_IN_MINUTES*60*1000; localStorage.setItem(key,String(deadline)); }
       return deadline;
     }
-    function two(n){ return String(n).padStart(2,'0'); }
+    const two = n => String(n).padStart(2,'0');
     function tick(){
       const remain = Math.max(0, getDeadline()-Date.now());
       const totalSec = Math.floor(remain/1000);
@@ -231,48 +243,59 @@
     }
     setInterval(tick,1000); tick();
 
+    // 商品渲染
     const grid = document.getElementById('grid');
-    window.seleccion = {};
-    function money(n) { return CURRENCY + Math.round(n); }
-    function updatePrice(cardId, storage) {
+    const seleccion = {}; // 用户选择（存储/颜色）
+    const money = n => CURRENCY + Math.round(n);
+
+    function updatePrice(cardId, storage){
       const product = productos.find(p => p.id === cardId);
-      if (!product || !storage) return;
+      if(!product || !storage) return;
       const priceOriginal = product.precioOriginal[storage];
       const priceDiscounted = Math.round(priceOriginal * product.descuento);
       const card = grid.querySelector(`.card[data-id="${cardId}"]`);
-      if (card) {
+      if(card){
         const priceNew = card.querySelector('.price .new');
         const priceOld = card.querySelector('.price .old');
-        if (priceNew && priceOld) {
+        if(priceNew && priceOld){
           priceNew.textContent = money(priceDiscounted);
           priceOld.textContent = money(priceOriginal);
         }
       }
     }
-    function renderProductos() {
-      grid.innerHTML = productos.map(p => {
+
+    function renderProductos(){
+      grid.innerHTML = productos.map(p=>{
         const defaultStorage = p.opciones.almacenamiento[0];
         const nuevo = Math.round(p.precioOriginal[defaultStorage] * p.descuento);
         const prog = Math.min(100, (p.vendidos % 1000) / 10);
         return `
           <article class="card" data-id="${p.id}">
             <div class="content">
-              <div class="pimg"><img src="${p.img}" alt="${p.nombre}"/></div>
+              <div class="pimg"><img src="${p.img}" alt="${p.nombre}"></div>
               <div class="title">${p.nombre}</div>
-              <div class="price"><div class="new">${money(nuevo)}</div><div class="old">${money(p.precioOriginal[defaultStorage])}</div><span class="off">Descuento -50%</span></div>
+              <div class="price">
+                <div class="new">${money(nuevo)}</div>
+                <div class="old">${money(p.precioOriginal[defaultStorage])}</div>
+                <span class="off">Descuento -15%</span>
+              </div>
 
               <div class="opt-label">Almacenamiento</div>
               <div class="opt-row">
-                ${p.opciones.almacenamiento.map(opt => `<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
+                ${p.opciones.almacenamiento.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
               </div>
 
               <div class="opt-label">Color</div>
               <div class="opt-row">
-                ${p.opciones.color.map(opt => `<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
+                ${p.opciones.color.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="color" data-valor="${opt}">${opt}</button>`).join('')}
               </div>
 
-              <div class="meta"><span>${p.vendidos.toLocaleString()} personas compraron</span><span>Envío inmediato</span></div>
+              <div class="meta">
+                <span>${p.vendidos.toLocaleString()} personas compraron</span>
+                <span>Envío inmediato</span>
+              </div>
               <div class="bar"><div class="fill" style="width:${prog}%"></div></div>
+
               <div style="margin-top:12px">
                 <button class="btn-red" data-contact="${p.nombre}" data-product-id="${p.id}">Haz tu pedido y compra</button>
               </div>
@@ -280,117 +303,89 @@
           </article>`;
       }).join('');
 
-      grid.querySelectorAll('.opt-btn').forEach(btn => {
-        btn.addEventListener('click', e => {
-          const b = e.currentTarget, id = b.dataset.id, tipo = b.dataset.tipo, valor = b.dataset.valor;
-          window.seleccion[id] = window.seleccion[id] || {};
-          window.seleccion[id][tipo] = (window.seleccion[id][tipo] === valor) ? null : valor;
-          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x => x.classList.remove('active'));
-          if (window.seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
-          if (tipo === 'storage') updatePrice(id, valor);
+      // 规格选择
+      grid.querySelectorAll('.opt-btn').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const b = e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
+          seleccion[id] = seleccion[id] || {};
+          seleccion[id][tipo] = (seleccion[id][tipo] === valor) ? null : valor;
+          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
+          if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
+          if(tipo==='storage') updatePrice(id, valor);
         });
       });
 
-      grid.querySelectorAll('[data-contact]').forEach(btn => btn.addEventListener('click', e => {
-        // 留空：点击行为由下面的拦截脚本统一处理（新开页 + 传参）
-      }));
+      // 重要：不要在这里再绑定跳转（避免把当前页跳走）——交给文末的“拦截脚本”统一处理
     }
     renderProductos();
 
-    const modal = document.getElementById('modalMask'), resultBox = document.getElementById('resultBox'), inputQ = document.getElementById('q');
-    document.getElementById('btnCentro').onclick = () => { modal.style.display = 'flex'; inputQ.focus(); };
-    document.getElementById('btnCerrar').onclick = () => { modal.style.display = 'none'; resultBox.innerHTML = ''; inputQ.value = ''; };
-
-    async function fetchOrders() {
-      try {
-        const q = inputQ.value.trim();
-        if (!q) return [];
-        let url = '/api/orders?';
-        if (q.startsWith('+')) url += 'phone=' + encodeURIComponent(q);
-        else url += 'orderId=' + encodeURIComponent(q);
-        const res = await fetch(url, { cache: 'no-store' });
-        if (!res.ok) return [];
-        return await res.json();
-      } catch (e) { return []; }
+    // 个人中心（略）—— 如需保持请连接你的 /api/orders
+    document.getElementById('btnCentro').onclick = ()=>{
+      document.getElementById('modalMask').style.display='flex';
+      document.getElementById('q').focus();
     }
-    document.getElementById('btnBuscar').onclick = async () => {
-      resultBox.innerHTML = '<div>Consultando…</div>';
-      const found = await fetchOrders();
-      if (!found || found.length === 0) { resultBox.innerHTML = '<div style="color:#c00">No encontrado, verifica el número de pedido/teléfono.</div>'; return; }
-      resultBox.innerHTML = found.map(o => `
-        <div class="order-card">
-          <div><b>Número de pedido:</b> ${o.orderId || '-'}</div>
-          <div><b>Cliente:</b> ${o.name || '-'}</div>
-          <div><b>Teléfono:</b> ${o.phone || '-'}</div>
-          <div><b>Producto:</b> ${o.product || '-'} ${o.color ? ('(' + o.color + ')') : ''} ×${o.qty || 1}</div>
-          <div><b>Precio:</b> ${o.price || '-'}</div>
-          <div><b>Estado:</b> ${o.status || 'En proceso'}</div>
-          <div><b>Transportista:</b> ${o.carrier || '-'}</div>
-          <div><b>Número de envío:</b> ${o.tracking || '-'}</div>
-          <div><b>Actualizado:</b> ${o.updatedAt || '-'}</div>
-        </div>
-      `).join('');
-    };
+    document.getElementById('btnCerrar')?.addEventListener('click',()=>{
+      document.getElementById('modalMask').style.display='none';
+      document.getElementById('resultBox').innerHTML='';
+      document.getElementById('q').value='';
+    });
 
-    async function loadTicker() {
-      try {
-        const res = await fetch('/api/feed', { cache: 'no-store' });
-        const { ok, items } = await res.json();
-        if (!ok || !items) return;
-        const lines = items.map(o => {
-          const when = (o.updatedAt || '').slice(5, 16).replace(' ', ' ');
-          return `【${when}】${o.name} compró ${o.product}${o.color ? ('(' + o.color + ')') : ''} ×${o.qty} , precio ${o.price || '—'} , teléfono ${o.phoneMasked}${o.carrier ? (' , envío ' + o.carrier) : ''}${o.trackingMasked ? (' (número ' + o.trackingMasked + ')') : ''}`;
+    // 跑马灯示例（可接 /api/feed）
+    (async function loadTicker(){
+      try{
+        const res = await fetch('/api/feed',{cache:'no-store'});
+        const {ok,items} = await res.json();
+        if(!ok || !items) return;
+        const lines = items.map(o=>{
+          const when=(o.updatedAt||'').slice(5,16).replace(' ',' ');
+          return `【${when}】${o.name} compró ${o.product}${o.color?('('+o.color+')'):''} ×${o.qty}`;
         });
         const text = lines.join('　|　');
         const el = document.getElementById('tickerText');
         el.textContent = text || 'Reporte de compras recientes…';
-        let off = 0;
-        setInterval(() => { off = (off + 1) % 50000; el.style.transform = `translateX(${-off}px)`; }, 30);
-      } catch (e) {}
-    }
-    loadTicker();
+        let off=0; setInterval(()=>{off=(off+1)%50000; el.style.transform=`translateX(${-off}px)`},30);
+      }catch(e){}
+    })();
 
+    // 右侧小倒计时（演示）
     let countdownTime = 30;
-    const countdownContainer = document.getElementById('countdown-container');
-    function updateCountdown() {
+    function updateCountdown(){
       document.getElementById('seconds').textContent = countdownTime;
-      if (countdownTime <= 0) countdownTime = 30;
-      else countdownTime--;
-      setTimeout(updateCountdown, 1000);
+      countdownTime = countdownTime<=0 ? 30 : countdownTime-1;
+      setTimeout(updateCountdown,1000);
     }
     window.onload = updateCountdown;
   </script>
 
-  <!-- 新增：拦截购买按钮 => 新开标签 + 传型号/颜色/价格 -->
-  <script id="pay-open-newtab-and-pass-params">
+  <!-- 统一拦截购买按钮：新开支付页 + 传型号/颜色/价格，且不让当前页跳走 -->
+  <script>
   (function(){
     document.addEventListener('click', function(e){
-      var btn = e.target && e.target.closest && e.target.closest('button.btn-red[data-product-id]');
+      const btn = e.target && e.target.closest && e.target.closest('button.btn-red[data-product-id]');
       if(!btn) return;
 
-      var productId = btn.getAttribute('data-product-id') || '';
-      var productName = btn.getAttribute('data-contact') || '';
+      const productId   = btn.getAttribute('data-product-id') || '';
+      const productName = btn.getAttribute('data-contact')    || '';
 
-      var s = (window.seleccion && window.seleccion[productId]) || {};
-      var productObj = (window.productos || []).find(function(p){ return p.id === productId; }) || null;
+      const s = (seleccion && seleccion[productId]) || {};
+      const productObj = (productos || []).find(p=>p.id===productId) || null;
 
-      var storage = s.storage || '';
-      var color   = s.color   || '';
-      var price   = '';
+      let storage = s.storage || '';
+      let color   = s.color   || '';
+      let price   = '';
 
-      if (productObj) {
-        if (!storage && productObj.opciones && productObj.opciones.almacenamiento && productObj.opciones.almacenamiento.length) {
-          storage = productObj.opciones.almacenamiento[0];
+      if(productObj){
+        if(!storage && productObj.opciones && productObj.opciones.almacenamiento?.length){
+          storage = productObj.opciones.almacenamiento[0]; // 默认存储
         }
-        var priceOriginal = productObj.precioOriginal && productObj.precioOriginal[storage];
-        if (typeof priceOriginal === 'number') {
-          var mult = (typeof productObj.descuento === 'number' ? productObj.descuento : 1);
-          price = Math.round(priceOriginal * mult);
+        const priceOriginal = productObj.precioOriginal && productObj.precioOriginal[storage];
+        if(typeof priceOriginal === 'number'){
+          price = Math.round(priceOriginal * (typeof productObj.descuento==='number' ? productObj.descuento : 1));
         }
       }
 
-      var picked = productName + (storage ? (' ' + storage) : '') + (color ? (' ' + color) : '');
-      var params = new URLSearchParams({
+      const picked = productName + (storage?(' '+storage):'') + (color?(' '+color):'');
+      const params = new URLSearchParams({
         product:   picked,
         productId: productId,
         storage:   storage || '',
@@ -398,16 +393,16 @@
         price:     price   || ''
       });
 
-      var base = (typeof window.PAYMENT_URL !== 'undefined' ? window.PAYMENT_URL : 'payment.html');
-      var url  = base + '?' + params.toString();
+      const url = `${PAYMENT_URL}?${params.toString()}`;
 
+      // 阻止任何其它监听器把当前页跳走
       e.preventDefault();
       e.stopPropagation();
-      if (typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+      if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
 
-      var w = window.open(url, '_blank');
-      if (w) { try { w.opener = null; } catch(_){} }
-    }, true);
+      const w = window.open(url,'_blank');
+      if(w){ try{ w.opener = null; }catch(_){} }
+    }, true); // 捕获阶段
   })();
   </script>
 </body>
