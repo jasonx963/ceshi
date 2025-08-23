@@ -35,6 +35,8 @@
     .previewBox img{max-width:100%;max-height:360px;object-fit:contain;display:block}
     .pdfTag{font-weight:800;color:#fff;background:#444;border-radius:8px;padding:8px 10px}
     .tips{font-size:13px;color:var(--muted)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    @media (max-width:720px){.row{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
@@ -46,7 +48,18 @@
 
     <!-- Resumen del pedido -->
     <div id="orderInfo" class="card">
-      <div class="grid2">
+      <div class="row">
+        <div>
+          <div class="muted">Número de pedido</div>
+          <div id="oid" class="mono">-</div>
+        </div>
+        <div>
+          <div class="muted">Precio</div>
+          <div id="pprice" class="mono">-</div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-top:10px">
         <div>
           <div class="muted">Producto</div>
           <div id="pname" class="mono">-</div>
@@ -66,11 +79,6 @@
           <div class="muted">Color</div>
           <div id="pcolor" class="mono">-</div>
         </div>
-      </div>
-
-      <div style="margin-top:10px">
-        <div class="muted">Precio</div>
-        <div id="pprice" class="mono">-</div>
       </div>
     </div>
 
@@ -128,8 +136,8 @@
           </div>
         </div>
         <div>
-          <label class="muted" for="note">Notas (opcional)</label>
-          <textarea id="note" rows="6" placeholder="Escribe detalles como el último dígito del folio, hora del pago, etc."></textarea>
+          <label class="muted" for="notes">Notas (opcional)</label>
+          <textarea id="notes" rows="6" placeholder="Escribe detalles como el último dígito del folio, hora del pago, etc."></textarea>
           <div class="actions">
             <button id="btnUpload" class="btn blue">Enviar comprobante</button>
             <button id="btnReset" class="btn ghost">Limpiar</button>
@@ -149,7 +157,12 @@
   </div>
 
   <script>
-    // ===== Lee parámetros de URL =====
+    // ========= Utiles =========
+    const qs = (s, r=document) => r.querySelector(s);
+    const qsa = (s, r=document) => Array.from(r.querySelectorAll(s));
+    const money = n => 'MX$' + new Intl.NumberFormat('es-MX').format(Math.round(n));
+
+    // ========= Lee parámetros =========
     const params = new URLSearchParams(location.search);
     const product   = params.get('product')   || '-';
     const productId = params.get('productId') || '-';
@@ -157,16 +170,22 @@
     let   color     = params.get('color')     || '';
     let   price     = params.get('price')     || '';
 
-    // Muestra en la página
-    document.getElementById('pname').textContent    = product;
-    document.getElementById('pid').textContent      = productId;
-    document.getElementById('pstorage').textContent = storage || '-';
-    document.getElementById('pcolor').textContent   = color   || '-';
+    // 订单号：若未提供，用时间戳+4位随机生成，避免覆盖
+    let orderId = params.get('orderId');
+    if (!orderId) {
+      const rnd = Math.floor(Math.random()*9000)+1000;
+      orderId = 'ORD' + Date.now() + rnd;
+    }
+
+    // ========= 显示订单摘要 =========
+    qs('#pname').textContent    = product;
+    qs('#pid').textContent      = productId;
+    qs('#pstorage').textContent = storage || '-';
+    qs('#pcolor').textContent   = color   || '-';
+    qs('#oid').textContent      = orderId;
 
     // ===== Fallback de precio (15% del PVP) =====
     (function ensurePrice(){
-      const toMoney = n => 'MX$' + new Intl.NumberFormat('es-MX').format(Math.round(n));
-
       const db = {
         ip16:       { discount: 0.15, price: {'128GB':19999,'256GB':22499,'512GB':27499} },
         ip16pro:    { discount: 0.15, price: {'128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499} },
@@ -176,7 +195,7 @@
       if ((!storage || storage==='-') && db[productId]) {
         const keys = Object.keys(db[productId].price);
         if (keys.length) storage = keys[0];
-        document.getElementById('pstorage').textContent = storage || '-';
+        qs('#pstorage').textContent = storage || '-';
       }
 
       const num = Number(price);
@@ -186,18 +205,15 @@
           price = Math.round(original * db[productId].discount);
         }
       }
-
-      document.getElementById('pprice').textContent = price ? toMoney(price) : '-';
+      qs('#pprice').textContent = price ? money(price) : '-';
     })();
 
-    // ===== Botones de copiar =====
-    document.querySelectorAll('[data-copy]').forEach(btn=>{
+    // ========= Copiar =========
+    qsa('[data-copy]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        const sel = btn.getAttribute('data-copy');
-        const el  = document.querySelector(sel);
+        const el  = qs(btn.getAttribute('data-copy'));
         if (!el) return;
-        const text = el.textContent.trim();
-        navigator.clipboard.writeText(text).then(()=>{
+        navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
           const old = btn.textContent;
           btn.textContent = '¡Copiado!';
           setTimeout(()=>btn.textContent=old, 1200);
@@ -205,23 +221,22 @@
       });
     });
 
-    // Copiar todo
-    document.getElementById('copyAll').addEventListener('click', ()=>{
+    qs('#copyAll').addEventListener('click', ()=>{
       const lines = [
-        'Banco: ' + document.getElementById('bankName').textContent.trim(),
-        'Cuenta a nombre de: ' + document.getElementById('accountName').textContent.trim(),
-        'CLABE: ' + document.getElementById('clabe').textContent.trim(),
-        'Número de tarjeta: ' + document.getElementById('cardNo').textContent.trim()
+        'Banco: ' + qs('#bankName').textContent.trim(),
+        'Cuenta a nombre de: ' + qs('#accountName').textContent.trim(),
+        'CLABE: ' + qs('#clabe').textContent.trim(),
+        'Número de tarjeta: ' + qs('#cardNo').textContent.trim()
       ];
       navigator.clipboard.writeText(lines.join('\n')).then(()=>{
-        const btn=document.getElementById('copyAll'); const old=btn.textContent;
+        const btn=qs('#copyAll'); const old=btn.textContent;
         btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent=old,1200);
       });
     });
 
-    // ===== Vista previa del archivo =====
-    const fileInput = document.getElementById('file');
-    const holder    = document.getElementById('previewHolder');
+    // ========= Vista previa =========
+    const fileInput = qs('#file');
+    const holder    = qs('#previewHolder');
 
     function showPreview(file){
       holder.innerHTML = '';
@@ -241,56 +256,56 @@
       r.onload = e => img.src = e.target.result;
       r.readAsDataURL(file);
     }
-
     fileInput.addEventListener('change', ()=>{
       const f = fileInput.files && fileInput.files[0];
       showPreview(f);
     });
 
-    // ===== Enviar a /api/payment-upload =====
+    // ========= Subida =========
     async function doUpload(){
       const f = fileInput.files && fileInput.files[0];
       if (!f) {
-        document.getElementById('tip').innerHTML = '<span class="warn">Por favor, selecciona un archivo primero.</span>';
+        qs('#tip').innerHTML = '<span class="warn">Por favor, selecciona un archivo primero.</span>';
         return;
       }
       if (f.size > 8*1024*1024) {
-        document.getElementById('tip').innerHTML = '<span class="warn">El archivo supera los 8 MB. Reduce el tamaño e inténtalo de nuevo.</span>';
+        qs('#tip').innerHTML = '<span class="warn">El archivo supera los 8 MB. Reduce el tamaño e inténtalo de nuevo.</span>';
         return;
       }
 
-      const note = document.getElementById('note').value || '';
+      const notes = qs('#notes').value || '';
       const fd = new FormData();
-      fd.append('orderId', productId);   // usamos productId como订单号（与前端一致）
+      fd.append('orderId', orderId);
       fd.append('product', product);
       fd.append('storage', storage || '');
       fd.append('color',   color   || '');
       fd.append('price',   price   || '');
-      fd.append('note',    note);
-      fd.append('file',    f);
+      fd.append('notes',   notes);      // 👈 和后端统一为 notes
+      fd.append('file',    f);          // 👈 字段名必须是 file
 
       try{
         const res  = await fetch('/api/payment-upload', { method:'POST', body: fd });
         const json = await res.json().catch(()=>({}));
         if (res.ok && json && json.ok) {
-          document.getElementById('tip').innerHTML = '<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
-          document.getElementById('btnUpload').disabled = true;
+          qs('#tip').innerHTML = '<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
+          qs('#btnUpload').disabled = true;
           fileInput.disabled = true;
         } else {
-          throw new Error(json && json.message || 'Error desconocido');
+          throw new Error(json && (json.message || json.error) || 'Error desconocido');
         }
       }catch(e){
-        document.getElementById('tip').innerHTML = '<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
+        qs('#tip').innerHTML = '<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
+        console.error('upload error:', e);
       }
     }
-    document.getElementById('btnUpload').addEventListener('click', doUpload);
+    qs('#btnUpload').addEventListener('click', doUpload);
 
-    // Limpiar
-    document.getElementById('btnReset').addEventListener('click', ()=>{
+    // ========= Limpiar =========
+    qs('#btnReset').addEventListener('click', ()=>{
       fileInput.value=''; showPreview(null);
-      document.getElementById('note').value='';
-      document.getElementById('tip').textContent='Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
-      document.getElementById('btnUpload').disabled=false; fileInput.disabled=false;
+      qs('#notes').value='';
+      qs('#tip').textContent='Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
+      qs('#btnUpload').disabled=false; fileInput.disabled=false;
     });
   </script>
 </body>
