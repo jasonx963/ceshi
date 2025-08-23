@@ -58,7 +58,7 @@
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
     .opt-row{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* —— 颜色圆点 —— */
+    /* 颜色圆点 */
     .swatch{
       width:44px;height:44px;border-radius:50%;
       border:2px solid var(--hairline);cursor:pointer;
@@ -70,7 +70,7 @@
     .swatch.active{outline:3px solid var(--blue);border-color:var(--blue)}
     .opt-hint{font-size:12px;color:#6e6e73;margin-top:4px;min-height:16px}
 
-    /* 存储按键 */
+    /* 存储按钮 */
     .opt-btn{background:#fff;border:1px solid var(--hairline);border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
     .opt-btn:hover{background:#f8f8f8}
     .opt-btn.active{background:#000;color:#fff;border-color:#000}
@@ -170,7 +170,7 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // —— 产品数据（颜色与存储按你的要求） ——
+    // —— 产品数据（颜色图片改为 .jpeg 文件） ——
     const productos = [
       {
         id: 'ip16',
@@ -180,7 +180,6 @@
         vendidos: 6473,
         opciones: {
           almacenamiento: ['128GB','256GB','512GB'],
-          // 只显示色圆；点击后在 hint 展示名称
           colorSwatches: [
             {name:'Ultramarino',     img:'images/colors/16-ultramarino.jpeg'},
             {name:'Verde azulado',   img:'images/colors/16-verde-azulado.jpeg'},
@@ -200,10 +199,10 @@
         opciones: {
           almacenamiento: ['128GB','256GB','512GB','1TB'],
           colorSwatches: [
-            {name:'Titanio del desierto', img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23c6b096"/></svg>'},
-            {name:'Titanio natural',      img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23cfcfd1"/></svg>'},
-            {name:'Titanio blanco',       img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23f2f2f2"/></svg>'},
-            {name:'Titanio negro',        img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23333333"/></svg>'}
+            {name:'Titanio del desierto', img:'images/colors/16pro-titanio-del-desierto.jpeg'},
+            {name:'Titanio natural',      img:'images/colors/16pro-titanio-natural.jpeg'},
+            {name:'Titanio blanco',       img:'images/colors/16pro-titanio-blanco.jpeg'},
+            {name:'Titanio negro',        img:'images/colors/16pro-titanio-negro.jpeg'}
           ]
         },
         img: 'images/16pro.png'
@@ -216,11 +215,12 @@
         vendidos: 8758,
         opciones: {
           almacenamiento: ['256GB','512GB','1TB'],
+          // 与 Pro 使用同一套 4 张色板
           colorSwatches: [
-            {name:'Titanio del desierto', img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23c6b096"/></svg>'},
-            {name:'Titanio natural',      img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23cfcfd1"/></svg>'},
-            {name:'Titanio blanco',       img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23f2f2f2"/></svg>'},
-            {name:'Titanio negro',        img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23333333"/></svg>'}
+            {name:'Titanio del desierto', img:'images/colors/16pro-titanio-del-desierto.jpeg'},
+            {name:'Titanio natural',      img:'images/colors/16pro-titanio-natural.jpeg'},
+            {name:'Titanio blanco',       img:'images/colors/16pro-titanio-blanco.jpeg'},
+            {name:'Titanio negro',        img:'images/colors/16pro-titanio-negro.jpeg'}
           ]
         },
         img: 'images/16promax.png'
@@ -295,8 +295,13 @@
 
               <div class="opt-label">Color</div>
               <div class="opt-row">
-                ${p.opciones.colorSwatches.map((c,i)=>`
-                  <span class="swatch" title="${c.name}" data-id="${p.id}" data-tipo="color" data-valor="${c.name}" style="background-image:url('${c.img}')"></span>
+                ${p.opciones.colorSwatches.map(c=>`
+                  <span class="swatch"
+                        title="${c.name}"
+                        data-id="${p.id}"
+                        data-tipo="color"
+                        data-valor="${c.name}"
+                        data-src="${c.img}"></span>
                 `).join('')}
               </div>
               <div id="${colorHintId}" class="opt-hint"></div>
@@ -339,8 +344,37 @@
           else{ hint.textContent = ''; }
         });
       });
+
+      // 为色板设置背景图片（若加载失败则降级为接近色）
+      applySwatchImages();
     }
     renderProductos();
+
+    // 为 .swatch 应用图片，失败时用纯色兜底
+    function applySwatchImages(){
+      const fallbackMap = {
+        'Ultramarino':'#6f7ae6',
+        'Verde azulado':'#bcded8',
+        'Rosa':'#f7a7d1',
+        'Blanco':'#f2f2f2',
+        'Negro':'#333333',
+        'Titanio del desierto':'#c6b096',
+        'Titanio natural':'#cfcfd1',
+        'Titanio blanco':'#f2f2f2',
+        'Titanio negro':'#333333'
+      };
+      document.querySelectorAll('.swatch').forEach(el=>{
+        const url = el.dataset.src || '';
+        const name = el.dataset.valor || '';
+        const fb = (fallbackMap[name] || '#cccccc').replace('#','');
+        const fbData = `data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='88' height='88'><circle cx='44' cy='44' r='44' fill='%23${fb}'/></svg>`;
+        if(!url){ el.style.backgroundImage = `url("${fbData}")`; return; }
+        const img = new Image();
+        img.onload = ()=>{ el.style.backgroundImage = `url("${url}")`; };
+        img.onerror = ()=>{ el.style.backgroundImage = `url("${fbData}")`; };
+        img.src = url;
+      });
+    }
 
     // 支付页跳转
     (function(){
