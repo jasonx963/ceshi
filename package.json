@@ -1,8 +1,10 @@
 {
-  "name": "iphone-sale",
+  "name": "applemx",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@vercel/kv": "^1.0.1"
+    "@vercel/kv": "latest",
+    "@vercel/blob": "latest"
   }
 }
