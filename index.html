@@ -8,54 +8,38 @@
 
   <style>
     :root{
-      /* 苹果风：白底、浅灰分隔、深灰文本、蓝色主按钮（自定义色，非官方色号） */
-      --bg:#ffffff;
-      --ink:#111111;
-      --muted:#6e6e73;
-      --hairline:#d2d2d7;
-      --panel:#f5f5f7;
-      --blue:#0077ff;
-      --blue-ink:#ffffff;
-      --chip:#1d1d1f;
+      --bg:#ffffff; --ink:#111111; --muted:#6e6e73; --hairline:#d2d2d7; --panel:#f5f5f7;
+      --blue:#0077ff; --blue-ink:#ffffff;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
     img{display:block;max-width:100%;height:auto}
-    a{color:inherit;text-decoration:none}
 
-    /* 顶部导航 */
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
     .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
     .brand{font-weight:800;letter-spacing:.2px}
-    .nav-actions{display:flex;gap:10px;align-items:center}
     .btn-link{border:0;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;padding:8px 10px;border-radius:10px}
     .btn-link:hover{background:#f2f2f2}
     .btn-blue{background:var(--blue);color:var(--blue-ink);border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
     .btn-blue:hover{filter:brightness(0.95)}
 
-    /* 顶部横幅（滚动播报） */
     .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:#fff}
     .ticker-inner{max-width:1200px;margin:0 auto;padding:8px 16px;white-space:nowrap;overflow:hidden}
     #tickerText{display:inline-block;will-change:transform;color:var(--muted);font-weight:700}
 
-    /* Hero */
     .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding:28px 16px}
     @media(max-width:960px){.hero{grid-template-columns:1fr}}
     h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 12px;font-weight:800;letter-spacing:.2px}
     .lead{color:var(--muted);margin:6px 0 18px}
     .panel{background:var(--panel);border:1px solid var(--hairline);border-radius:18px;padding:12px}
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .time .label{font-weight:800}
-    .timer{display:flex;align-items:center;gap:8px;white-space:nowrap}
-    .tchip{background:#000;color:#fff;display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:48px;border-radius:12px;font-weight:900;font-size:22px;letter-spacing:.5px}
+    .tchip{background:#000;color:#fff;display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:48px;border-radius:12px;font-weight:900;font-size:22px}
     .colon{font-weight:900;font-size:22px}
     @media(max-width:420px){.tchip{min-width:46px;height:40px;font-size:18px}.colon{font-size:18px}}
 
     .hero-visual{border-radius:18px;border:1px solid var(--hairline);background:#fff;padding:10px;display:flex;align-items:center;justify-content:center;min-height:260px}
     .hero-visual img{object-fit:contain;max-height:360px}
 
-    /* 产品区 */
     .section{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     @media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
@@ -72,33 +56,34 @@
     .off{margin-left:auto;background:#000;color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
 
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
+    .opt-row{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* 容量（胶囊） */
-    .opt-row{display:flex;flex-wrap:wrap;gap:8px}
+    /* —— 颜色圆点 —— */
+    .swatch{
+      width:44px;height:44px;border-radius:50%;
+      border:2px solid var(--hairline);cursor:pointer;
+      background:#fff center/cover no-repeat;display:inline-block;
+      box-shadow:0 1px 1px rgba(0,0,0,.05) inset;
+      transition:transform .12s ease,border-color .12s ease, box-shadow .12s ease;
+    }
+    .swatch:hover{transform:scale(1.04)}
+    .swatch.active{outline:3px solid var(--blue);border-color:var(--blue)}
+    .opt-hint{font-size:12px;color:#6e6e73;margin-top:4px;min-height:16px}
+
+    /* 存储按键 */
     .opt-btn{background:#fff;border:1px solid var(--hairline);border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
     .opt-btn:hover{background:#f8f8f8}
     .opt-btn.active{background:#000;color:#fff;border-color:#000}
-
-    /* 颜色（苹果风：圆形色块 + 下方文字） */
-    .color-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
-    @media(max-width:420px){.color-row{grid-template-columns:repeat(3,1fr)}}
-    .color{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 6px;border:1px solid var(--hairline);border-radius:14px;background:#fff;cursor:pointer}
-    .color:hover{background:#f8f8f8}
-    .sw{width:26px;height:26px;border-radius:50%;border:1px solid rgba(0,0,0,.2);background:var(--sw)}
-    .clabel{font-size:12px;font-weight:700;color:#333}
-    .color.active{outline:2px solid #000;outline-offset:2px}
 
     .meta{display:flex;align-items:center;justify-content:space-between;color:#8e8e93;font-size:12px;margin-top:10px}
     .cta{margin-top:12px}
     .btn-cta{width:100%;background:var(--blue);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
     .btn-cta:hover{filter:brightness(0.95)}
 
-    /* 底部帮助条 */
     .helpbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--hairline);padding:10px 0}
     .helpbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px}
     .small{color:var(--muted);font-weight:700}
 
-    /* 订单查询 Modal */
     .mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:80}
     .modal{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:18px;max-width:520px;width:92%}
     .modal h3{margin:0 0 8px}
@@ -107,38 +92,31 @@
     .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
     .btn.gray{background:#f3f3f3}
     .btn.primary{background:#000;color:#fff}
-    .order-card{background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px}
 
-    /* 右下 WhatsApp 按钮 */
     .wa-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#29d366,#21b954);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:70}
     .wa-fab img{width:30px;height:30px}
   </style>
 </head>
 <body>
-
-  <!-- 顶部导航 -->
   <header>
     <div class="nav">
       <div class="brand">Apple</div>
-      <div class="nav-actions">
+      <div>
         <button class="btn-link" id="btnCentro">Orden</button>
         <button class="btn-blue" id="btnTopWA">Contáctenos</button>
       </div>
     </div>
-    <div class="ticker">
-      <div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div>
-    </div>
+    <div class="ticker"><div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div></div>
   </header>
 
-  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>iPhone 16 / Pro / Pro Max</h1>
       <p class="lead">Ahorra 85%. Envío desde Apple. Calidad garantizada.</p>
       <div class="panel">
         <div class="time">
-          <div class="label">Tiempo restante de la oferta</div>
-          <div class="timer">
+          <div class="label" style="font-weight:800">Tiempo restante de la oferta</div>
+          <div>
             <span class="tchip" id="d">00</span><span class="colon">:</span>
             <span class="tchip" id="h">00</span><span class="colon">:</span>
             <span class="tchip" id="m">00</span><span class="colon">:</span>
@@ -154,12 +132,10 @@
     </div>
   </section>
 
-  <!-- 产品 -->
   <section class="section">
     <div class="grid" id="grid"></div>
   </section>
 
-  <!-- 底部帮助条 -->
   <div class="helpbar">
     <div class="helpbar-inner">
       <div class="small">¿Necesitas ayuda? Nuestro equipo está en línea.</div>
@@ -167,7 +143,7 @@
     </div>
   </div>
 
-  <!-- 订单查询 Modal -->
+  <!-- Centro personal -->
   <div class="mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
@@ -183,41 +159,36 @@
     </div>
   </div>
 
-  <!-- 右下 WhatsApp 按钮 -->
   <div class="wa-fab" id="waFab" title="WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </div>
 
   <script>
-    // ===== 基本配置 =====
+    // ===== 配置 =====
     const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';
     const FINISH_IN_MINUTES = 1440;
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // 颜色 -> 色值（用于圆形色块）
-    const COLOR_HEX = {
-      // iPhone 16
-      'Ultramarino': '#1d3b8b',
-      'Verde azulado': '#3aa6a1',
-      'Rosa': '#f7c1d9',
-      'Blanco': '#ffffff',
-      // 16 Pro / Pro Max
-      'Titanio del desierto': '#c6ab8f',
-      'Titanio natural': '#cfcfd1',
-      'Titanio blanco': '#f2f2f3',
-      'Titanio negro': '#2b2b2e'
-    };
-
-    // 产品数据（折扣信息不变：15%价 = 实付，页面文案 Ahorra 85% 不变）
+    // —— 产品数据（颜色与存储按你的要求） ——
     const productos = [
       {
         id: 'ip16',
         nombre: 'iPhone 16',
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15, // 实付=原价*0.15 => Ahorra 85%
+        descuento: 0.15,
         vendidos: 6473,
-        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Ultramarino','Verde azulado','Rosa','Blanco'] },
+        opciones: {
+          almacenamiento: ['128GB','256GB','512GB'],
+          // 只显示色圆；点击后在 hint 展示名称
+          colorSwatches: [
+            {name:'Ultramarino',     img:'images/colors/16-ultramarino.jpeg'},
+            {name:'Verde azulado',   img:'images/colors/16-verde-azulado.jpeg'},
+            {name:'Rosa',            img:'images/colors/16-rosa.jpeg'},
+            {name:'Blanco',          img:'images/colors/16-blanco.jpeg'},
+            {name:'Negro',           img:'images/colors/16-negro.jpeg'}
+          ]
+        },
         img: 'images/16.png'
       },
       {
@@ -226,7 +197,15 @@
         precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 },
         descuento: 0.15,
         vendidos: 7941,
-        opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Titanio del desierto','Titanio natural','Titanio blanco','Titanio negro'] },
+        opciones: {
+          almacenamiento: ['128GB','256GB','512GB','1TB'],
+          colorSwatches: [
+            {name:'Titanio del desierto', img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23c6b096"/></svg>'},
+            {name:'Titanio natural',      img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23cfcfd1"/></svg>'},
+            {name:'Titanio blanco',       img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23f2f2f2"/></svg>'},
+            {name:'Titanio negro',        img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23333333"/></svg>'}
+          ]
+        },
         img: 'images/16pro.png'
       },
       {
@@ -235,7 +214,15 @@
         precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 },
         descuento: 0.15,
         vendidos: 8758,
-        opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Titanio del desierto','Titanio natural','Titanio blanco','Titanio negro'] },
+        opciones: {
+          almacenamiento: ['256GB','512GB','1TB'],
+          colorSwatches: [
+            {name:'Titanio del desierto', img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23c6b096"/></svg>'},
+            {name:'Titanio natural',      img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23cfcfd1"/></svg>'},
+            {name:'Titanio blanco',       img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23f2f2f2"/></svg>'},
+            {name:'Titanio negro',        img:'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="88" height="88"><circle cx="44" cy="44" r="44" fill="%23333333"/></svg>'}
+          ]
+        },
         img: 'images/16promax.png'
       }
     ];
@@ -258,14 +245,11 @@
       }
       return deadline;
     }
-    function two(n){ return String(n).padStart(2,'0'); }
+    const two = n => String(n).padStart(2,'0');
     function tick(){
       const remain = Math.max(0, getDeadline()-Date.now());
       const totalSec = Math.floor(remain/1000);
-      const d=Math.floor(totalSec/86400),
-            h=Math.floor(totalSec%86400/3600),
-            m=Math.floor(totalSec%3600/60),
-            s=totalSec%60;
+      const d=Math.floor(totalSec/86400), h=Math.floor(totalSec%86400/3600), m=Math.floor(totalSec%3600/60), s=totalSec%60;
       document.getElementById('d').textContent=two(d);
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
@@ -273,7 +257,6 @@
     }
     setInterval(tick,1000); tick();
 
-    // 价格更新（容量变更）
     function updatePrice(cardId, storage){
       const p = productos.find(x=>x.id===cardId);
       if(!p || !storage) return;
@@ -281,20 +264,16 @@
       const discount = Math.round(original * p.descuento);
       const card = grid.querySelector(`.card[data-id="${cardId}"]`);
       if(!card) return;
-      const priceNew = card.querySelector('.price .new');
-      const priceOld = card.querySelector('.price .old');
-      if(priceNew && priceOld){
-        priceNew.textContent = money(discount);
-        priceOld.textContent = money(original);
-      }
+      card.querySelector('.price .new').textContent = money(discount);
+      card.querySelector('.price .old').textContent = money(original);
     }
 
-    // 渲染产品卡（颜色用圆形色块 + 文字）
     function renderProductos(){
       grid.innerHTML = productos.map(p=>{
         const def = p.opciones.almacenamiento[0];
         const nuevo = Math.round(p.precioOriginal[def] * p.descuento);
-        const offPct = Math.round((1 - p.descuento) * 100); // 85
+        const offPct = Math.round((1 - p.descuento) * 100);
+        const colorHintId = `hint-${p.id}`;
         return `
           <article class="card" data-id="${p.id}">
             <div class="pimg">
@@ -315,15 +294,12 @@
               </div>
 
               <div class="opt-label">Color</div>
-              <div class="color-row">
-                ${p.opciones.color.map(c=>{
-                  const hex = COLOR_HEX[c] || '#ccc';
-                  return `<button class="color" data-id="${p.id}" data-tipo="color" data-valor="${c}" aria-label="${c}">
-                    <span class="sw" style="--sw:${hex}"></span>
-                    <span class="clabel">${c}</span>
-                  </button>`;
-                }).join('')}
+              <div class="opt-row">
+                ${p.opciones.colorSwatches.map((c,i)=>`
+                  <span class="swatch" title="${c.name}" data-id="${p.id}" data-tipo="color" data-valor="${c.name}" style="background-image:url('${c.img}')"></span>
+                `).join('')}
               </div>
+              <div id="${colorHintId}" class="opt-hint"></div>
 
               <div class="meta">
                 <span>${p.vendidos.toLocaleString('es-MX')} compras</span>
@@ -338,31 +314,40 @@
         `;
       }).join('');
 
-      // 选择交互（容量/颜色）
-      grid.querySelectorAll('.opt-btn,.color').forEach(el=>{
-        el.addEventListener('click', e=>{
-          const t=e.currentTarget; const id=t.dataset.id; const tipo=t.dataset.tipo; const valor=t.dataset.valor;
+      // 存储选择
+      grid.querySelectorAll('.opt-btn').forEach(btn=>{
+        btn.addEventListener('click', e=>{
+          const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
           seleccion[id]=seleccion[id]||{};
-          seleccion[id][tipo] = (seleccion[id][tipo]===valor)? null : valor;
-
-          const isColor = t.classList.contains('color');
-          const sel = isColor ? '.color' : '.opt-btn';
-          grid.querySelectorAll(`${sel}[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
-          if(seleccion[id][tipo]){
-            grid.querySelector(`${sel}[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`)?.classList.add('active');
-          }
-
+          seleccion[id][tipo]=(seleccion[id][tipo]===valor)?null:valor;
+          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
+          if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
           if(tipo==='storage') updatePrice(id, valor);
+        });
+      });
+
+      // 颜色选择（显示文字提示）
+      grid.querySelectorAll('.swatch').forEach(s=>{
+        s.addEventListener('click', e=>{
+          const el=e.currentTarget, id=el.dataset.id, valor=el.dataset.valor;
+          const card = el.closest('.card');
+          const hint = card.querySelector(`#hint-${id}`);
+          seleccion[id]=seleccion[id]||{};
+          seleccion[id].color = (seleccion[id].color===valor) ? null : valor;
+          card.querySelectorAll(`.swatch[data-id="${id}"]`).forEach(x=>x.classList.remove('active'));
+          if(seleccion[id].color){ el.classList.add('active'); hint.textContent = `Color seleccionado: ${valor}`; }
+          else{ hint.textContent = ''; }
         });
       });
     }
     renderProductos();
 
-    // 支付（新开窗口，传型号/颜色/价格）
+    // 支付页跳转
     (function(){
       document.addEventListener('click', function(e){
         const btn = e.target && e.target.closest && e.target.closest('button.btn-cta[data-product-id]');
         if(!btn) return;
+
         const productId   = btn.getAttribute('data-product-id') || '';
         const productName = btn.getAttribute('data-contact')    || '';
         const s = (window.seleccion && window.seleccion[productId]) || {};
@@ -399,10 +384,11 @@
       }, true);
     })();
 
-    // 订单查询（/api/orders）
+    // 中心
     const modal = document.getElementById('modalMask');
     document.getElementById('btnCentro').onclick = ()=>{ modal.style.display='flex'; document.getElementById('q').focus(); };
     document.getElementById('btnCerrar').onclick = ()=>{ modal.style.display='none'; document.getElementById('resultBox').innerHTML=''; document.getElementById('q').value=''; };
+
     async function fetchOrders(q){
       try{
         if(!q) return [];
@@ -420,7 +406,7 @@
       const list = await fetchOrders(q);
       if(!list || list.length===0){ box.innerHTML='<div class="small" style="color:#c00">No encontrado.</div>'; return; }
       box.innerHTML = list.map(o=>`
-        <div class="order-card">
+        <div style="background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px">
           <div><b>Número de pedido:</b> ${o.orderId || '-'}</div>
           <div><b>Cliente:</b> ${o.name || '-'}</div>
           <div><b>Teléfono:</b> ${o.phone || '-'}</div>
@@ -434,7 +420,7 @@
       `).join('');
     };
 
-    // 滚动播报（/api/feed）
+    // 跑马灯
     (async function loadTicker(){
       try{
         const r = await fetch('/api/feed', { cache:'no-store' });
