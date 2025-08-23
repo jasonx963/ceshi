@@ -1,10 +1,9 @@
 {
-  "name": "applemx",
-  "version": "1.0.0",
   "private": true,
   "type": "module",
   "dependencies": {
-    "@vercel/kv": "latest",
-    "@vercel/blob": "latest"
+    "@vercel/blob": "^0.23.0",
+    "@vercel/kv": "^1.0.0",
+    "formidable": "^3.5.1"
   }
 }
