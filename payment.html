@@ -4,49 +4,59 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Pagar pedido</title>
+  <meta name="description" content="Pago por transferencia bancaria con comprobante de iPhone 16 / 16 Pro / 16 Pro Max."/>
   <style>
-    :root{--text:#111;--muted:#6e6e73;--bd:#d2d2d7;--tile:#f5f5f7;--cta:#0077ff;--cta-ink:#fff}
+    :root{
+      --ink:#1d1d1f; --muted:#6e6e73; --hair:#d2d2d7; --panel:#f5f5f7; --ok:#0a7d33; --warn:#b91c1c;
+      --blue:#0077ff; --bg:#ffffff;
+    }
     *{box-sizing:border-box}
-    html,body{margin:0;background:#fff;color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:inherit}
-    .wrap{max-width:960px;margin:0 auto;padding:16px}
-    header{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bd)}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{text-decoration:none;color:var(--blue)}
+    .wrap{max-width:920px;margin:0 auto;padding:18px}
+    header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
     h1{margin:0;font-size:28px}
-    .muted{color:var(--muted);font-size:13px}
-    .card{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:16px;margin-top:12px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+    .muted{color:var(--muted)}
+    .card{background:#fff;border:1px solid var(--hair);border-radius:16px;box-shadow:0 6px 18px rgba(0,0,0,.05);padding:16px;margin:12px 0}
     .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:720px){.grid2{grid-template-columns:1fr}}
-    .kv{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--bd);border-radius:12px;padding:10px 12px;margin:8px 0}
-    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;}
-    button{cursor:pointer;border:0;border-radius:10px;padding:10px 12px;font-weight:800}
-    .btn{background:var(--cta);color:var(--cta-ink)}
-    .btn.ghost{background:#f2f2f2;border:1px solid var(--bd);color:#111}
-    input,textarea{width:100%;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;font-size:14px}
-    .preview{display:block;width:100%;max-height:360px;object-fit:contain;border:1px dashed var(--bd);border-radius:12px}
-    .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-    @media(max-width:720px){.row{grid-template-columns:1fr}}
-    .ok{color:#059669;font-weight:800}.warn{color:#b91c1c;font-weight:800}
+    @media (max-width:720px){.grid2{grid-template-columns:1fr}}
+    .kv{display:flex;align-items:center;justify-content:space-between;border:1px dashed var(--hair);border-radius:12px;padding:10px 12px;margin:8px 0}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+    input,textarea{width:100%;padding:10px 12px;border:1px solid var(--hair);border-radius:10px;font-size:14px}
+    button{cursor:pointer;border:0;border-radius:10px;padding:10px 12px;font-weight:700}
+    .btn{background:#111;color:#fff}
+    .btn.blue{background:var(--blue)}
+    .btn.ghost{background:#f3f4f6;color:#111}
+    .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .actions .btn{flex:1;min-width:160px}
+    .ok{color:var(--ok);font-weight:700}
+    .warn{color:var(--warn);font-weight:700}
+    .previewBox{border:1px dashed var(--hair);border-radius:12px;display:flex;align-items:center;justify-content:center;min-height:160px;overflow:hidden}
+    .previewBox img{max-width:100%;max-height:360px;object-fit:contain;display:block}
+    .pdfTag{font-weight:800;color:#fff;background:#444;border-radius:8px;padding:8px 10px}
+    .tips{font-size:13px;color:var(--muted)}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1>Pago</h1>
-      <a class="muted" href="./index.html">← Volver</a>
+      <h1>Pago seguro</h1>
+      <a class="muted" href="./index.html">← Regresar</a>
     </header>
 
-    <!-- 订单概要：展示型号/存储/颜色/价格 -->
-    <div class="card">
+    <!-- Resumen del pedido -->
+    <div id="orderInfo" class="card">
       <div class="grid2">
         <div>
           <div class="muted">Producto</div>
           <div id="pname" class="mono">-</div>
         </div>
         <div>
-          <div class="muted">ID</div>
+          <div class="muted">ID del producto</div>
           <div id="pid" class="mono">-</div>
         </div>
       </div>
+
       <div class="grid2" style="margin-top:10px">
         <div>
           <div class="muted">Almacenamiento</div>
@@ -57,55 +67,75 @@
           <div id="pcolor" class="mono">-</div>
         </div>
       </div>
+
       <div style="margin-top:10px">
         <div class="muted">Precio</div>
         <div id="pprice" class="mono">-</div>
       </div>
     </div>
 
-    <!-- 银行信息 + 复制（保持你提供的数据） -->
+    <!-- Información bancaria -->
     <div class="card">
       <h3 style="margin:0 0 8px;">Información bancaria</h3>
-      <p class="muted">Copia los datos, realiza la transferencia y luego sube el comprobante.</p>
+      <p class="muted">Copia exactamente estos datos para hacer la transferencia. Después, sube el comprobante.</p>
 
       <div class="kv">
-        <div><b>Banco</b><div class="muted mono" id="bankName">BANCOPPEL</div></div>
+        <div>
+          <b>Banco</b>
+          <div class="muted mono" id="bankName">BANCOPPEL</div>
+        </div>
         <button class="btn ghost" data-copy="#bankName">Copiar</button>
       </div>
 
       <div class="kv">
-        <div><b>Cuenta a nombre de</b><div class="muted mono" id="accountName">Apple México, S.A. de C.V.</div></div>
+        <div>
+          <b>Cuenta a nombre de</b>
+          <div class="muted mono" id="accountName">DAYANA COLIN PÉREZ</div>
+        </div>
         <button class="btn ghost" data-copy="#accountName">Copiar</button>
       </div>
 
       <div class="kv">
-        <div><b>CLABE</b><div class="muted mono" id="clabe">137180105271820309</div></div>
+        <div>
+          <b>CLABE</b>
+          <div class="muted mono" id="clabe">137180105271820309</div>
+        </div>
         <button class="btn ghost" data-copy="#clabe">Copiar</button>
       </div>
 
       <div class="kv">
-        <div><b>Número de tarjeta</b><div class="muted mono" id="cardNo">4169 1614 9957 9992</div></div>
+        <div>
+          <b>Número de tarjeta</b>
+          <div class="muted mono" id="cardNo">4169 1614 9957 9992</div>
+        </div>
         <button class="btn ghost" data-copy="#cardNo">Copiar</button>
+      </div>
+
+      <div class="actions">
+        <button id="copyAll" class="btn blue">Copiar todos los datos</button>
       </div>
     </div>
 
-    <!-- 上传凭证 -->
+    <!-- Subir comprobante -->
     <div class="card">
       <h3 style="margin:0 0 8px;">Sube el comprobante</h3>
-      <div class="row">
+      <p class="muted">Aceptamos JPG/PNG/PDF (máx. 8 MB). Asegúrate de que se vea el monto, la fecha y la referencia.</p>
+      <div class="grid2">
         <div>
           <input id="file" type="file" accept="image/*,application/pdf" />
-          <div style="margin-top:8px"><img id="preview" class="preview" alt="Vista previa" /></div>
+          <div class="previewBox" style="margin-top:8px">
+            <div id="previewHolder" class="muted">Vista previa</div>
+          </div>
         </div>
         <div>
           <label class="muted" for="note">Notas (opcional)</label>
-          <textarea id="note" rows="6" placeholder="Últimos dígitos del folio, hora del pago, etc."></textarea>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-            <button id="btnUpload" class="btn">Enviar comprobante</button>
+          <textarea id="note" rows="6" placeholder="Escribe detalles como el último dígito del folio, hora del pago, etc."></textarea>
+          <div class="actions">
+            <button id="btnUpload" class="btn blue">Enviar comprobante</button>
             <button id="btnReset" class="btn ghost">Limpiar</button>
           </div>
-          <div id="tip" class="muted" style="margin-top:10px">
-            Consejo: Sube el comprobante aquí. Verificaremos y confirmaremos tu pedido.
+          <div id="tip" class="tips" style="margin-top:10px">
+            Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.
           </div>
         </div>
       </div>
@@ -114,92 +144,152 @@
     <div class="card">
       <h3 style="margin:0 0 8px;">¿Dudas?</h3>
       <p class="muted">Si necesitas ayuda, contáctanos por WhatsApp con tu número de pedido y el comprobante.</p>
-      <a class="btn" href="https://wa.me/5215512345678" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp</a>
+      <a class="btn blue" href="https://wa.me/5215512345678" target="_blank" rel="noopener noreferrer">Contactar por WhatsApp</a>
     </div>
   </div>
 
   <script>
-    // 读取参数
-    const ps = new URLSearchParams(location.search);
-    const product   = ps.get('product')   || '-';
-    const productId = ps.get('productId') || '-';
-    let   storage   = ps.get('storage')   || '';
-    let   color     = ps.get('color')     || '';
-    let   price     = ps.get('price')     || '';
+    // ===== Lee parámetros de URL =====
+    const params = new URLSearchParams(location.search);
+    const product   = params.get('product')   || '-';
+    const productId = params.get('productId') || '-';
+    let   storage   = params.get('storage')   || '';
+    let   color     = params.get('color')     || '';
+    let   price     = params.get('price')     || '';
 
+    // Muestra en la página
     document.getElementById('pname').textContent    = product;
     document.getElementById('pid').textContent      = productId;
     document.getElementById('pstorage').textContent = storage || '-';
     document.getElementById('pcolor').textContent   = color   || '-';
 
-    // 兜底价格（与首页一致：实付=原价*0.15）
+    // ===== Fallback de precio (15% del PVP) =====
     (function ensurePrice(){
-      const DISCOUNT = 0.15, CURRENCY='MX$';
-      const db = {
-        ip16:      { price:{'128GB':19999,'256GB':22499,'512GB':27499} },
-        ip16pro:   { price:{'128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499} },
-        ip16promax:{ price:{'256GB':30999,'512GB':35999,'1TB':40999} }
-      };
-      const toMoney = n => CURRENCY + new Intl.NumberFormat('es-MX').format(Math.round(n));
+      const toMoney = n => 'MX$' + new Intl.NumberFormat('es-MX').format(Math.round(n));
 
-      if((!storage || storage==='-') && db[productId]){
-        const keys = Object.keys(db[productId].price); if(keys.length) storage = keys[0];
+      const db = {
+        ip16:       { discount: 0.15, price: {'128GB':19999,'256GB':22499,'512GB':27499} },
+        ip16pro:    { discount: 0.15, price: {'128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499} },
+        ip16promax: { discount: 0.15, price: {'256GB':30999,'512GB':35999,'1TB':40999} }
+      };
+
+      if ((!storage || storage==='-') && db[productId]) {
+        const keys = Object.keys(db[productId].price);
+        if (keys.length) storage = keys[0];
         document.getElementById('pstorage').textContent = storage || '-';
       }
+
       const num = Number(price);
-      if(!price || Number.isNaN(num)){
-        const base = db[productId]?.price?.[storage];
-        if(typeof base==='number') price = Math.round(base * DISCOUNT);
+      if (!price || Number.isNaN(num)) {
+        if (db[productId] && db[productId].price[storage]) {
+          const original = db[productId].price[storage];
+          price = Math.round(original * db[productId].discount);
+        }
       }
+
       document.getElementById('pprice').textContent = price ? toMoney(price) : '-';
     })();
 
-    // 复制
+    // ===== Botones de copiar =====
     document.querySelectorAll('[data-copy]').forEach(btn=>{
       btn.addEventListener('click', ()=>{
-        const el = document.querySelector(btn.getAttribute('data-copy'));
-        if(!el) return;
-        navigator.clipboard.writeText(el.textContent.trim()).then(()=>{
-          btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent='Copiar',1200);
+        const sel = btn.getAttribute('data-copy');
+        const el  = document.querySelector(sel);
+        if (!el) return;
+        const text = el.textContent.trim();
+        navigator.clipboard.writeText(text).then(()=>{
+          const old = btn.textContent;
+          btn.textContent = '¡Copiado!';
+          setTimeout(()=>btn.textContent=old, 1200);
         });
       });
     });
 
-    // 预览
-    const fileInput = document.getElementById('file');
-    const preview   = document.getElementById('preview');
-    fileInput.addEventListener('change', ()=>{
-      const f = fileInput.files && fileInput.files[0];
-      if(!f){ preview.src=''; return; }
-      const r = new FileReader(); r.onload=e=>preview.src=e.target.result; r.readAsDataURL(f);
+    // Copiar todo
+    document.getElementById('copyAll').addEventListener('click', ()=>{
+      const lines = [
+        'Banco: ' + document.getElementById('bankName').textContent.trim(),
+        'Cuenta a nombre de: ' + document.getElementById('accountName').textContent.trim(),
+        'CLABE: ' + document.getElementById('clabe').textContent.trim(),
+        'Número de tarjeta: ' + document.getElementById('cardNo').textContent.trim()
+      ];
+      navigator.clipboard.writeText(lines.join('\n')).then(()=>{
+        const btn=document.getElementById('copyAll'); const old=btn.textContent;
+        btn.textContent='¡Copiado!'; setTimeout(()=>btn.textContent=old,1200);
+      });
     });
 
-    // 提交
+    // ===== Vista previa del archivo =====
+    const fileInput = document.getElementById('file');
+    const holder    = document.getElementById('previewHolder');
+
+    function showPreview(file){
+      holder.innerHTML = '';
+      if(!file){ holder.textContent='Vista previa'; return; }
+
+      if(file.type === 'application/pdf'){
+        const tag = document.createElement('div');
+        tag.className = 'pdfTag';
+        tag.textContent = 'PDF seleccionado';
+        holder.appendChild(tag);
+        return;
+      }
+      // imagen
+      const img = document.createElement('img');
+      holder.appendChild(img);
+      const r = new FileReader();
+      r.onload = e => img.src = e.target.result;
+      r.readAsDataURL(file);
+    }
+
+    fileInput.addEventListener('change', ()=>{
+      const f = fileInput.files && fileInput.files[0];
+      showPreview(f);
+    });
+
+    // ===== Enviar a /api/payment-upload =====
     async function doUpload(){
       const f = fileInput.files && fileInput.files[0];
-      if(!f){ document.getElementById('tip').innerHTML='<span class="warn">Selecciona un archivo primero.</span>'; return; }
+      if (!f) {
+        document.getElementById('tip').innerHTML = '<span class="warn">Por favor, selecciona un archivo primero.</span>';
+        return;
+      }
+      if (f.size > 8*1024*1024) {
+        document.getElementById('tip').innerHTML = '<span class="warn">El archivo supera los 8 MB. Reduce el tamaño e inténtalo de nuevo.</span>';
+        return;
+      }
+
+      const note = document.getElementById('note').value || '';
       const fd = new FormData();
-      fd.append('orderId', productId);
+      fd.append('orderId', productId);   // usamos productId como订单号（与前端一致）
       fd.append('product', product);
-      fd.append('storage', storage||'');
-      fd.append('color',   color||'');
-      fd.append('price',   price||'');
-      fd.append('note',    document.getElementById('note').value||'');
+      fd.append('storage', storage || '');
+      fd.append('color',   color   || '');
+      fd.append('price',   price   || '');
+      fd.append('note',    note);
       fd.append('file',    f);
+
       try{
-        const res = await fetch('/api/payment-upload',{method:'POST',body:fd});
-        const js  = await res.json();
-        if(!res.ok || !js?.ok) throw new Error(js?.message||('HTTP '+res.status));
-        document.getElementById('tip').innerHTML='<span class="ok">Enviado correctamente. Confirmaremos pronto.</span>';
-        document.getElementById('btnUpload').disabled=true; fileInput.disabled=true;
+        const res  = await fetch('/api/payment-upload', { method:'POST', body: fd });
+        const json = await res.json().catch(()=>({}));
+        if (res.ok && json && json.ok) {
+          document.getElementById('tip').innerHTML = '<span class="ok">Comprobante enviado correctamente. Te notificaremos tras la verificación.</span>';
+          document.getElementById('btnUpload').disabled = true;
+          fileInput.disabled = true;
+        } else {
+          throw new Error(json && json.message || 'Error desconocido');
+        }
       }catch(e){
-        document.getElementById('tip').innerHTML='<span class="warn">No se pudo enviar. Intenta de nuevo o usa WhatsApp.</span>';
+        document.getElementById('tip').innerHTML = '<span class="warn">No se pudo enviar. Intenta otra vez o contáctanos por WhatsApp.</span>';
       }
     }
     document.getElementById('btnUpload').addEventListener('click', doUpload);
+
+    // Limpiar
     document.getElementById('btnReset').addEventListener('click', ()=>{
-      fileInput.value=''; preview.src=''; document.getElementById('note').value='';
-      document.getElementById('tip').textContent='Consejo: Sube el comprobante aquí. Verificaremos y confirmaremos tu pedido.';
+      fileInput.value=''; showPreview(null);
+      document.getElementById('note').value='';
+      document.getElementById('tip').textContent='Consejo: Después de pagar, sube el comprobante aquí. Nuestro equipo verificará y confirmará tu pedido.';
       document.getElementById('btnUpload').disabled=false; fileInput.disabled=false;
     });
   </script>
