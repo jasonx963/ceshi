@@ -6,43 +6,25 @@
   <title>iPhone 16 / Pro / Pro Max – Oferta</title>
   <meta name="description" content="iPhone 16 con estilo minimalista, selección de modelos y pago por transferencia.">
 
-  <!-- 浏览器标签页小图标（使用你的 SVG） -->
-  <link rel="icon" type="image/svg+xml" href="/images/logo-apple.svg">
+  <!-- 可选：站点小图标（若你已把 apple.svg 放在 /images/ 下，可以启用）
+  <link rel="icon" type="image/svg+xml" href="images/apple.svg">
+  <link rel="icon" type="image/png" href="images/apple-180.png" sizes="180x180">
+  -->
 
   <style>
     :root{
-      /* 苹果风：白底、浅灰分隔、深灰文本、蓝色主按钮 */
-      --bg:#ffffff;
-      --ink:#111111;
-      --muted:#6e6e73;       /* 浅灰文案 */
-      --hairline:#d2d2d7;    /* 细分隔线 */
-      --panel:#f5f5f7;       /* 浅灰区块底色 */
-      --blue:#0077ff;        /* 主行动色 */
-      --blue-ink:#ffffff;    /* 按钮文字 */
-      --chip:#1d1d1f;        /* 深色小标 */
-      --success:#0a7d33;
+      --bg:#ffffff; --ink:#111111; --muted:#6e6e73; --hairline:#d2d2d7; --panel:#f5f5f7;
+      --blue:#0077ff; --blue-ink:#ffffff;
     }
-
     *{box-sizing:border-box}
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
     img{display:block;max-width:100%;height:auto}
 
     /* 顶部导航 */
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
-
-    /* —— 品牌（替换为你的 SVG，并放大显示） —— */
-    .brand{display:flex;align-items:center;text-decoration:none;color:var(--ink)}
-    .brand-logo{
-      width:56px;   /* 大号 Logo 尺寸（可按需调 48~64） */
-      height:56px;
-      display:block;
-    }
-    @media (max-width:480px){
-      .brand-logo{ width:44px; height:44px; }
-    }
-
-    .nav-actions{display:flex;gap:10px;align-items:center}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand-svg{width:30px;height:30px;display:block}
     .btn-link{border:0;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;padding:8px 10px;border-radius:10px}
     .btn-link:hover{background:#f2f2f2}
     .btn-blue{background:var(--blue);color:var(--blue-ink);border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
@@ -60,9 +42,7 @@
     .lead{color:var(--muted);margin:6px 0 18px}
     .panel{background:var(--panel);border:1px solid var(--hairline);border-radius:18px;padding:12px}
     .time{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .time .label{font-weight:800}
-    .timer{display:flex;align-items:center;gap:8px;white-space:nowrap}
-    .tchip{background:#000;color:#fff;display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:48px;border-radius:12px;font-weight:900;font-size:22px;letter-spacing:.5px}
+    .tchip{background:#000;color:#fff;display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:48px;border-radius:12px;font-weight:900;font-size:22px}
     .colon{font-weight:900;font-size:22px}
     @media(max-width:420px){.tchip{min-width:46px;height:40px;font-size:18px}.colon{font-size:18px}}
 
@@ -88,7 +68,7 @@
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
     .opt-row{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* —— 颜色圆点 —— */
+    /* 颜色圆点（背景图片） */
     .swatch{
       width:44px;height:44px;border-radius:50%;
       border:2px solid var(--hairline);cursor:pointer;
@@ -132,20 +112,22 @@
 </head>
 <body>
 
-  <!-- 顶部导航（已替换为你的 SVG 品牌并放大） -->
+  <!-- 顶部导航 -->
   <header>
     <div class="nav">
-      <a class="brand" href="/">
-        <img src="images/logo-apple.svg" alt="Apple" class="brand-logo">
-      </a>
-      <div class="nav-actions">
+      <div class="brand" aria-label="Apple">
+        <!-- 内联 SVG（黑色） -->
+        <svg class="brand-svg" viewBox="0 0 100 100" aria-hidden="true">
+          <path fill="#111" d="M65.6 21.9c-4.1 0-8 2.4-10.4 5.5c-2.2 2.9-3.9 6.8-3.1 10.7c4.4.2 8.9-2.6 11.6-5.9c2.6-3.1 4.5-7.3 3.9-10.3c-.6 0-1.3 0-2 0zM83.3 73.8c-1.6 3.6-3.6 7.1-6.5 10.9c-3.2 4.2-7.3 9.4-12.6 9.5c-4.7.1-6-3-12.5-3c-6.5 0-8 2.9-12.7 3.1c-5.3.2-9.4-4.6-12.6-8.8C19 79.5 13.2 65.7 13 52.7c-.1-7.3 1.9-13.6 5.8-18.7c3.8-4.9 9.5-8 14.9-8.1c5.1-.1 9.1 3.3 12.5 3.3c3.4 0 8-3.5 13.5-3c2.3.1 9 .9 13.3 6.8c-.3.2-7.9 4.6-7.8 13.6c.1 10.8 9.5 14.3 9.6 14.4c-.1.3-1.5 5.1-4.5 12.8z"/>
+        </svg>
+        <strong style="font-size:16px;letter-spacing:.2px;">Apple</strong>
+      </div>
+      <div>
         <button class="btn-link" id="btnCentro">Orden</button>
         <button class="btn-blue" id="btnTopWA">Contáctenos</button>
       </div>
     </div>
-    <div class="ticker">
-      <div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div>
-    </div>
+    <div class="ticker"><div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div></div>
   </header>
 
   <!-- Hero -->
@@ -155,8 +137,8 @@
       <p class="lead">Ahorra 85%. Envío desde Apple. Calidad garantizada.</p>
       <div class="panel">
         <div class="time">
-          <div class="label">Tiempo restante de la oferta</div>
-          <div class="timer">
+          <div class="label" style="font-weight:800">Tiempo restante de la oferta</div>
+          <div>
             <span class="tchip" id="d">00</span><span class="colon">:</span>
             <span class="tchip" id="h">00</span><span class="colon">:</span>
             <span class="tchip" id="m">00</span><span class="colon">:</span>
@@ -213,22 +195,23 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // 产品数据（与你之前保持一致；颜色圆点使用图片 swatch 或纯色都可）
+    // —— 产品数据（颜色与存储按你的仓库文件 .jpg 来） —— //
     const productos = [
       {
         id: 'ip16',
         nombre: 'iPhone 16',
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15, // 15%
+        descuento: 0.15,
         vendidos: 6473,
         opciones: {
           almacenamiento: ['128GB','256GB','512GB'],
+          // /images/colors/ 下的 .jpg 文件
           colorSwatches: [
-            {name:'Ultramarino',     img:'images/colors/16-ultramarino.jpeg'},
-            {name:'Verde azulado',   img:'images/colors/16-verde-azulado.jpeg'},
-            {name:'Rosa',            img:'images/colors/16-rosa.jpeg'},
-            {name:'Blanco',          img:'images/colors/16-blanco.jpeg'},
-            {name:'Negro',           img:'images/colors/16-negro.jpeg'}
+            { name:'Ultramarino',     img:'images/colors/ultramarino.jpg' },
+            { name:'Verde azulado',   img:'images/colors/verde-azulado.jpg' },
+            { name:'Rosa',            img:'images/colors/rosa.jpg' },
+            { name:'Blanco',          img:'images/colors/blanco.jpg' },
+            { name:'Negro',           img:'images/colors/negro.jpg' },
           ]
         },
         img: 'images/16.png'
@@ -241,11 +224,12 @@
         vendidos: 7941,
         opciones: {
           almacenamiento: ['128GB','256GB','512GB','1TB'],
+          // 注意文件名中的空格使用 %20 编码
           colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/16pro-desert-titanium.jpeg'},
-            {name:'Titanio natural',      img:'images/colors/16pro-natural-titanium.jpeg'},
-            {name:'Titanio blanco',       img:'images/colors/16pro-white-titanium.jpeg'},
-            {name:'Titanio negro',        img:'images/colors/16pro-black-titanium.jpeg'}
+            { name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg' },
+            { name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg' },
+            { name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg' },
+            { name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg' },
           ]
         },
         img: 'images/16pro.png'
@@ -259,10 +243,10 @@
         opciones: {
           almacenamiento: ['256GB','512GB','1TB'],
           colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/16pro-desert-titanium.jpeg'},
-            {name:'Titanio natural',      img:'images/colors/16pro-natural-titanium.jpeg'},
-            {name:'Titanio blanco',       img:'images/colors/16pro-white-titanium.jpeg'},
-            {name:'Titanio negro',        img:'images/colors/16pro-black-titanium.jpeg'}
+            { name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg' },
+            { name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg' },
+            { name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg' },
+            { name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg' },
           ]
         },
         img: 'images/16promax.png'
@@ -287,14 +271,11 @@
       }
       return deadline;
     }
-    function two(n){ return String(n).padStart(2,'0'); }
+    const two = n => String(n).padStart(2,'0');
     function tick(){
       const remain = Math.max(0, getDeadline()-Date.now());
       const totalSec = Math.floor(remain/1000);
-      const d=Math.floor(totalSec/86400),
-            h=Math.floor(totalSec%86400/3600),
-            m=Math.floor(totalSec%3600/60),
-            s=totalSec%60;
+      const d=Math.floor(totalSec/86400), h=Math.floor(totalSec%86400/3600), m=Math.floor(totalSec%3600/60), s=totalSec%60;
       document.getElementById('d').textContent=two(d);
       document.getElementById('h').textContent=two(h);
       document.getElementById('m').textContent=two(m);
@@ -302,7 +283,7 @@
     }
     setInterval(tick,1000); tick();
 
-    // ===== 渲染产品卡片 =====
+    // ===== 渲染 & 价格更新 =====
     function updatePrice(cardId, storage){
       const p = productos.find(x=>x.id===cardId);
       if(!p || !storage) return;
@@ -310,12 +291,8 @@
       const discount = Math.round(original * p.descuento);
       const card = grid.querySelector(`.card[data-id="${cardId}"]`);
       if(!card) return;
-      const priceNew = card.querySelector('.price .new');
-      const priceOld = card.querySelector('.price .old');
-      if(priceNew && priceOld){
-        priceNew.textContent = money(discount);
-        priceOld.textContent = money(original);
-      }
+      card.querySelector('.price .new').textContent = money(discount);
+      card.querySelector('.price .old').textContent = money(original);
     }
 
     function renderProductos(){
@@ -364,7 +341,7 @@
         `;
       }).join('');
 
-      // 规格选择
+      // 存储选择
       grid.querySelectorAll('.opt-btn').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
@@ -438,6 +415,7 @@
     const modal = document.getElementById('modalMask');
     document.getElementById('btnCentro').onclick = ()=>{ modal.style.display='flex'; document.getElementById('q').focus(); };
     document.getElementById('btnCerrar').onclick = ()=>{ modal.style.display='none'; document.getElementById('resultBox').innerHTML=''; document.getElementById('q').value=''; };
+
     async function fetchOrders(q){
       try{
         if(!q) return [];
@@ -455,7 +433,7 @@
       const list = await fetchOrders(q);
       if(!list || list.length===0){ box.innerHTML='<div class="small" style="color:#c00">No encontrado.</div>'; return; }
       box.innerHTML = list.map(o=>`
-        <div class="order-card" style="background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px">
+        <div style="background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px">
           <div><b>Número de pedido:</b> ${o.orderId || '-'}</div>
           <div><b>Cliente:</b> ${o.name || '-'}</div>
           <div><b>Teléfono:</b> ${o.phone || '-'}</div>
@@ -469,7 +447,7 @@
       `).join('');
     };
 
-    // ===== 跑马灯 =====
+    // ===== 跑马灯（/api/feed） =====
     (async function loadTicker(){
       try{
         const r = await fetch('/api/feed', { cache:'no-store' });
