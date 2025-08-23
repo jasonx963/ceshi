@@ -15,18 +15,30 @@
     html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
     img{display:block;max-width:100%;height:auto}
 
+    /* 顶部导航 */
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
-    .brand{display:flex;align-items:center;gap:10px}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px;min-height:72px}
+    .nav-actions{display:flex;gap:10px;align-items:center}
     .btn-link{border:0;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;padding:8px 10px;border-radius:10px}
     .btn-link:hover{background:#f2f2f2}
     .btn-blue{background:var(--blue);color:var(--blue-ink);border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
     .btn-blue:hover{filter:brightness(0.95)}
 
+    /* —— 放大后的 Apple 徽标 —— */
+    .brand{display:flex;align-items:center;gap:10px}
+    .apple-badge{
+      width:56px;height:56px;              /* 容器大小（接近你画的框） */
+      display:flex;align-items:center;justify-content:center;
+      border-radius:14px;                  /* 可轻微圆角，视觉更柔和 */
+    }
+    .apple-logo{width:34px;height:34px;display:block}  /* 图标实际尺寸 */
+
+    /* 顶部横幅（滚动播报） */
     .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:#fff}
     .ticker-inner{max-width:1200px;margin:0 auto;padding:8px 16px;white-space:nowrap;overflow:hidden}
     #tickerText{display:inline-block;will-change:transform;color:var(--muted);font-weight:700}
 
+    /* Hero */
     .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding:28px 16px}
     @media(max-width:960px){.hero{grid-template-columns:1fr}}
     h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 12px;font-weight:800;letter-spacing:.2px}
@@ -40,6 +52,7 @@
     .hero-visual{border-radius:18px;border:1px solid var(--hairline);background:#fff;padding:10px;display:flex;align-items:center;justify-content:center;min-height:260px}
     .hero-visual img{object-fit:contain;max-height:360px}
 
+    /* 产品区 */
     .section{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     @media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
@@ -58,7 +71,7 @@
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
     .opt-row{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* 颜色圆点 */
+    /* —— 颜色圆点 —— */
     .swatch{
       width:44px;height:44px;border-radius:50%;
       border:2px solid var(--hairline);cursor:pointer;
@@ -80,10 +93,12 @@
     .btn-cta{width:100%;background:var(--blue);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
     .btn-cta:hover{filter:brightness(0.95)}
 
+    /* 底部帮助条 */
     .helpbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--hairline);padding:10px 0}
     .helpbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px}
     .small{color:var(--muted);font-weight:700}
 
+    /* 订单查询 Modal */
     .mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:80}
     .modal{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:18px;max-width:520px;width:92%}
     .modal h3{margin:0 0 8px}
@@ -93,16 +108,20 @@
     .btn.gray{background:#f3f3f3}
     .btn.primary{background:#000;color:#fff}
 
+    /* 右下 WhatsApp 按钮 */
     .wa-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#29d366,#21b954);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:70}
     .wa-fab img{width:30px;height:30px}
   </style>
 </head>
 <body>
+
+  <!-- 顶部导航 -->
   <header>
     <div class="nav">
-      <a class="brand" href="/" aria-label="Apple">
-        <span class="apple-logo" style="display:inline-block;width:18px;height:18px">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+      <a class="brand" href="./" aria-label="Apple">
+        <span class="apple-badge">
+          <!-- 放大的 Apple SVG 图标 -->
+          <svg class="apple-logo" viewBox="0 0 24 24" aria-hidden="true">
             <path fill="#111"
               d="M16.365 13.143c-.284.656-.62 1.245-1.01 1.767-.53.709-1.02 1.197-1.47 1.463-.59.35-1.22.53-1.89.54-.48 0-1.07-.14-1.78-.42-.71-.28-1.36-.42-1.96-.42-.62 0-1.29.14-2 .42-.71.28-1.29.43-1.73.43-.66-.01-1.29-.18-1.9-.52-.43-.25-.94-.74-1.53-1.48-.66-.81-1.2-1.75-1.62-2.81-.45-1.11-.68-2.18-.68-3.21 0-1.19.26-2.22.79-3.1.41-.71.95-1.27 1.62-1.68.68-.41 1.41-.62 2.2-.64.43 0 .99.16 1.68.49.68.33 1.12.49 1.33.49.15 0 .65-.2 1.49-.6.8-.36 1.47-.52 2-.5 1.48.12 2.6.7 3.36 1.74-1.34.81-2 1.94-1.98 3.38.02 1.13.42 2.06 1.2 2.8.36.34.77.6 1.23.8-.1.29-.2.58-.33.88z"/>
             <path fill="#111"
@@ -110,14 +129,18 @@
           </svg>
         </span>
       </a>
-      <div>
+
+      <div class="nav-actions">
         <button class="btn-link" id="btnCentro">Orden</button>
         <button class="btn-blue" id="btnTopWA">Contáctenos</button>
       </div>
     </div>
-    <div class="ticker"><div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div></div>
+    <div class="ticker">
+      <div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div>
+    </div>
   </header>
 
+  <!-- Hero -->
   <section class="hero">
     <div>
       <h1>iPhone 16 / Pro / Pro Max</h1>
@@ -141,10 +164,12 @@
     </div>
   </section>
 
+  <!-- 产品 -->
   <section class="section">
     <div class="grid" id="grid"></div>
   </section>
 
+  <!-- 底部帮助条 -->
   <div class="helpbar">
     <div class="helpbar-inner">
       <div class="small">¿Necesitas ayuda? Nuestro equipo está en línea.</div>
@@ -152,6 +177,7 @@
     </div>
   </div>
 
+  <!-- 订单查询 Modal -->
   <div class="mask" id="modalMask">
     <div class="modal">
       <h3>Centro personal</h3>
@@ -167,16 +193,19 @@
     </div>
   </div>
 
+  <!-- 右下 WhatsApp 按钮 -->
   <div class="wa-fab" id="waFab" title="WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </div>
 
   <script>
+    // ===== 基本配置 =====
     const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';
     const FINISH_IN_MINUTES = 1440;
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
+    // —— 产品数据（颜色与存储） —— 
     const productos = [
       {
         id: 'ip16',
@@ -205,10 +234,10 @@
         opciones: {
           almacenamiento: ['128GB','256GB','512GB','1TB'],
           colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/16pro-titanio-desierto.jpeg'},
-            {name:'Titanio natural',      img:'images/colors/16pro-titanio-natural.jpeg'},
-            {name:'Titanio blanco',       img:'images/colors/16pro-titanio-blanco.jpeg'},
-            {name:'Titanio negro',        img:'images/colors/16pro-titanio-negro.jpeg'}
+            {name:'Titanio del desierto', img:'images/colors/16pro-desierto.jpeg'},
+            {name:'Titanio natural',      img:'images/colors/16pro-natural.jpeg'},
+            {name:'Titanio blanco',       img:'images/colors/16pro-blanco.jpeg'},
+            {name:'Titanio negro',        img:'images/colors/16pro-negro.jpeg'}
           ]
         },
         img: 'images/16pro.png'
@@ -222,10 +251,10 @@
         opciones: {
           almacenamiento: ['256GB','512GB','1TB'],
           colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/16promax-titanio-desierto.jpeg'},
-            {name:'Titanio natural',      img:'images/colors/16promax-titanio-natural.jpeg'},
-            {name:'Titanio blanco',       img:'images/colors/16promax-titanio-blanco.jpeg'},
-            {name:'Titanio negro',        img:'images/colors/16promax-titanio-negro.jpeg'}
+            {name:'Titanio del desierto', img:'images/colors/16promax-desierto.jpeg'},
+            {name:'Titanio natural',      img:'images/colors/16promax-natural.jpeg'},
+            {name:'Titanio blanco',       img:'images/colors/16promax-blanco.jpeg'},
+            {name:'Titanio negro',        img:'images/colors/16promax-negro.jpeg'}
           ]
         },
         img: 'images/16promax.png'
@@ -238,6 +267,7 @@
     window.productos = productos;
     window.seleccion = seleccion;
 
+    // 倒计时
     function getDeadline(){
       const key='pdd_iphone_deadline';
       const saved=localStorage.getItem(key);
@@ -318,6 +348,7 @@
         `;
       }).join('');
 
+      // 存储选择
       grid.querySelectorAll('.opt-btn').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
@@ -329,6 +360,7 @@
         });
       });
 
+      // 颜色选择（显示文字提示）
       grid.querySelectorAll('.swatch').forEach(s=>{
         s.addEventListener('click', e=>{
           const el=e.currentTarget, id=el.dataset.id, valor=el.dataset.valor;
@@ -344,6 +376,7 @@
     }
     renderProductos();
 
+    // 支付页跳转
     (function(){
       document.addEventListener('click', function(e){
         const btn = e.target && e.target.closest && e.target.closest('button.btn-cta[data-product-id]');
@@ -385,6 +418,7 @@
       }, true);
     })();
 
+    // 订单查询
     const modal = document.getElementById('modalMask');
     document.getElementById('btnCentro').onclick = ()=>{ modal.style.display='flex'; document.getElementById('q').focus(); };
     document.getElementById('btnCerrar').onclick = ()=>{ modal.style.display='none'; document.getElementById('resultBox').innerHTML=''; document.getElementById('q').value=''; };
@@ -420,6 +454,7 @@
       `).join('');
     };
 
+    // 滚动播报（/api/feed）
     (async function loadTicker(){
       try{
         const r = await fetch('/api/feed', { cache:'no-store' });
@@ -435,6 +470,7 @@
       }catch(_){}
     })();
 
+    // WhatsApp 入口
     function openWhatsApp(producto){
       const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp${producto?(' por '+producto):''}.`);
       window.open(`${WHATSAPP_PHONE}?text=${text}`, '_blank');
