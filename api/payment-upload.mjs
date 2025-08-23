@@ -1,6 +1,6 @@
 // /api/payment-upload.mjs
 export const config = {
-  runtime: 'nodejs20.x'
+  runtime: 'nodejs'
 };
 
 import { put } from '@vercel/blob';
