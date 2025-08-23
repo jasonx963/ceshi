@@ -6,10 +6,8 @@
   <title>iPhone 16 / Pro / Pro Max – Oferta</title>
   <meta name="description" content="iPhone 16 con estilo minimalista, selección de modelos y pago por transferencia.">
 
-  <!-- 可选：站点小图标（若你已把 apple.svg 放在 /images/ 下，可以启用）
-  <link rel="icon" type="image/svg+xml" href="images/apple.svg">
-  <link rel="icon" type="image/png" href="images/apple-180.png" sizes="180x180">
-  -->
+  <!-- 站点 Favicon（浏览器标签页图标） -->
+  <link rel="icon" href="/images/logo-apple.svg" type="image/svg+xml">
 
   <style>
     :root{
@@ -22,15 +20,16 @@
 
     /* 顶部导航 */
     header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:10px 16px}
-    .brand{display:flex;align-items:center;gap:10px}
-    .brand-svg{width:30px;height:30px;display:block}
+    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+    .brand{display:inline-flex;align-items:center;gap:10px}
+    .brand-logo{width:32px;height:32px}            /* 图标更大，如需更大可改成 36 或 40 */
+    @media (min-width:768px){ .brand-logo{width:36px;height:36px} }
     .btn-link{border:0;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;padding:8px 10px;border-radius:10px}
     .btn-link:hover{background:#f2f2f2}
     .btn-blue{background:var(--blue);color:var(--blue-ink);border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
     .btn-blue:hover{filter:brightness(0.95)}
 
-    /* 顶部横幅（滚动播报） */
+    /* 顶部滚动播报 */
     .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:#fff}
     .ticker-inner{max-width:1200px;margin:0 auto;padding:8px 16px;white-space:nowrap;overflow:hidden}
     #tickerText{display:inline-block;will-change:transform;color:var(--muted);font-weight:700}
@@ -68,7 +67,7 @@
     .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
     .opt-row{display:flex;flex-wrap:wrap;gap:12px}
 
-    /* 颜色圆点（背景图片） */
+    /* 颜色圆点 */
     .swatch{
       width:44px;height:44px;border-radius:50%;
       border:2px solid var(--hairline);cursor:pointer;
@@ -90,7 +89,7 @@
     .btn-cta{width:100%;background:var(--blue);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
     .btn-cta:hover{filter:brightness(0.95)}
 
-    /* 底部帮助条（可选） */
+    /* 底部帮助条 */
     .helpbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--hairline);padding:10px 0}
     .helpbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px}
     .small{color:var(--muted);font-weight:700}
@@ -105,23 +104,19 @@
     .btn.gray{background:#f3f3f3}
     .btn.primary{background:#000;color:#fff}
 
-    /* 右下 WhatsApp 浮动按钮（可选） */
+    /* WhatsApp 悬浮按钮 */
     .wa-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#29d366,#21b954);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:70}
     .wa-fab img{width:30px;height:30px}
   </style>
 </head>
 <body>
 
-  <!-- 顶部导航 -->
+  <!-- 顶部导航（仅图标，无“Apple”文字） -->
   <header>
     <div class="nav">
-      <div class="brand" aria-label="Apple">
-        <!-- 内联 SVG（黑色） -->
-        <svg class="brand-svg" viewBox="0 0 100 100" aria-hidden="true">
-          <path fill="#111" d="M65.6 21.9c-4.1 0-8 2.4-10.4 5.5c-2.2 2.9-3.9 6.8-3.1 10.7c4.4.2 8.9-2.6 11.6-5.9c2.6-3.1 4.5-7.3 3.9-10.3c-.6 0-1.3 0-2 0zM83.3 73.8c-1.6 3.6-3.6 7.1-6.5 10.9c-3.2 4.2-7.3 9.4-12.6 9.5c-4.7.1-6-3-12.5-3c-6.5 0-8 2.9-12.7 3.1c-5.3.2-9.4-4.6-12.6-8.8C19 79.5 13.2 65.7 13 52.7c-.1-7.3 1.9-13.6 5.8-18.7c3.8-4.9 9.5-8 14.9-8.1c5.1-.1 9.1 3.3 12.5 3.3c3.4 0 8-3.5 13.5-3c2.3.1 9 .9 13.3 6.8c-.3.2-7.9 4.6-7.8 13.6c.1 10.8 9.5 14.3 9.6 14.4c-.1.3-1.5 5.1-4.5 12.8z"/>
-        </svg>
-        <strong style="font-size:16px;letter-spacing:.2px;">Apple</strong>
-      </div>
+      <a class="brand" href="./" aria-label="Apple">
+        <img src="images/logo-apple.svg" alt="" class="brand-logo">
+      </a>
       <div>
         <button class="btn-link" id="btnCentro">Orden</button>
         <button class="btn-blue" id="btnTopWA">Contáctenos</button>
@@ -183,7 +178,7 @@
     </div>
   </div>
 
-  <!-- 右下 WhatsApp 按钮 -->
+  <!-- WhatsApp 悬浮 -->
   <div class="wa-fab" id="waFab" title="WhatsApp">
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
   </div>
@@ -195,7 +190,7 @@
     const CURRENCY = 'MX$';
     const PAYMENT_URL = 'payment.html';
 
-    // —— 产品数据（颜色与存储按你的仓库文件 .jpg 来） —— //
+    // ===== 产品数据（颜色的文件名与仓库一致） =====
     const productos = [
       {
         id: 'ip16',
@@ -205,13 +200,12 @@
         vendidos: 6473,
         opciones: {
           almacenamiento: ['128GB','256GB','512GB'],
-          // /images/colors/ 下的 .jpg 文件
           colorSwatches: [
-            { name:'Ultramarino',     img:'images/colors/ultramarino.jpg' },
-            { name:'Verde azulado',   img:'images/colors/verde-azulado.jpg' },
-            { name:'Rosa',            img:'images/colors/rosa.jpg' },
-            { name:'Blanco',          img:'images/colors/blanco.jpg' },
-            { name:'Negro',           img:'images/colors/negro.jpg' },
+            {name:'Ultramarino',     img:'images/colors/ultramarino.jpg'},
+            {name:'Verde azulado',   img:'images/colors/verde-azulado.jpg'},
+            {name:'Rosa',            img:'images/colors/rosa.jpg'},
+            {name:'Blanco',          img:'images/colors/blanco.jpg'},
+            {name:'Negro',           img:'images/colors/negro.jpg'}
           ]
         },
         img: 'images/16.png'
@@ -224,12 +218,11 @@
         vendidos: 7941,
         opciones: {
           almacenamiento: ['128GB','256GB','512GB','1TB'],
-          // 注意文件名中的空格使用 %20 编码
           colorSwatches: [
-            { name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg' },
-            { name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg' },
-            { name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg' },
-            { name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg' },
+            {name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg'},
+            {name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg'},
+            {name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg'},
+            {name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg'}
           ]
         },
         img: 'images/16pro.png'
@@ -243,10 +236,10 @@
         opciones: {
           almacenamiento: ['256GB','512GB','1TB'],
           colorSwatches: [
-            { name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg' },
-            { name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg' },
-            { name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg' },
-            { name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg' },
+            {name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg'},
+            {name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg'},
+            {name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg'},
+            {name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg'}
           ]
         },
         img: 'images/16promax.png'
@@ -283,7 +276,7 @@
     }
     setInterval(tick,1000); tick();
 
-    // ===== 渲染 & 价格更新 =====
+    // ===== 渲染产品 =====
     function updatePrice(cardId, storage){
       const p = productos.find(x=>x.id===cardId);
       if(!p || !storage) return;
@@ -322,7 +315,7 @@
 
               <div class="opt-label">Color</div>
               <div class="opt-row">
-                ${p.opciones.colorSwatches.map(c=>`
+                ${p.opciones.colorSwatches.map((c)=>`
                   <span class="swatch" title="${c.name}" data-id="${p.id}" data-tipo="color" data-valor="${c.name}" style="background-image:url('${c.img}')"></span>
                 `).join('')}
               </div>
@@ -341,7 +334,7 @@
         `;
       }).join('');
 
-      // 存储选择
+      // 规格选择
       grid.querySelectorAll('.opt-btn').forEach(btn=>{
         btn.addEventListener('click', e=>{
           const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
@@ -411,7 +404,7 @@
       }, true);
     })();
 
-    // ===== 订单查询 =====
+    // ===== 订单中心 =====
     const modal = document.getElementById('modalMask');
     document.getElementById('btnCentro').onclick = ()=>{ modal.style.display='flex'; document.getElementById('q').focus(); };
     document.getElementById('btnCerrar').onclick = ()=>{ modal.style.display='none'; document.getElementById('resultBox').innerHTML=''; document.getElementById('q').value=''; };
