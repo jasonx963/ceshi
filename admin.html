@@ -31,9 +31,19 @@
 <body>
 <div class="wrap">
   <header>
-    <div>
-      <h1>订单后台</h1>
-      <div class="muted">录入或更新订单后点击「保存」。前端查询接口：<code>/api/orders</code></div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <a href="/" aria-label="Apple" style="display:inline-flex;width:18px;height:18px">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+          <path fill="#111"
+            d="M16.365 13.143c-.284.656-.62 1.245-1.01 1.767-.53.709-1.02 1.197-1.47 1.463-.59.35-1.22.53-1.89.54-.48 0-1.07-.14-1.78-.42-.71-.28-1.36-.42-1.96-.42-.62 0-1.29.14-2 .42-.71.28-1.29.43-1.73.43-.66-.01-1.29-.18-1.9-.52-.43-.25-.94-.74-1.53-1.48-.66-.81-1.2-1.75-1.62-2.81-.45-1.11-.68-2.18-.68-3.21 0-1.19.26-2.22.79-3.1.41-.71.95-1.27 1.62-1.68.68-.41 1.41-.62 2.2-.64.43 0 .99.16 1.68.49.68.33 1.12.49 1.33.49.15 0 .65-.2 1.49-.6.8-.36 1.47-.52 2-.5 1.48.12 2.6.7 3.36 1.74-1.34.81-2 1.94-1.98 3.38.02 1.13.42 2.06 1.2 2.8.36.34.77.6 1.23.8-.1.29-.2.58-.33.88z"/>
+          <path fill="#111"
+            d="M13.6 3.2c0 .86-.34 1.64-1.02 2.35-.82.85-1.75 1.26-2.77 1.19-.02-.1-.03-.21-.03-.33 0-.83.37-1.67 1.02-2.37.33-.34.72-.63 1.19-.86.47-.23.93-.35 1.37-.38.09.9-.16 1.6-.76 2.4z"/>
+        </svg>
+      </a>
+      <div>
+        <h1 style="margin:0;font-size:28px">订单后台</h1>
+        <div class="muted">录入或更新订单后点击「保存」。前端查询接口：<code>/api/orders</code></div>
+      </div>
     </div>
     <div class="right">
       <span class="muted" id="adminInfo">已登录</span>
@@ -65,13 +75,11 @@
       </div>
       <div class="col-3">
         <select id="color" title="颜色">
-          <!-- 颜色选项按机型在保存前不会校验，这里保留统一列表即可 -->
           <option>Ultramarino</option>
           <option>Verde azulado</option>
           <option>Rosa</option>
           <option>Blanco</option>
           <option>Negro</option>
-
           <option>Titanio del desierto</option>
           <option>Titanio natural</option>
           <option>Titanio blanco</option>
@@ -282,7 +290,6 @@
     d.appendChild(img); d.onclick=()=>document.body.removeChild(d); document.body.appendChild(d);
   }
 
-  // —— 批量随机数据（颜色/存储完全按你要求） ——
   const priceDB = {
     'iPhone 16':      { '128GB':19999,'256GB':22499,'512GB':27499 },
     'iPhone 16 Pro':  { '128GB':25999,'256GB':28499,'512GB':33499,'1TB':38499 },
