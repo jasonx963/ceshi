@@ -197,14 +197,16 @@
 
     // 颜色 -> 色值（用于圆形色块）
     const COLOR_HEX = {
-      'Negro':'#000000',
-      'Blanco':'#ffffff',
-      'Azul':'#cfe3ff',
-      'Dorado':'#f7e7b4',
-      'Rojo':'#ff4d4d',
-      'Verde':'#cde8cf',
-      'Rosa':'#ffd6e7',
-      'Titanio':'#d2d2d2'
+      // iPhone 16
+      'Ultramarino': '#1d3b8b',
+      'Verde azulado': '#3aa6a1',
+      'Rosa': '#f7c1d9',
+      'Blanco': '#ffffff',
+      // 16 Pro / Pro Max
+      'Titanio del desierto': '#c6ab8f',
+      'Titanio natural': '#cfcfd1',
+      'Titanio blanco': '#f2f2f3',
+      'Titanio negro': '#2b2b2e'
     };
 
     // 产品数据（折扣信息不变：15%价 = 实付，页面文案 Ahorra 85% 不变）
@@ -215,7 +217,7 @@
         precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
         descuento: 0.15, // 实付=原价*0.15 => Ahorra 85%
         vendidos: 6473,
-        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Negro','Blanco','Azul','Verde','Rosa'] },
+        opciones: { almacenamiento: ['128GB','256GB','512GB'], color: ['Ultramarino','Verde azulado','Rosa','Blanco'] },
         img: 'images/16.png'
       },
       {
@@ -224,7 +226,7 @@
         precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 },
         descuento: 0.15,
         vendidos: 7941,
-        opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul'] },
+        opciones: { almacenamiento: ['128GB','256GB','512GB','1TB'], color: ['Titanio del desierto','Titanio natural','Titanio blanco','Titanio negro'] },
         img: 'images/16pro.png'
       },
       {
@@ -233,7 +235,7 @@
         precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 },
         descuento: 0.15,
         vendidos: 8758,
-        opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Negro','Blanco','Dorado','Azul','Rojo'] },
+        opciones: { almacenamiento: ['256GB','512GB','1TB'], color: ['Titanio del desierto','Titanio natural','Titanio blanco','Titanio negro'] },
         img: 'images/16promax.png'
       }
     ];
