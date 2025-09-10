@@ -1,469 +1,277 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>iPhone 16 / Pro / Pro Max – Oferta</title>
-  <meta name="description" content="iPhone 16 con estilo minimalista, selección de modelos y pago por transferencia.">
+  <title>DJI 大疆招商 | 全球经销商招募</title>
+  <meta name="description" content="DJI 大疆全球经销商招募：0 加盟费，0 囤货，品牌商城赋能，官方培训与市场资源支持。WhatsApp 一键联系，立即加入。" />
 
-  <!-- 站点 Favicon（浏览器标签页图标） -->
-  <link rel="icon" href="/images/logo-apple.svg" type="image/svg+xml">
+  <!-- 字体 & Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+  <!-- Meta Pixel（来自原二号文件） -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '2027956114386980');
+  fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2027956114386980&ev=PageView&noscript=1"/></noscript>
 
   <style>
+    /* —— 主题变量：参考一号文件思路，统一配色/圆角/阴影 —— */
     :root{
-      --bg:#ffffff; --ink:#111111; --muted:#6e6e73; --hairline:#d2d2d7; --panel:#f5f5f7;
-      --blue:#0077ff; --blue-ink:#ffffff;
+      --radius-def:12px; --radius-card:20px; --radius-input:8px; --radius-button:24px;
+      --bg-def:#f0fdfa; --bg-page:#ccfbf1; --bg-card:#0d9488; --bg-input:#ffffff; --bg-button-hover:0.9; --bg-card-product-index:#ccfbf1;
+      --text-def:#134e4a; --text-main:#0f766e; --text-title-primary:#115e59; --text-subtitle-secondary:#2dd4bf;
+      --color-primary:#115e59; --color-secondary:#2dd4bf; --color-icon:#fff;
+      --border-def:#134e4a; --border-card:#5eead4; --border-input:#99f6e4; --border-secondary:#2dd4bf; --border-button:transparent;
+      --shadow-def:0 2px 10px rgba(0,0,0,.05); --shadow-card:0 4px 20px rgba(13,148,136,.15); --shadow-input:0 0 0 2px rgba(45,212,191,.3);
+      --button-bg-def:#0d9488; --button-text-def:#fff; --button-bg-primary:#14b8a6; --button-text-primary:#fff; --button-bg-active:#2dd4bf; --button-text-active:#134e4a; --button-bg-grey:#ecfdf5; --button-text-grey:#0d9488;
     }
-    *{box-sizing:border-box}
-    html,body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:var(--bg);color:var(--ink)}
-    img{display:block;max-width:100%;height:auto}
 
-    /* 顶部导航 */
-    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--hairline)}
-    .nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
-    .brand{display:inline-flex;align-items:center;gap:10px}
-    .brand-logo{width:32px;height:32px}            /* 图标更大，如需更大可改成 36 或 40 */
-    @media (min-width:768px){ .brand-logo{width:36px;height:36px} }
-    .btn-link{border:0;background:transparent;color:var(--ink);font-weight:700;cursor:pointer;padding:8px 10px;border-radius:10px}
-    .btn-link:hover{background:#f2f2f2}
-    .btn-blue{background:var(--blue);color:var(--blue-ink);border:0;border-radius:12px;padding:10px 14px;font-weight:800;cursor:pointer}
-    .btn-blue:hover{filter:brightness(0.95)}
+    html,body{height:100%;}
+    body{font-family:'Roboto',system-ui,-apple-system,"Segoe UI",Arial,Helvetica,sans-serif; color:var(--text-def); background:var(--bg-page);}  
 
-    /* 顶部滚动播报 */
-    .ticker{border-top:1px solid var(--hairline);border-bottom:1px solid var(--hairline);background:#fff}
-    .ticker-inner{max-width:1200px;margin:0 auto;padding:8px 16px;white-space:nowrap;overflow:hidden}
-    #tickerText{display:inline-block;will-change:transform;color:var(--muted);font-weight:700}
+    .radius-button{border-radius:var(--radius-button)!important;}
+    .radius-card{border-radius:var(--radius-card)!important;}
+    .bg-page{background-color:var(--bg-page)!important;}
+    .bg-card{background-color:var(--bg-card)!important;}
+    .bg-card-product-index{background-color:var(--bg-card-product-index)!important;}
+    .text-title-primary{color:var(--text-title-primary)!important;}
+    .text-subtitle-secondary{color:var(--text-subtitle-secondary)!important;}
+    .text-main{color:var(--text-main)!important;}
+    .button-bg-primary{background-color:var(--button-bg-primary)!important;}
+    .button-text-primary{color:var(--button-text-primary)!important;}
+    .button-bg-active{background-color:var(--button-bg-active)!important;}
+    .button-text-active{color:var(--button-text-active)!important;}
+    .button-bg-grey{background-color:var(--button-bg-grey)!important;}
+    .button-text-grey{color:var(--button-text-grey)!important;}
+    .shadow-card{box-shadow:var(--shadow-card)!important;}
+    .border-card{border-color:var(--border-card)!important;}
 
-    /* Hero */
-    .hero{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;padding:28px 16px}
-    @media(max-width:960px){.hero{grid-template-columns:1fr}}
-    h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 12px;font-weight:800;letter-spacing:.2px}
-    .lead{color:var(--muted);margin:6px 0 18px}
-    .panel{background:var(--panel);border:1px solid var(--hairline);border-radius:18px;padding:12px}
-    .time{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-    .tchip{background:#000;color:#fff;display:inline-flex;align-items:center;justify-content:center;min-width:56px;height:48px;border-radius:12px;font-weight:900;font-size:22px}
-    .colon{font-weight:900;font-size:22px}
-    @media(max-width:420px){.tchip{min-width:46px;height:40px;font-size:18px}.colon{font-size:18px}}
+    .underline{position:relative;display:inline-block}
+    .underline:after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:8px;border-radius:6px;background:var(--color-secondary)}
 
-    .hero-visual{border-radius:18px;border:1px solid var(--hairline);background:#fff;padding:10px;display:flex;align-items:center;justify-content:center;min-height:260px}
-    .hero-visual img{object-fit:contain;max-height:360px}
+    /* —— 顶部导航 —— */
+    .navbar-brand{font-weight:700;color:var(--text-title-primary)!important}
 
-    /* 产品区 */
-    .section{max-width:1200px;margin:0 auto;padding:8px 16px 60px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    @media(max-width:1024px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(max-width:640px){.grid{grid-template-columns:1fr}}
+    /* —— Hero 视频头图（参考原二号文件结构） —— */
+    header.hero{position:relative;height:92vh;min-height:520px;display:flex;align-items:center;justify-content:center;color:#fff;overflow:hidden;border-bottom-left-radius:24px;border-bottom-right-radius:24px}
+    header.hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;filter:contrast(1.05) saturate(1.02)}
+    header.hero .mask{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),rgba(0,0,0,.55));z-index:2}
+    header.hero .content{position:relative;z-index:3;text-align:center;padding:0 16px}
+    header.hero h1{font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.15}
+    header.hero p{font-size:clamp(14px,2.2vw,18px);opacity:.95}
 
-    .card{background:#fff;border:1px solid var(--hairline);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
-    .pimg{background:#fff;padding:16px;border-bottom:1px solid var(--hairline);display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
-    .pimg img{object-fit:contain;max-height:360px}
-    .content{padding:16px}
-    .title{font-weight:800;margin:4px 0 8px;font-size:18px}
-    .price{display:flex;align-items:flex-end;gap:10px;margin:8px 0}
-    .price .new{font-size:28px;font-weight:900}
-    .price .old{text-decoration:line-through;color:#8e8e93}
-    .off{margin-left:auto;background:#000;color:#fff;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800}
+    /* —— 功能卡片 —— */
+    .feature-card .icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--color-secondary);color:#073b36;}
 
-    .opt-label{font-size:12px;color:var(--muted);font-weight:800;margin:10px 0 6px}
-    .opt-row{display:flex;flex-wrap:wrap;gap:12px}
+    /* —— 悬浮 WhatsApp —— */
+    .floating-whatsapp{position:fixed;right:14px;bottom:18px;z-index:50;background:#25D366;border-radius:999px;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+    .floating-whatsapp img{width:26px;height:26px}
 
-    /* 颜色圆点 */
-    .swatch{
-      width:44px;height:44px;border-radius:50%;
-      border:2px solid var(--hairline);cursor:pointer;
-      background:#fff center/cover no-repeat;display:inline-block;
-      box-shadow:0 1px 1px rgba(0,0,0,.05) inset;
-      transition:transform .12s ease,border-color .12s ease, box-shadow .12s ease;
-    }
-    .swatch:hover{transform:scale(1.04)}
-    .swatch.active{outline:3px solid var(--blue);border-color:var(--blue)}
-    .opt-hint{font-size:12px;color:#6e6e73;margin-top:4px;min-height:16px}
-
-    /* 存储按键 */
-    .opt-btn{background:#fff;border:1px solid var(--hairline);border-radius:999px;padding:6px 12px;font-weight:700;cursor:pointer}
-    .opt-btn:hover{background:#f8f8f8}
-    .opt-btn.active{background:#000;color:#fff;border-color:#000}
-
-    .meta{display:flex;align-items:center;justify-content:space-between;color:#8e8e93;font-size:12px;margin-top:10px}
-    .cta{margin-top:12px}
-    .btn-cta{width:100%;background:var(--blue);color:#fff;font-weight:900;border:0;padding:12px 16px;border-radius:12px;cursor:pointer}
-    .btn-cta:hover{filter:brightness(0.95)}
-
-    /* 底部帮助条 */
-    .helpbar{position:sticky;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-top:1px solid var(--hairline);padding:10px 0}
-    .helpbar-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px}
-    .small{color:var(--muted);font-weight:700}
-
-    /* 订单查询 Modal */
-    .mask{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:80}
-    .modal{background:#fff;border:1px solid var(--hairline);border-radius:16px;padding:18px;max-width:520px;width:92%}
-    .modal h3{margin:0 0 8px}
-    .row{display:grid;grid-template-columns:1fr auto;gap:10px}
-    .input{width:100%;padding:10px 12px;border:1px solid var(--hairline);border-radius:10px;font-size:14px}
-    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer}
-    .btn.gray{background:#f3f3f3}
-    .btn.primary{background:#000;color:#fff}
-
-    /* WhatsApp 悬浮按钮 */
-    .wa-fab{position:fixed;right:16px;bottom:16px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#29d366,#21b954);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.25);z-index:70}
-    .wa-fab img{width:30px;height:30px}
+    /* —— 跨区块 CTA 横幅 —— */
+    .cta-band{color:#fff}
   </style>
 </head>
-<body>
 
-  <!-- 顶部导航（仅图标，无“Apple”文字） -->
-  <header>
-    <div class="nav">
-      <a class="brand" href="./" aria-label="Apple">
-        <img src="images/logo-apple.svg" alt="" class="brand-logo">
-      </a>
-      <div>
-        <button class="btn-link" id="btnCentro">Orden</button>
-        <button class="btn-blue" id="btnTopWA">Contáctenos</button>
+<body class="bg-page">
+  <!-- 顶部导航 -->
+  <nav class="navbar navbar-expand-md bg-page py-3 shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="#">DJI 大疆招商</a>
+      <div class="d-flex align-items-center gap-2">
+        <a href="#contact" class="btn btn-sm radius-button button-bg-grey button-text-grey">立即联系</a>
       </div>
     </div>
-    <div class="ticker"><div class="ticker-inner"><span id="tickerText">Cargando últimas compras…</span></div></div>
+  </nav>
+
+  <!-- Hero：视频背景 & 主要诉求 -->
+  <header class="hero my-3 mx-2 mx-md-3">
+    <video autoplay loop muted playsinline>
+      <source src="https://www.dji-mall.com/static/upload/video/goods/2025/09/10/1757506265626281.mp4" type="video/mp4" />
+    </video>
+    <div class="mask"></div>
+    <div class="content container">
+      <h1 class="mb-3">加入 DJI 大疆全球经销商计划</h1>
+      <p class="mb-4">0 加盟费 · 0 囤货 · 官方培训与市场资源支持 · 品牌商城赋能</p>
+      <a href="#contact" class="btn radius-button btn-lg button-bg-primary button-text-primary shadow-card wa-link" data-msg="𝐃𝐉𝐈大疆集团面向全球招募无人机经销商！𝟎加盟费，𝟎囤货，品牌商城助你赚取利润。 点击𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩，立即联系">WhatsApp 联系我们</a>
+    </div>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
-    <div>
-      <h1>iPhone 16 / Pro / Pro Max</h1>
-      <p class="lead">Ahorra 85%. Envío desde Apple. Calidad garantizada.</p>
-      <div class="panel">
-        <div class="time">
-          <div class="label" style="font-weight:800">Tiempo restante de la oferta</div>
-          <div>
-            <span class="tchip" id="d">00</span><span class="colon">:</span>
-            <span class="tchip" id="h">00</span><span class="colon">:</span>
-            <span class="tchip" id="m">00</span><span class="colon">:</span>
-            <span class="tchip" id="s">00</span>
+  <!-- 三大优势（参考一号文件的卡片结构/主题变量） -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="fw-bold text-title-primary">为什么选择 <span class="underline">DJI 大疆</span></h2>
+        <p class="text-subtitle-secondary mt-3">与全球领先的无人机品牌合作，拓展国际市场，实现稳定收益</p>
+      </div>
+      <div class="row g-4 row-cols-1 row-cols-md-3">
+        <div class="col">
+          <div class="card p-4 bg-card-product-index border border-1 border-card radius-card shadow-card feature-card h-100">
+            <div class="icon mb-3"><i class="fa-solid fa-earth-asia"></i></div>
+            <h5 class="text-title-primary fw-bold">全球市场机会</h5>
+            <p class="text-main mb-0">覆盖各行业/地区的应用场景，持续拓展渠道与客群。</p>
           </div>
-          <div class="label" style="color:var(--muted)">Miles de usuarios están comprando</div>
+        </div>
+        <div class="col">
+          <div class="card p-4 bg-card-product-index border border-1 border-card radius-card shadow-card feature-card h-100">
+            <div class="icon mb-3"><i class="fa-solid fa-people-group"></i></div>
+            <h5 class="text-title-primary fw-bold">专属支持与培训</h5>
+            <p class="text-main mb-0">提供市场物料、新品宣发与认证培训，助力高效增长。</p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card p-4 bg-card-product-index border border-1 border-card radius-card shadow-card feature-card h-100">
+            <div class="icon mb-3"><i class="fa-solid fa-sack-dollar"></i></div>
+            <h5 class="text-title-primary fw-bold">利润空间与返利</h5>
+            <p class="text-main mb-0">完善的利润政策与激励机制，成长越快，收益越高。</p>
+          </div>
         </div>
       </div>
     </div>
-    <div class="hero-visual">
-      <img src="images/16pro.png" alt="iPhone hero" loading="eager"
-           onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop';">
+  </section>
+
+  <!-- 合作流程 -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-6">
+          <h3 class="fw-bold text-title-primary mb-3">合作流程</h3>
+          <ul class="list-group list-group-flush radius-card shadow-card">
+            <li class="list-group-item py-3">① WhatsApp 咨询 → 提交基本资料</li>
+            <li class="list-group-item py-3">② 资质评估 → 目标区域沟通与授权</li>
+            <li class="list-group-item py-3">③ 产品/渠道培训 → 物料与市场支持</li>
+            <li class="list-group-item py-3">④ 上线销售 → 持续运营与返利政策</li>
+          </ul>
+        </div>
+        <div class="col-md-6">
+          <img class="w-100 radius-card shadow-card" src="https://images.unsplash.com/photo-1610375229569-8c401d468059?q=80&w=1200&auto=format&fit=crop" alt="DJI 合作流程示意" />
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 产品 -->
-  <section class="section">
-    <div class="grid" id="grid"></div>
+  <!-- 赋能与支持 CTA 横幅（参考一号文件“联系我们”横幅样式） -->
+  <section class="py-4">
+    <div class="container">
+      <div class="bg-card radius-card shadow-card p-4 p-md-5 cta-band d-flex flex-column flex-lg-row align-items-start align-items-lg-center justify-content-between gap-3">
+        <div>
+          <h3 class="mb-2">品牌商城赋能 · 官方认证培训 · 市场物料支持</h3>
+          <p class="mb-0">完成认证后可获得专属资料包与市场活动资源，快速打开本地市场。</p>
+        </div>
+        <a href="#contact" class="btn radius-button button-bg-active button-text-active shadow-card wa-link" data-msg="我想了解 DJI 招商政策与合作细节，请通过 WhatsApp 与我联系。">立即了解</a>
+      </div>
+    </div>
   </section>
 
-  <!-- 底部帮助条 -->
-  <div class="helpbar">
-    <div class="helpbar-inner">
-      <div class="small">¿Necesitas ayuda? Nuestro equipo está en línea.</div>
-      <button class="btn-blue" id="btnBottomWA">Contactar por WhatsApp</button>
-    </div>
-  </div>
-
-  <!-- 订单查询 Modal -->
-  <div class="mask" id="modalMask">
-    <div class="modal">
-      <h3>Centro personal</h3>
-      <p class="small">Ingresa tu <b>número de pedido</b> o <b>teléfono</b> para consultar el estado y envío.</p>
-      <div class="row" style="margin-top:8px">
-        <input class="input" id="q" placeholder="Ej.: ORD2025... / +52 1 55..." />
-        <button class="btn primary" id="btnBuscar">Consultar</button>
+  <!-- 常见问答（参考一号文件的折叠组件结构，内容中文化） -->
+  <section class="py-5">
+    <div class="container">
+      <div class="text-center mb-4">
+        <h3 class="fw-bold text-title-primary">常见问题（FAQ）</h3>
+        <p class="text-subtitle-secondary">以下为经销商常见问答，更多细节欢迎 WhatsApp 咨询</p>
       </div>
-      <div style="margin-top:10px;display:flex;justify-content:flex-end;gap:8px">
-        <button class="btn gray" id="btnCerrar">Cerrar</button>
+      <div class="accordion" id="faq-accordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq-h1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c1" aria-expanded="true" aria-controls="faq-c1">
+              1. 是否需要支付加盟费或囤货？
+            </button>
+          </h2>
+          <div id="faq-c1" class="accordion-collapse collapse show" aria-labelledby="faq-h1" data-bs-parent="#faq-accordion">
+            <div class="accordion-body text-main">无需加盟费，亦不强制囤货；根据授权区域和渠道策略灵活推进。</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq-h2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c2" aria-expanded="false" aria-controls="faq-c2">
+              2. 如何获得培训与市场支持？
+            </button>
+          </h2>
+          <div id="faq-c2" class="accordion-collapse collapse" aria-labelledby="faq-h2" data-bs-parent="#faq-accordion">
+            <div class="accordion-body text-main">官方提供产品/销售培训、宣传素材、活动联合、媒体推广建议等支持。</div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="faq-h3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-c3" aria-expanded="false" aria-controls="faq-c3">
+              3. WhatsApp 咨询后多久能完成授权？
+            </button>
+          </h2>
+          <div id="faq-c3" class="accordion-collapse collapse" aria-labelledby="faq-h3" data-bs-parent="#faq-accordion">
+            <div class="accordion-body text-main">视资料完整度与区域协同进度而定，一般在沟通确认后快速推进。</div>
+          </div>
+        </div>
       </div>
-      <div id="resultBox" style="margin-top:10px"></div>
     </div>
-  </div>
+  </section>
 
-  <!-- WhatsApp 悬浮 -->
-  <div class="wa-fab" id="waFab" title="WhatsApp">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </div>
+  <!-- 联系我们（落地锚点） -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="radius-card shadow-card p-4 p-md-5 bg-card text-white">
+        <div class="row g-4 align-items-center">
+          <div class="col-lg-8">
+            <h3 class="mb-2">WhatsApp 一键联系</h3>
+            <p class="mb-0">添加后留言 “大疆招商 + 你的所在地区/渠道类型”，优先为你安排专人对接。</p>
+          </div>
+          <div class="col-lg-4 text-lg-end">
+            <a class="btn radius-button btn-light fw-bold wa-link" data-msg="我想加入 DJI 招商计划，请与我联系。">
+              立即通过 WhatsApp 咨询
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- 悬浮 WhatsApp（保留并可切换号码） -->
+  <a href="https://wa.me/85266173489" class="floating-whatsapp wa-link" data-msg="𝐃𝐉𝐈大疆集团面向全球招募无人机经销商！𝟎加盟费，𝟎囤货，品牌商城助你赚取利润。 点击𝐖𝐡𝐚𝐭𝐬𝐀𝐩𝐩，立即联系">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> <span>联系我们</span>
+  </a>
+
+  <footer class="py-4 mt-4">
+    <div class="container border-top pt-3 d-flex justify-content-between align-items-center">
+      <small class="text-main">© 2025 DJI 招商 · 收益因地区与渠道不同而有所差异</small>
+      <small class="text-subtitle-secondary">Made with ❤</small>
+    </div>
+  </footer>
+
+  <!-- 依赖 -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- WhatsApp 号码与 ?text= 动态拼接（保留二号文件逻辑，可随时切换号码） -->
   <script>
-    // ===== 基本配置 =====
-    const WHATSAPP_PHONE = 'https://lihi.vip/t4sPq';
-    const FINISH_IN_MINUTES = 1440;
-    const CURRENCY = 'MX$';
-    const PAYMENT_URL = 'payment.html';
+  (function(){
+    // 如需切换号码，仅改这里：
+    var WA_NUMBER = '85266173489';
 
-    // ===== 产品数据（颜色的文件名与仓库一致） =====
-    const productos = [
-      {
-        id: 'ip16',
-        nombre: 'iPhone 16',
-        precioOriginal: { '128GB': 19999, '256GB': 22499, '512GB': 27499 },
-        descuento: 0.15,
-        vendidos: 6473,
-        opciones: {
-          almacenamiento: ['128GB','256GB','512GB'],
-          colorSwatches: [
-            {name:'Ultramarino',     img:'images/colors/ultramarino.jpg'},
-            {name:'Verde azulado',   img:'images/colors/verde-azulado.jpg'},
-            {name:'Rosa',            img:'images/colors/rosa.jpg'},
-            {name:'Blanco',          img:'images/colors/blanco.jpg'},
-            {name:'Negro',           img:'images/colors/negro.jpg'}
-          ]
-        },
-        img: 'images/16.png'
-      },
-      {
-        id: 'ip16pro',
-        nombre: 'iPhone 16 Pro',
-        precioOriginal: { '128GB': 25999, '256GB': 28499, '512GB': 33499, '1TB': 38499 },
-        descuento: 0.15,
-        vendidos: 7941,
-        opciones: {
-          almacenamiento: ['128GB','256GB','512GB','1TB'],
-          colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg'},
-            {name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg'},
-            {name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg'},
-            {name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg'}
-          ]
-        },
-        img: 'images/16pro.png'
-      },
-      {
-        id: 'ip16promax',
-        nombre: 'iPhone 16 Pro Max',
-        precioOriginal: { '256GB': 30999, '512GB': 35999, '1TB': 40999 },
-        descuento: 0.15,
-        vendidos: 8758,
-        opciones: {
-          almacenamiento: ['256GB','512GB','1TB'],
-          colorSwatches: [
-            {name:'Titanio del desierto', img:'images/colors/Titanio%20del%20desierto.jpg'},
-            {name:'Titanio natural',      img:'images/colors/Titanio%20natural.jpg'},
-            {name:'Titanio blanco',       img:'images/colors/Titanio%20blanco.jpg'},
-            {name:'Titanio negro',        img:'images/colors/Titanio%20negro.jpg'}
-          ]
-        },
-        img: 'images/16promax.png'
-      }
-    ];
-
-    const grid = document.getElementById('grid');
-    const money = n => CURRENCY + new Intl.NumberFormat('es-MX').format(Math.round(n));
-    const seleccion = {};
-    window.productos = productos;
-    window.seleccion = seleccion;
-
-    // ===== 倒计时 =====
-    function getDeadline(){
-      const key='pdd_iphone_deadline';
-      const saved=localStorage.getItem(key);
-      const now=Date.now();
-      let deadline=saved?parseInt(saved,10):0;
-      if(!deadline || deadline<now){
-        deadline = now + FINISH_IN_MINUTES*60*1000;
-        localStorage.setItem(key,String(deadline));
-      }
-      return deadline;
+    function openWA(el){
+      var base = 'https://wa.me/' + WA_NUMBER;
+      var msg  = (el.getAttribute('data-msg') || '').trim();
+      msg = msg.replace(/[\u200B\u200C\u200D\uFEFF]/g,''); // 清理零宽字符
+      var url  = base + (msg ? ('?text=' + encodeURIComponent(msg)) : '');
+      window.open(url, '_blank');
     }
-    const two = n => String(n).padStart(2,'0');
-    function tick(){
-      const remain = Math.max(0, getDeadline()-Date.now());
-      const totalSec = Math.floor(remain/1000);
-      const d=Math.floor(totalSec/86400), h=Math.floor(totalSec%86400/3600), m=Math.floor(totalSec%3600/60), s=totalSec%60;
-      document.getElementById('d').textContent=two(d);
-      document.getElementById('h').textContent=two(h);
-      document.getElementById('m').textContent=two(m);
-      document.getElementById('s').textContent=two(s);
-    }
-    setInterval(tick,1000); tick();
-
-    // ===== 渲染产品 =====
-    function updatePrice(cardId, storage){
-      const p = productos.find(x=>x.id===cardId);
-      if(!p || !storage) return;
-      const original = p.precioOriginal[storage];
-      const discount = Math.round(original * p.descuento);
-      const card = grid.querySelector(`.card[data-id="${cardId}"]`);
-      if(!card) return;
-      card.querySelector('.price .new').textContent = money(discount);
-      card.querySelector('.price .old').textContent = money(original);
-    }
-
-    function renderProductos(){
-      grid.innerHTML = productos.map(p=>{
-        const def = p.opciones.almacenamiento[0];
-        const nuevo = Math.round(p.precioOriginal[def] * p.descuento);
-        const offPct = Math.round((1 - p.descuento) * 100);
-        const colorHintId = `hint-${p.id}`;
-        return `
-          <article class="card" data-id="${p.id}">
-            <div class="pimg">
-              <img loading="lazy" src="${p.img}" alt="${p.nombre}"
-                   onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?q=80&w=1200&auto=format&fit=crop';">
-            </div>
-            <div class="content">
-              <div class="title">${p.nombre}</div>
-              <div class="price">
-                <div class="new">${money(nuevo)}</div>
-                <div class="old">${money(p.precioOriginal[def])}</div>
-                <span class="off">Ahorra ${offPct}%</span>
-              </div>
-
-              <div class="opt-label">Almacenamiento</div>
-              <div class="opt-row">
-                ${p.opciones.almacenamiento.map(opt=>`<button class="opt-btn" data-id="${p.id}" data-tipo="storage" data-valor="${opt}">${opt}</button>`).join('')}
-              </div>
-
-              <div class="opt-label">Color</div>
-              <div class="opt-row">
-                ${p.opciones.colorSwatches.map((c)=>`
-                  <span class="swatch" title="${c.name}" data-id="${p.id}" data-tipo="color" data-valor="${c.name}" style="background-image:url('${c.img}')"></span>
-                `).join('')}
-              </div>
-              <div id="${colorHintId}" class="opt-hint"></div>
-
-              <div class="meta">
-                <span>${p.vendidos.toLocaleString('es-MX')} compras</span>
-                <span>Envío rápido</span>
-              </div>
-
-              <div class="cta">
-                <button class="btn-cta" data-contact="${p.nombre}" data-product-id="${p.id}">Comprar</button>
-              </div>
-            </div>
-          </article>
-        `;
-      }).join('');
-
-      // 规格选择
-      grid.querySelectorAll('.opt-btn').forEach(btn=>{
-        btn.addEventListener('click', e=>{
-          const b=e.currentTarget, id=b.dataset.id, tipo=b.dataset.tipo, valor=b.dataset.valor;
-          seleccion[id]=seleccion[id]||{};
-          seleccion[id][tipo]=(seleccion[id][tipo]===valor)?null:valor;
-          grid.querySelectorAll(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"]`).forEach(x=>x.classList.remove('active'));
-          if(seleccion[id][tipo]) grid.querySelector(`.opt-btn[data-id="${id}"][data-tipo="${tipo}"][data-valor="${valor}"]`).classList.add('active');
-          if(tipo==='storage') updatePrice(id, valor);
-        });
+    document.querySelectorAll('.wa-link').forEach(function(el){
+      el.addEventListener('click', function(e){
+        e.preventDefault();
+        openWA(el);
       });
-
-      // 颜色选择（显示文字提示）
-      grid.querySelectorAll('.swatch').forEach(s=>{
-        s.addEventListener('click', e=>{
-          const el=e.currentTarget, id=el.dataset.id, valor=el.dataset.valor;
-          const card = el.closest('.card');
-          const hint = card.querySelector(`#hint-${id}`);
-          seleccion[id]=seleccion[id]||{};
-          seleccion[id].color = (seleccion[id].color===valor) ? null : valor;
-          card.querySelectorAll(`.swatch[data-id="${id}"]`).forEach(x=>x.classList.remove('active'));
-          if(seleccion[id].color){ el.classList.add('active'); hint.textContent = `Color seleccionado: ${valor}`; }
-          else{ hint.textContent = ''; }
-        });
-      });
-    }
-    renderProductos();
-
-    // ===== 支付页跳转 =====
-    (function(){
-      document.addEventListener('click', function(e){
-        const btn = e.target && e.target.closest && e.target.closest('button.btn-cta[data-product-id]');
-        if(!btn) return;
-
-        const productId   = btn.getAttribute('data-product-id') || '';
-        const productName = btn.getAttribute('data-contact')    || '';
-        const s = (window.seleccion && window.seleccion[productId]) || {};
-        const productObj = (window.productos || []).find(p=>p.id===productId) || null;
-
-        let storage = s.storage || '';
-        let color   = s.color   || '';
-        let price   = '';
-
-        if(productObj){
-          if(!storage && productObj.opciones?.almacenamiento?.length){
-            storage = productObj.opciones.almacenamiento[0];
-          }
-          const original = productObj.precioOriginal?.[storage];
-          if(typeof original === 'number'){
-            price = Math.round(original * (typeof productObj.descuento==='number' ? productObj.descuento : 1));
-          }
-        }
-
-        const picked = productName + (storage?(' '+storage):'') + (color?(' '+color):'');
-        const params = new URLSearchParams({
-          product:   picked,
-          productId: productId,
-          storage:   storage || '',
-          color:     color   || '',
-          price:     price   || ''
-        });
-        const url = `${PAYMENT_URL}?${params.toString()}`;
-
-        e.preventDefault(); e.stopPropagation();
-        if(typeof e.stopImmediatePropagation==='function') e.stopImmediatePropagation();
-        const w = window.open(url,'_blank');
-        if(w){ try{ w.opener = null; }catch(_){} }
-      }, true);
-    })();
-
-    // ===== 订单中心 =====
-    const modal = document.getElementById('modalMask');
-    document.getElementById('btnCentro').onclick = ()=>{ modal.style.display='flex'; document.getElementById('q').focus(); };
-    document.getElementById('btnCerrar').onclick = ()=>{ modal.style.display='none'; document.getElementById('resultBox').innerHTML=''; document.getElementById('q').value=''; };
-
-    async function fetchOrders(q){
-      try{
-        if(!q) return [];
-        let url = '/api/orders?';
-        url += (q.startsWith('+') ? 'phone=' : 'orderId=') + encodeURIComponent(q);
-        const r = await fetch(url, { cache:'no-store' });
-        if(!r.ok) return [];
-        return await r.json();
-      }catch(_){ return []; }
-    }
-    document.getElementById('btnBuscar').onclick = async ()=>{
-      const box = document.getElementById('resultBox');
-      const q = (document.getElementById('q').value||'').trim();
-      box.innerHTML = '<div class="small">Consultando…</div>';
-      const list = await fetchOrders(q);
-      if(!list || list.length===0){ box.innerHTML='<div class="small" style="color:#c00">No encontrado.</div>'; return; }
-      box.innerHTML = list.map(o=>`
-        <div style="background:#fafafa;border:1px solid var(--hairline);border-radius:12px;padding:10px;margin-top:10px">
-          <div><b>Número de pedido:</b> ${o.orderId || '-'}</div>
-          <div><b>Cliente:</b> ${o.name || '-'}</div>
-          <div><b>Teléfono:</b> ${o.phone || '-'}</div>
-          <div><b>Producto:</b> ${o.product || '-'} ${o.color?('('+o.color+')'):''} ×${o.qty||1}</div>
-          <div><b>Precio:</b> ${o.price || '-'}</div>
-          <div><b>Estado:</b> ${o.status || 'En proceso'}</div>
-          <div><b>Transportista:</b> ${o.carrier || '-'}</div>
-          <div><b>Número de envío:</b> ${o.tracking || '-'}</div>
-          <div><b>Actualizado:</b> ${o.updatedAt || '-'}</div>
-        </div>
-      `).join('');
-    };
-
-    // ===== 跑马灯（/api/feed） =====
-    (async function loadTicker(){
-      try{
-        const r = await fetch('/api/feed', { cache:'no-store' });
-        const { ok, items } = await r.json();
-        if(!ok || !items) return;
-        const lines = items.map(o=>{
-          const when = (o.updatedAt||'').slice(5,16).replace(' ',' ');
-          return `【${when}】${o.name} compró ${o.product}${o.color?('('+o.color+')'):''} ×${o.qty}`;
-        });
-        const el = document.getElementById('tickerText');
-        el.textContent = lines.join('　|　') || 'Reporte de compras recientes…';
-        let off=0; setInterval(()=>{ off=(off+1)%50000; el.style.transform=`translateX(${-off}px)`; }, 30);
-      }catch(_){}
-    })();
-
-    // ===== WhatsApp =====
-    function openWhatsApp(producto){
-      const text = encodeURIComponent(`Hola, comuníquese con atención al cliente vía WhatsApp${producto?(' por '+producto):''}.`);
-      window.open(`${WHATSAPP_PHONE}?text=${text}`, '_blank');
-    }
-    document.getElementById('btnTopWA').onclick = ()=>openWhatsApp('');
-    document.getElementById('btnBottomWA').onclick = ()=>openWhatsApp('');
-    document.getElementById('waFab').onclick = ()=>openWhatsApp('');
+      // 同步 href 以便长按/复制
+      var msg = (el.getAttribute('data-msg')||'').trim();
+      el.setAttribute('href', 'https://wa.me/' + WA_NUMBER + (msg? ('?text=' + encodeURIComponent(msg)) : ''));
+    });
+  })();
   </script>
 </body>
 </html>
