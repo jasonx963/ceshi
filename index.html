@@ -29,12 +29,12 @@
     /* —— 主题变量：参考一号文件思路，统一配色/圆角/阴影 —— */
     :root{
       --radius-def:12px; --radius-card:20px; --radius-input:8px; --radius-button:24px;
-      --bg-def:#f0fdfa; --bg-page:#ccfbf1; --bg-card:#0d9488; --bg-input:#ffffff; --bg-button-hover:0.9; --bg-card-product-index:#ccfbf1;
-      --text-def:#134e4a; --text-main:#0f766e; --text-title-primary:#115e59; --text-subtitle-secondary:#2dd4bf;
-      --color-primary:#115e59; --color-secondary:#2dd4bf; --color-icon:#fff;
-      --border-def:#134e4a; --border-card:#5eead4; --border-input:#99f6e4; --border-secondary:#2dd4bf; --border-button:transparent;
-      --shadow-def:0 2px 10px rgba(0,0,0,.05); --shadow-card:0 4px 20px rgba(13,148,136,.15); --shadow-input:0 0 0 2px rgba(45,212,191,.3);
-      --button-bg-def:#0d9488; --button-text-def:#fff; --button-bg-primary:#14b8a6; --button-text-primary:#fff; --button-bg-active:#2dd4bf; --button-text-active:#134e4a; --button-bg-grey:#ecfdf5; --button-text-grey:#0d9488;
+      --bg-def:#ffffff; --bg-page:#ffffff; --bg-card:#111111; --bg-input:#ffffff; --bg-button-hover:0.95; --bg-card-product-index:#ffffff;
+      --text-def:#111827; --text-main:#1f2937; --text-title-primary:#0b0b0b; --text-subtitle-secondary:#6b7280;
+      --color-primary:#0b0b0b; --color-secondary:#0066ff; --color-icon:#111827;
+      --border-def:#e5e7eb; --border-card:#e5e7eb; --border-input:#d1d5db; --border-secondary:#0066ff; --border-button:transparent;
+      --shadow-def:0 2px 10px rgba(0,0,0,.05); --shadow-card:0 4px 24px rgba(0,0,0,.08); --shadow-input:0 0 0 2px rgba(0,102,255,.15);
+      --button-bg-def:#111111; --button-text-def:#fff; --button-bg-primary:#0066ff; --button-text-primary:#fff; --button-bg-active:#004de6; --button-text-active:#fff; --button-bg-grey:#f3f4f6; --button-text-grey:#111111;
     }
 
     html,body{height:100%;}
@@ -72,7 +72,7 @@
     header.hero p{font-size:clamp(14px,2.2vw,18px);opacity:.95}
 
     /* —— 功能卡片 —— */
-    .feature-card .icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--color-secondary);color:#073b36;}
+    .feature-card .icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--button-bg-grey);color:#111;}
 
     /* —— 悬浮 WhatsApp —— */
     .floating-whatsapp{position:fixed;right:14px;bottom:18px;z-index:50;background:#25D366;border-radius:999px;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
