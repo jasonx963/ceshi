@@ -60,6 +60,13 @@
     .underline{position:relative;display:inline-block}
     .underline:after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:8px;border-radius:6px;background:var(--color-secondary)}
 
+    /* —— 全幅下划线 & inline WhatsApp 插槽 —— */
+    .underline-full{position:relative;display:inline-block}
+    .underline-full:after{content:"";position:absolute;left:0;bottom:-8px;width:100%;height:6px;border-radius:4px;background:var(--color-secondary)}
+    .wa-inline-slot{min-height:80px;position:relative}
+    .floating-whatsapp.inline{position:absolute;right:0;bottom:0}
+    @media(max-width:767.98px){.floating-whatsapp.inline{position:fixed;right:14px;bottom:18px}}
+
     /* —— 顶部导航 —— */
     .navbar-brand{font-weight:700;color:var(--text-title-primary)!important}
 
@@ -89,7 +96,7 @@
     <div class="container">
       <a class="navbar-brand" href="#">DJI 大疆招商</a>
       <div class="d-flex align-items-center gap-2">
-        <a href="#contact" class="btn btn-sm radius-button button-bg-grey button-text-grey">立即联系</a>
+        <a class="btn btn-sm radius-button button-bg-grey button-text-grey wa-link" data-msg="我想了解 DJI 招商合作，请联系我。">立即联系</a>
       </div>
     </div>
   </nav>
@@ -111,7 +118,7 @@
   <section class="py-5">
     <div class="container">
       <div class="text-center mb-5">
-        <h2 class="fw-bold text-title-primary">为什么选择 <span class="underline">DJI 大疆</span></h2>
+        <h2 class="fw-bold text-title-primary underline-full">为什么选择 DJI 大疆</h2>
         <p class="text-subtitle-secondary mt-3">与全球领先的无人机品牌合作，拓展国际市场，实现稳定收益</p>
       </div>
       <div class="row g-4 row-cols-1 row-cols-md-3">
@@ -215,6 +222,11 @@
     </div>
   </section>
 
+  <!-- WhatsApp inline 槽位（桌面端放置图标） -->
+  <div class="container my-3">
+    <div id="wa-slot" class="wa-inline-slot"></div>
+  </div>
+
   <!-- 联系我们（落地锚点） -->
   <section id="contact" class="py-5">
     <div class="container">
@@ -273,5 +285,15 @@
     });
   })();
   </script>
+<script>
+  (function(){
+    var floater=document.querySelector('.floating-whatsapp');
+    var slot=document.getElementById('wa-slot');
+    if(floater && slot){
+      slot.appendChild(floater);
+      floater.classList.add('inline');
+    }
+  })();
+</script>
 </body>
 </html>
