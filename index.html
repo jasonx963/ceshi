@@ -35,6 +35,13 @@
       --border-def:#e5e7eb; --border-card:#e5e7eb; --border-input:#d1d5db; --border-secondary:#0066ff; --border-button:transparent;
       --shadow-def:0 2px 10px rgba(0,0,0,.05); --shadow-card:0 4px 24px rgba(0,0,0,.08); --shadow-input:0 0 0 2px rgba(0,102,255,.15);
       --button-bg-def:#111111; --button-text-def:#fff; --button-bg-primary:#0066ff; --button-text-primary:#fff; --button-bg-active:#004de6; --button-text-active:#fff; --button-bg-grey:#f3f4f6; --button-text-grey:#111111;
+      /* WhatsApp 位置变量：只改这里即可 */
+      --wa-right:14px;            /* 桌面/通用：右侧间距 */
+      --wa-bottom:18px;           /* 桌面/通用：底部间距 */
+      --wa-inline-right:0px;      /* 槽位版：相对槽位右侧 */
+      --wa-inline-bottom:0px;     /* 槽位版：相对槽位底部 */
+      --wa-mobile-right:14px;     /* 移动端：右侧间距 */
+      --wa-mobile-bottom:18px;    /* 移动端：底部间距 */
     }
 
     html,body{height:100%;}
@@ -64,8 +71,8 @@
     .underline-full{position:relative;display:inline-block}
     .underline-full:after{content:"";position:absolute;left:0;bottom:-8px;width:100%;height:6px;border-radius:4px;background:var(--color-secondary)}
     .wa-inline-slot{min-height:80px;position:relative}
-    .floating-whatsapp.inline{position:absolute;right:0;bottom:0}
-    @media(max-width:767.98px){.floating-whatsapp.inline{position:fixed;right:14px;bottom:18px}}
+    .floating-whatsapp.inline{position:absolute;right:var(--wa-inline-right);bottom:var(--wa-inline-bottom)}
+    @media(max-width:767.98px){.floating-whatsapp.inline{position:fixed;right:var(--wa-mobile-right);bottom:var(--wa-mobile-bottom)}}
 
     /* —— 顶部导航 —— */
     .navbar-brand{font-weight:700;color:var(--text-title-primary)!important}
@@ -82,7 +89,7 @@
     .feature-card .icon{width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:14px;background:var(--button-bg-grey);color:#111;}
 
     /* —— 悬浮 WhatsApp —— */
-    .floating-whatsapp{position:fixed;right:14px;bottom:18px;z-index:50;background:#25D366;border-radius:999px;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
+    .floating-whatsapp{position:fixed;right:var(--wa-right);bottom:var(--wa-bottom);z-index:999;background:#25D366;border-radius:999px;padding:10px 14px;box-shadow:0 6px 18px rgba(0,0,0,.2);display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:700}
     .floating-whatsapp img{width:26px;height:26px}
 
     /* —— 跨区块 CTA 横幅 —— */
