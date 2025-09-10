@@ -94,6 +94,22 @@
 
     /* —— 跨区块 CTA 横幅 —— */
     .cta-band{color:#fff}
+
+    /* —— 移动端页脚安全区与上移 —— */
+    footer.site-footer{
+      /* 给页脚增加底部留白，避免太贴近屏幕底部/被系统工具栏遮挡 */
+      padding-bottom: calc(28px + env(safe-area-inset-bottom));
+    }
+    @supports not (padding-bottom: env(safe-area-inset-bottom)){
+      footer.site-footer{ padding-bottom: 28px; }
+    }
+    @media(max-width:767.98px){
+      footer.site-footer{
+        padding-top: 12px;
+        /* 手机端再加大一些间距，让版权文字更靠上更舒服 */
+        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+      }
+    }
   </style>
 </head>
 
@@ -258,7 +274,7 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> <span>联系我们</span>
   </a>
 
-  <footer class="py-4 mt-4">
+  <footer class="site-footer py-4 mt-4">
     <div class="container border-top pt-3 d-flex justify-content-between align-items-center">
       <small class="text-main">© 2025 DJI 招商 · 收益因地区与渠道不同而有所差异</small>
       <small class="text-subtitle-secondary">Made with ❤</small>
