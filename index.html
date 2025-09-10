@@ -37,7 +37,7 @@
       --button-bg-def:#111111; --button-text-def:#fff; --button-bg-primary:#0066ff; --button-text-primary:#fff; --button-bg-active:#004de6; --button-text-active:#fff; --button-bg-grey:#f3f4f6; --button-text-grey:#111111;
       /* WhatsApp 位置变量：只改这里即可 */
       --wa-right:14px;            /* 桌面/通用：右侧间距 */
-      --wa-bottom:38px;           /* 桌面/通用：底部间距 */
+      --wa-bottom:48px;           /* 桌面/通用：底部间距 */
       --wa-inline-right:0px;      /* 槽位版：相对槽位右侧 */
       --wa-inline-bottom:0px;     /* 槽位版：相对槽位底部 */
       --wa-mobile-right:14px;     /* 移动端：右侧间距 */
@@ -94,22 +94,6 @@
 
     /* —— 跨区块 CTA 横幅 —— */
     .cta-band{color:#fff}
-
-    /* —— 移动端页脚安全区与上移 —— */
-    footer.site-footer{
-      /* 给页脚增加底部留白，避免太贴近屏幕底部/被系统工具栏遮挡 */
-      padding-bottom: calc(28px + env(safe-area-inset-bottom));
-    }
-    @supports not (padding-bottom: env(safe-area-inset-bottom)){
-      footer.site-footer{ padding-bottom: 48px; }
-    }
-    @media(max-width:767.98px){
-      footer.site-footer{
-        padding-top: 12px;
-        /* 手机端再加大一些间距，让版权文字更靠上更舒服 */
-        padding-bottom: calc(60px + env(safe-area-inset-bottom));
-      }
-    }
   </style>
 </head>
 
@@ -170,25 +154,7 @@
     </div>
   </section>
 
-  <!-- 合作流程 -->
-  <section class="py-5">
-    <div class="container">
-      <div class="row align-items-center g-4">
-        <div class="col-md-6">
-          <h3 class="fw-bold text-title-primary mb-3">合作流程</h3>
-          <ul class="list-group list-group-flush radius-card shadow-card">
-            <li class="list-group-item py-3">① WhatsApp 咨询 → 提交基本资料</li>
-            <li class="list-group-item py-3">② 资质评估 → 目标区域沟通与授权</li>
-            <li class="list-group-item py-3">③ 产品/渠道培训 → 物料与市场支持</li>
-            <li class="list-group-item py-3">④ 上线销售 → 持续运营与返利政策</li>
-          </ul>
-        </div>
-        <div class="col-md-6">
-          <img class="w-100 radius-card shadow-card" src="https://images.unsplash.com/photo-1610375229569-8c401d468059?q=80&w=1200&auto=format&fit=crop" alt="DJI 合作流程示意" />
-        </div>
-      </div>
-    </div>
-  </section>
+  
 
   <!-- 赋能与支持 CTA 横幅（参考一号文件“联系我们”横幅样式） -->
   <section class="py-4">
@@ -274,7 +240,7 @@
     <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"> <span>联系我们</span>
   </a>
 
-  <footer class="site-footer py-4 mt-4">
+  <footer class="py-4 mt-4">
     <div class="container border-top pt-3 d-flex justify-content-between align-items-center">
       <small class="text-main">© 2025 DJI 招商 · 收益因地区与渠道不同而有所差异</small>
       <small class="text-subtitle-secondary">Made with ❤</small>
