@@ -41,7 +41,7 @@
       --wa-inline-right:0px;      /* 槽位版：相对槽位右侧 */
       --wa-inline-bottom:0px;     /* 槽位版：相对槽位底部 */
       --wa-mobile-right:14px;     /* 移动端：右侧间距 */
-      --wa-mobile-bottom:778px;    /* 移动端：底部间距 */
+      --wa-mobile-bottom:178px;    /* 移动端：底部间距 */
     }
 
     html,body{height:100%;}
@@ -101,13 +101,13 @@
       padding-bottom: calc(28px + env(safe-area-inset-bottom));
     }
     @supports not (padding-bottom: env(safe-area-inset-bottom)){
-      footer.site-footer{ padding-bottom: 28px; }
+      footer.site-footer{ padding-bottom: 48px; }
     }
     @media(max-width:767.98px){
       footer.site-footer{
         padding-top: 12px;
         /* 手机端再加大一些间距，让版权文字更靠上更舒服 */
-        padding-bottom: calc(40px + env(safe-area-inset-bottom));
+        padding-bottom: calc(60px + env(safe-area-inset-bottom));
       }
     }
   </style>
